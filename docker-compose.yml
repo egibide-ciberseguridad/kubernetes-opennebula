@@ -9,8 +9,8 @@ services:
       args:
         - ALPINE_VERSION=${ALPINE_VERSION}
     volumes:
-      - ../terraform:/workspace
-      - ../ansible:/ansible
+      - ./terraform:/workspace
+      - ./ansible:/ansible
       - homedir:/root
 
 volumes:
