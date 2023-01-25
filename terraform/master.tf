@@ -32,11 +32,14 @@ resource "null_resource" "ansible_master" {
   provisioner "local-exec" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
-      ansible-playbook -i "${opennebula_virtual_machine.master.nic[0].computed_ip}," /ansible/playbook.yml --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release}"
+      ansible-playbook -i "${join(",", [opennebula_virtual_machine.master.nic[0].computed_ip, lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "")])}," /ansible/playbook.yml --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release}"
     EOT
   }
 }
 
 output "master_ip" {
-  value = opennebula_virtual_machine.master.nic[0].computed_ip
+  value = join(",", [
+    opennebula_virtual_machine.master.nic[0].computed_ip,
+    lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "")
+  ])
 }
