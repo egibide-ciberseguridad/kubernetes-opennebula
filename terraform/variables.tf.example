@@ -1,0 +1,33 @@
+// Credenciales de acceso a OpenNebula
+
+variable "opennebula_username" {
+  default = "ciber_xx"
+}
+
+variable "opennebula_group" {
+  default = "ciber_xx"
+}
+
+variable "opennebula_token" {
+  default = "4b8cf5....................................................c1cb11"
+}
+
+// Plantilla de máquina virtual
+
+variable "opennebula_template_id" {
+  default = "96"  # Ubuntu 22.04
+}
+
+variable "opennebula_image_id" {
+  default = "69"  # Ubuntu 22.04
+}
+
+// Red virtual
+
+variable "opennebula_network_id" {
+  default = "yy"  # ciber_xx
+}
+
+variable "ubuntu_release" {
+  default = "jammy"
+}
