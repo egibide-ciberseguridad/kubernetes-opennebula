@@ -8,7 +8,7 @@ resource "opennebula_virtual_machine" "nodes" {
 
   template_id = var.opennebula_template_id
 
-  name = "node-${count.index}"
+  name = "kube-node-${count.index}"
 
   cpu    = 0.5
   memory = 1024

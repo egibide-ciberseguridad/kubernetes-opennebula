@@ -2,7 +2,7 @@ resource "opennebula_virtual_machine" "master" {
 
   template_id = var.opennebula_template_id
 
-  name = "master"
+  name = "kube-master"
 
   cpu    = 1
   memory = 2048
