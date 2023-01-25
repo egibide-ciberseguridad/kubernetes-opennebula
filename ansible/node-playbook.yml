@@ -1,11 +1,25 @@
 ---
-- hosts: all
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
+- name: Comprobar los hosts disponibles
+  hosts: all
+  gather_facts: no
+  tasks:
+    - command: timeout 20 sh -c 'until nc -z $0 $1; do sleep 1; done' {{ inventory_hostname }} 22
+      delegate_to: localhost
+      register: ping_result
+      ignore_errors: yes
+    - group_by: key=reachable
+      when: ping_result is success
+
+- name: Configurar el master
+  hosts: reachable
+  gather_facts: yes
   become: true
   tasks:
-    # Instalar Docker y Kubernetes
-    - import_tasks: common-tasks.yml
+    # Instalar Docker
+    - import_tasks: docker-tasks.yml
+
+    # Instalar Kubernetes
+    - import_tasks: kubernetes-tasks.yml
 
     # Step 3.2: Join the nodes to the Kubernetes cluster using below code.
     - name: Copy the join command to server location
