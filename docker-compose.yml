@@ -1,0 +1,17 @@
+version: "3.5"
+
+services:
+
+  terraform-ansible:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+      args:
+        - ALPINE_VERSION=${ALPINE_VERSION}
+    volumes:
+      - ../terraform:/workspace
+      - ../ansible:/ansible
+      - homedir:/root
+
+volumes:
+  homedir:
