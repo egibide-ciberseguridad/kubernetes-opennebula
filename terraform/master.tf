@@ -32,6 +32,17 @@ resource "null_resource" "ansible_master" {
     opennebula_virtual_machine.master
   ]
 
+  provisioner "file" {
+    connection {
+      host        = lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, opennebula_virtual_machine.master.nic[0].computed_ip)
+      user        = "root"
+      private_key = file("~/.ssh/id_rsa")
+    }
+
+    content     = local.hosts
+    destination = "/etc/hosts"
+  }
+
   provisioner "local-exec" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
