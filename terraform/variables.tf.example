@@ -31,3 +31,7 @@ variable "opennebula_network_id" {
 variable "ubuntu_release" {
   default = "jammy"
 }
+
+variable "ansible_connect_to_public_ip" {
+  default = false
+}
