@@ -42,7 +42,7 @@ resource "null_resource" "ansible_nodes" {
 
   provisioner "file" {
     connection {
-      host        = lookup(var.ip_publica, opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip, opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip)
+      host        = local.nodes[count.index].connection_ip
       user        = "root"
       private_key = file("~/.ssh/id_rsa")
     }
@@ -55,16 +55,25 @@ resource "null_resource" "ansible_nodes" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
       ansible-playbook \
-        -i "${join(",", [opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip, lookup(var.ip_publica, opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip, "")])}," \
+        -i "${local.nodes[count.index].connection_ip}," \
         /ansible/node-playbook.yml \
-        --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release} node_ip=${opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip}"
+        --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release} node_ip=${local.nodes[count.index].private_ip}"
     EOT
   }
 }
 
-output "nodes_ips" {
-  value = flatten([
-    for i in opennebula_virtual_machine.nodes[*] :
-    join(",", [i.nic[0].computed_ip, lookup(var.ip_publica, i.nic[0].computed_ip, "")])
-  ])
+locals {
+  nodes = [
+    for node in opennebula_virtual_machine.nodes[*] :
+    {
+      name          = node.name
+      private_ip    = node.nic[0].computed_ip
+      public_ip     = lookup(var.ip_publica, node.nic[0].computed_ip, "")
+      connection_ip = var.ansible_connect_to_public_ip ? lookup(var.ip_publica, node.nic[0].computed_ip, "") : node.nic[0].computed_ip
+    }
+  ]
+}
+
+output "nodes" {
+  value = local.nodes
 }
