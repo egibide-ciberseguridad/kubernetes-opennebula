@@ -31,10 +31,20 @@
       - docker-ce
       - docker-ce-cli
       - containerd.io
-      - docker-compose-plugin
 
 - name: Arrancar el servicio Docker
   service:
     name: docker
     state: started
     enabled: yes
+
+- name: Borrar el fichero de configuración de containerd
+  ansible.builtin.file:
+    path: /etc/containerd/config.toml
+    state: absent
+
+- name: Reiniciar containerd
+  service:
+    name: containerd
+    daemon_reload: yes
+    state: restarted
