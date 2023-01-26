@@ -34,7 +34,7 @@ resource "null_resource" "ansible_master" {
 
   provisioner "file" {
     connection {
-      host        = lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, opennebula_virtual_machine.master.nic[0].computed_ip)
+      host        = local.master.connection_ip
       user        = "root"
       private_key = file("~/.ssh/id_rsa")
     }
@@ -47,16 +47,21 @@ resource "null_resource" "ansible_master" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
       ansible-playbook \
-        -i "${join(",", [opennebula_virtual_machine.master.nic[0].computed_ip, lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "")])}," \
+        -i "${local.master.connection_ip}," \
         /ansible/master-playbook.yml \
-        --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release} node_ip=${opennebula_virtual_machine.master.nic[0].computed_ip}"
+        --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release} node_ip=${local.master.private_ip}"
     EOT
   }
 }
 
-output "master_ip" {
-  value = join(",", [
-    opennebula_virtual_machine.master.nic[0].computed_ip,
-    lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "")
-  ])
+locals {
+  master = {
+    private_ip    = opennebula_virtual_machine.master.nic[0].computed_ip
+    public_ip     = lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "")
+    connection_ip = var.ansible_connect_to_public_ip ? lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "") : opennebula_virtual_machine.master.nic[0].computed_ip
+  }
+}
+
+output "master" {
+  value = local.master
 }
