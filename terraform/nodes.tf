@@ -16,6 +16,8 @@ resource "opennebula_virtual_machine" "nodes" {
   group  = var.opennebula_group
 
   context = {
+    NETWORK        = "YES"
+    SET_HOSTNAME   = "$NAME"
     SSH_PUBLIC_KEY = file("~/.ssh/id_rsa.pub")
   }
 
