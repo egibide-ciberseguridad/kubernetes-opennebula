@@ -11,3 +11,5 @@ Cluster de Kubernetes con Terraform en OpenNebula.
 - [How to detect 386, amd64, arm, or arm64 OS architecture via shell/bash](https://stackoverflow.com/questions/48678152/how-to-detect-386-amd64-arm-or-arm64-os-architecture-via-shell-bash)
 - [print terraform output from list of list to a list of strings](https://stackoverflow.com/questions/71748316/print-terraform-output-from-list-of-list-to-a-list-of-strings)
 - [How to Install Kubernetes on Ubuntu 22.04 / Ubuntu 20.04](https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/install-kubernetes-on-ubuntu-22-04.html)
+- [How to Install Kubernetes Cluster on Ubuntu 22.04](https://www.linuxtechi.com/install-kubernetes-on-ubuntu-22-04/)
+- [Ubuntu 22.04 and Kubernetes recently Broke Compatibility with Each Other (and how to work around it)](https://www.learnlinux.tv/ubuntu-22-04-and-kubernetes-recently-broke-compatibility-with-each-other-and-how-to-work-around-it/)

@@ -38,10 +38,10 @@
     state: started
     enabled: yes
 
-- name: Borrar el fichero de configuración de containerd
-  ansible.builtin.file:
-    path: /etc/containerd/config.toml
-    state: absent
+- name: Parche para que containerd arranque correctamente
+  ansible.builtin.shell: |
+    containerd config default | tee /etc/containerd/config.toml >/dev/null 2>&1
+    sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
 
 - name: Reiniciar containerd
   service:
