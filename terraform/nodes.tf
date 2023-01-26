@@ -41,7 +41,10 @@ resource "null_resource" "ansible_nodes" {
   provisioner "local-exec" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
-      ansible-playbook -i "${join(",", [opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip, lookup(var.ip_publica, opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip, "")])}," /ansible/playbook.yml --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release}"
+      ansible-playbook \
+        -i "${join(",", [opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip, lookup(var.ip_publica, opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip, "")])}," \
+        /ansible/node-playbook.yml \
+        --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release} node_ip=${opennebula_virtual_machine.nodes[count.index].nic[0].computed_ip}"
     EOT
   }
 }

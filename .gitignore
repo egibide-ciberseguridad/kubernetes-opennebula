@@ -82,3 +82,5 @@ Temporary Items
 terraform/variables.tf
 
 terraform/.terraform.lock.hcl
+
+ansible/join

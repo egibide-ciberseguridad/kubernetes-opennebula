@@ -10,7 +10,7 @@
     - group_by: key=reachable
       when: ping_result is success
 
-- name: Configurar el master
+- name: Configurar el nodo
   hosts: reachable
   gather_facts: yes
   become: true

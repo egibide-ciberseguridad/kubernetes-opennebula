@@ -43,9 +43,9 @@
 #        group: vagrant
 
     # Step 2.5: Setup the container networking provider and the network policy engine using the below code.
-    - name: Install calico pod network
-      become: false
-      command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+#    - name: Install calico pod network
+#      become: false
+#      command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
     # Step 2.6: Generate kube join command for joining the node to the Kubernetes cluster and store the command in the file named join-command.
     - name: Generate join command
