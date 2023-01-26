@@ -1,0 +1,10 @@
+# Step 3.2: Join the nodes to the Kubernetes cluster using below code.
+- name: Copy the join command to server location
+  copy:
+    src: "join"
+    dest: /tmp/join-command.sh
+    mode: 0777
+  become: false
+
+- name: Join the node to cluster
+  command: sh /tmp/join-command.sh

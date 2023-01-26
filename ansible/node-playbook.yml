@@ -21,18 +21,5 @@
     # Instalar Kubernetes
     - import_tasks: kubernetes-tasks.yml
 
-    # Step 3.2: Join the nodes to the Kubernetes cluster using below code.
-    - name: Copy the join command to server location
-      copy:
-        src: "join"
-        dest: /tmp/join-command.sh
-        mode: 0777
-      become: false
-
-    - name: Join the node to cluster
-      command: sh /tmp/join-command.sh
-
-  # Step 2.7: Setup a handler for checking Docker daemon using the below code.
-  handlers:
-    - name: docker status
-      service: name=docker state=started
+    # Configuración específica de los nodos
+    - import_tasks: node-tasks.yml

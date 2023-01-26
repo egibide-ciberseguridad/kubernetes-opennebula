@@ -1,0 +1,37 @@
+# Step 2.3: Initialize the Kubernetes cluster with kubeadm using the below code (applicable only on master node).
+- name: Initialize the Kubernetes cluster using kubeadm
+  command: kubeadm init --apiserver-advertise-address="{{ node_ip }}" --apiserver-cert-extra-sans="{{ node_ip }}" --node-name kube-master --pod-network-cidr=192.168.112.0/20
+  when: installed is changed
+
+# Step 2.4: Setup the kube config file for the vagrant user to access the Kubernetes cluster using the below code.
+- name: Create .kube folder
+  become: false
+  file:
+    path: /root/.kube
+    state: directory
+
+- name: Copy admin.conf file
+  copy: remote_src=True src=/etc/kubernetes/admin.conf dest=/root/.kube/config
+
+#    - name: Change admin.conf owner
+#      file:
+#        path: /home/vagrant/.kube/config
+#        owner: vagrant
+#        group: vagrant
+
+# Step 2.5: Setup the container networking provider and the network policy engine using the below code.
+#    - name: Install calico pod network
+#      become: false
+#      command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
+# Step 2.6: Generate kube join command for joining the node to the Kubernetes cluster and store the command in the file named join-command.
+- name: Generate join command
+  command: kubeadm token create --print-join-command
+  register: join_command
+
+- name: Copy join command to local file
+  copy:
+    dest: "join"
+    content: "{{ join_command.stdout_lines[0] }}"
+  become: false
+  delegate_to: localhost
