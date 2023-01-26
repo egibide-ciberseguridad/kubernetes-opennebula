@@ -33,7 +33,7 @@ resource "opennebula_virtual_machine" "nodes" {
 
 resource "null_resource" "ansible_nodes" {
   depends_on = [
-    opennebula_virtual_machine.nodes
+    null_resource.ansible_master
   ]
 
   count = var.num_nodos
