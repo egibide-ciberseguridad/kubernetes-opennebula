@@ -5,6 +5,7 @@ locals {
     join("\n", flatten([
       for i in opennebula_virtual_machine.nodes[*] : join(" ", [i.nic[0].computed_ip, i.name])
     ])),
+    ""
   ])
 }
 
