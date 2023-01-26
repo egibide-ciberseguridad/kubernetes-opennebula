@@ -11,6 +11,7 @@ resource "opennebula_virtual_machine" "nodes" {
   name = "kube-node-${count.index}"
 
   cpu    = 0.5
+  vcpu   = 2
   memory = 1024
   group  = var.opennebula_group
 

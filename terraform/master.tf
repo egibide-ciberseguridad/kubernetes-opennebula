@@ -5,6 +5,7 @@ resource "opennebula_virtual_machine" "master" {
   name = "kube-master"
 
   cpu    = 1
+  vcpu   = 2
   memory = 2048
   group  = var.opennebula_group
 
