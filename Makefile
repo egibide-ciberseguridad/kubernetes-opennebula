@@ -31,7 +31,7 @@ init:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform init
 
 apply:
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform apply -auto-approve
+	@docker compose run --rm terraform-ansible time -f "Tiempo total: %E" terraform -chdir=/terraform apply -auto-approve
 
 show:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform show
@@ -40,7 +40,7 @@ output:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform output
 
 destroy:
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform destroy -auto-approve
+	@docker compose run --rm terraform-ansible time -f "Tiempo total: %E" terraform -chdir=/terraform destroy -auto-approve
 
 workspace:
 	@docker compose run --rm terraform-ansible /bin/sh
