@@ -55,7 +55,7 @@ resource "null_resource" "ansible_nodes" {
       ansible-playbook \
         -i "${local.nodes[count.index].connection_ip}," \
         /ansible/node-playbook.yml \
-        --extra-vars "UBUNTU_RELEASE=${local.opennebula.vm.ubuntu_release} node_ip=${local.nodes[count.index].private_ip}"
+        --extra-vars "node_ip=${local.master.private_ip}"
     EOT
   }
 }

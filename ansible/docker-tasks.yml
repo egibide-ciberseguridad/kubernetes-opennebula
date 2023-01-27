@@ -16,9 +16,13 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
+- name: Obtener el código de versión de Ubuntu
+  shell: lsb_release -cs
+  register: ubuntu_release
+
 - name: Añadir el repositorio apt para la versión estable
   apt_repository:
-    repo: deb https://download.docker.com/linux/ubuntu {{ UBUNTU_RELEASE }} stable
+    repo: deb https://download.docker.com/linux/ubuntu {{ ubuntu_release.stdout }} stable
     state: present
 
 - name: Instalar Docker y sus dependencias

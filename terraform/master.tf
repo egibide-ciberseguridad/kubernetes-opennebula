@@ -47,7 +47,7 @@ resource "null_resource" "ansible_master" {
       ansible-playbook \
         -i "${local.master.connection_ip}," \
         /ansible/master-playbook.yml \
-        --extra-vars "UBUNTU_RELEASE=${local.opennebula.vm.ubuntu_release} node_ip=${local.master.private_ip}"
+        --extra-vars "node_ip=${local.master.private_ip}"
     EOT
   }
 }
