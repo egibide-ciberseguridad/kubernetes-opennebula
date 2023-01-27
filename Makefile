@@ -12,7 +12,7 @@ help: _header
 	@echo Opciones:
 	@echo ------------------------------------------
 	@echo build
-	@echo init / apply / show / destroy
+	@echo init / apply / show / output / destroy
 	@echo workspace
 	@echo ssh / ssh-keyscan
 	@echo clean
@@ -35,6 +35,9 @@ apply:
 
 show:
 	@docker compose run --rm terraform-ansible terraform show
+
+output:
+	@docker compose run --rm terraform-ansible terraform output
 
 destroy:
 	@docker compose run --rm terraform-ansible terraform destroy -auto-approve
