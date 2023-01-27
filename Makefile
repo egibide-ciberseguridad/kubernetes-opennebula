@@ -28,28 +28,28 @@ build:
 
 init:
 	@docker compose run --rm terraform-ansible generar_clave.sh
-	@docker compose run --rm terraform-ansible terraform init
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform init
 
 apply:
-	@docker compose run --rm terraform-ansible terraform apply -auto-approve
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform apply -auto-approve
 
 show:
-	@docker compose run --rm terraform-ansible terraform show
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform show
 
 output:
-	@docker compose run --rm terraform-ansible terraform output
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform output
 
 destroy:
-	@docker compose run --rm terraform-ansible terraform destroy -auto-approve
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform destroy -auto-approve
 
 workspace:
 	@docker compose run --rm terraform-ansible /bin/sh
 
 ssh:
-	@docker compose run --rm terraform-ansible /bin/sh -c "$(shell docker compose run --rm terraform-ansible terraform output --raw ssh-command)"
+	@docker compose run --rm terraform-ansible /bin/sh -c "$(shell docker compose run --rm terraform-ansible terraform -chdir=/terraform output --raw ssh-command)"
 
 ssh-keyscan:
-	@docker compose run --rm terraform-ansible /bin/sh -c "$(shell docker compose run --rm terraform-ansible terraform output --raw ssh-keyscan)"
+	@docker compose run --rm terraform-ansible /bin/sh -c "$(shell docker compose run --rm terraform-ansible terraform -chdir=/terraform output --raw ssh-keyscan)"
 
 clean:
 	@docker compose down -v --remove-orphans

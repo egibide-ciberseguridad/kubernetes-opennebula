@@ -3,7 +3,7 @@ ARG ALPINE_VERSION
 FROM alpine:${ALPINE_VERSION}
 
 # Definir el directorio actual
-WORKDIR /workspace
+WORKDIR /root
 
 # Instalar los paquetes necesarios
 RUN apk add terraform ansible openssh curl
