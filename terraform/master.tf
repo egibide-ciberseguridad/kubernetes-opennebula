@@ -50,6 +50,13 @@ resource "null_resource" "ansible_master" {
         --extra-vars "node_ip=${local.master.private_ip}"
     EOT
   }
+
+  provisioner "local-exec" {
+    command = <<EOT
+      mkdir -p /root/.kube
+      scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${local.master.connection_ip}:/root/.kube/config /root/.kube/config
+    EOT
+  }
 }
 
 locals {
