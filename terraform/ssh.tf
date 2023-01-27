@@ -1,5 +1,5 @@
 output "ssh-command" {
-  value     = "ssh root@${local.master.connection_ip}"
+  value     = "ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${local.master.connection_ip}"
   sensitive = true
 }
 
