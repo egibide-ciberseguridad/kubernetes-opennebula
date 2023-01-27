@@ -57,6 +57,16 @@ resource "null_resource" "ansible_master" {
       ANSIBLE_HOST_KEY_CHECKING=False \
       ansible-playbook \
         -i "${local.master.connection_ip}," \
+        /ansible/common-playbook.yml \
+        --extra-vars "node_ip=${local.master.private_ip}"
+    EOT
+  }
+
+  provisioner "local-exec" {
+    command = <<EOT
+      ANSIBLE_HOST_KEY_CHECKING=False \
+      ansible-playbook \
+        -i "${local.master.connection_ip}," \
         /ansible/master-playbook.yml \
         --extra-vars "node_ip=${local.master.private_ip}"
     EOT

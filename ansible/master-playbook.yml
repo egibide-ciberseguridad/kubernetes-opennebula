@@ -15,14 +15,5 @@
   gather_facts: yes
   become: true
   tasks:
-    # Actualizar el sistema
-    - import_tasks: upgrade-tasks.yml
-
-    # Instalar Docker
-    - import_tasks: docker-tasks.yml
-
-    # Instalar Kubernetes
-    - import_tasks: kubernetes-tasks.yml
-
     # Configuración específica del master
     - import_tasks: master-tasks.yml

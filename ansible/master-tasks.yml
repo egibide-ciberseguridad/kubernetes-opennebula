@@ -1,7 +1,7 @@
 # Step 2.3: Initialize the Kubernetes cluster with kubeadm using the below code (applicable only on master node).
 - name: Initialize the Kubernetes cluster using kubeadm
   command: kubeadm init --apiserver-advertise-address="{{ node_ip }}" --apiserver-cert-extra-sans="{{ node_ip }}" --node-name kube-master --pod-network-cidr=10.244.0.0/16
-  when: installed is changed
+  #when: installed is changed
 
 # Step 2.4: Setup the kube config file for the vagrant user to access the Kubernetes cluster using the below code.
 - name: Create .kube folder

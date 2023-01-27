@@ -1,9 +1,5 @@
 resource "opennebula_virtual_machine" "nodes" {
 
-  depends_on = [
-    opennebula_virtual_machine.master
-  ]
-
   count = local.kubernetes.nodes
 
   template_id = data.opennebula_template.template.id
@@ -32,9 +28,9 @@ resource "opennebula_virtual_machine" "nodes" {
   }
 }
 
-resource "null_resource" "ansible_nodes" {
+resource "null_resource" "ansible_nodes_common" {
   depends_on = [
-    null_resource.ansible_master
+    opennebula_virtual_machine.nodes
   ]
 
   count = local.kubernetes.nodes
@@ -49,6 +45,25 @@ resource "null_resource" "ansible_nodes" {
     content     = local.hosts
     destination = "/etc/hosts"
   }
+
+  provisioner "local-exec" {
+    command = <<EOT
+      ANSIBLE_HOST_KEY_CHECKING=False \
+      ansible-playbook \
+        -i "${local.nodes[count.index].connection_ip}," \
+        /ansible/common-playbook.yml \
+        --extra-vars "node_ip=${local.master.private_ip}"
+    EOT
+  }
+}
+
+resource "null_resource" "ansible_nodes_kubernetes" {
+  depends_on = [
+    null_resource.ansible_master,
+    null_resource.ansible_nodes_common,
+  ]
+
+  count = local.kubernetes.nodes
 
   provisioner "local-exec" {
     command = <<EOT
