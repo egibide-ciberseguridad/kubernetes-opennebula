@@ -6,7 +6,7 @@ resource "opennebula_virtual_machine" "nodes" {
 
   count = local.kubernetes.nodes
 
-  template_id = local.opennebula.vm.template_id
+  template_id = data.opennebula_template.template.id
 
   name = "kube-node-${count.index}"
 
@@ -22,12 +22,13 @@ resource "opennebula_virtual_machine" "nodes" {
 
   nic {
     model      = "virtio"
-    network_id = local.opennebula.vm.network_id
+    network_id = data.opennebula_virtual_network.network.id
   }
 
   disk {
-    target = "vda"
-    size   = 8192
+    image_id = data.opennebula_template.template.disk[0].image_id
+    target   = "vda"
+    size     = 8192
   }
 }
 

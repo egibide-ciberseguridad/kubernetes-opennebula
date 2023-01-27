@@ -5,8 +5,8 @@ locals {
       token    = "4b8cf5....................................................c1cb11"
     }
     vm = {
-      template_id = "96"  # Ubuntu 22.04
-      network_id  = "yy"  # ciber_xx
+      tag     = "ubuntu-22-04-20221127"
+      network = "ciber_xx"
     }
   }
   kubernetes = {

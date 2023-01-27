@@ -1,6 +1,16 @@
+data "opennebula_template" "template" {
+  tags = {
+    TAG = local.opennebula.vm.tag
+  }
+}
+
+data "opennebula_virtual_network" "network" {
+  name = local.opennebula.vm.network
+}
+
 resource "opennebula_virtual_machine" "master" {
 
-  template_id = local.opennebula.vm.template_id
+  template_id = data.opennebula_template.template.id
 
   name = "kube-master"
 
@@ -16,12 +26,13 @@ resource "opennebula_virtual_machine" "master" {
 
   nic {
     model      = "virtio"
-    network_id = local.opennebula.vm.network_id
+    network_id = data.opennebula_virtual_network.network.id
   }
 
   disk {
-    target = "vda"
-    size   = 8192
+    image_id = data.opennebula_template.template.disk[0].image_id
+    target   = "vda"
+    size     = 8192
   }
 }
 
