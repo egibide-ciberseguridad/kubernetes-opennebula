@@ -5,11 +5,10 @@
     update_cache: yes
   vars:
     packages:
-      - apt-transport-https
       - ca-certificates
       - curl
-      - gnupg-agent
-      - software-properties-common
+      - gnupg
+      - lsb-release
 
 - name: Añadir la clave de firma de paquetes de Docker
   apt_key:
