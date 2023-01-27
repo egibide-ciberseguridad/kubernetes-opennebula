@@ -4,16 +4,15 @@ resource "opennebula_virtual_machine" "nodes" {
     opennebula_virtual_machine.master
   ]
 
-  count = var.num_nodos
+  count = local.kubernetes.nodes
 
-  template_id = var.opennebula_template_id
+  template_id = local.opennebula.vm.template_id
 
   name = "kube-node-${count.index}"
 
   cpu    = 0.5
   vcpu   = 2
   memory = 1024
-  group  = var.opennebula_group
 
   context = {
     NETWORK        = "YES"
@@ -23,13 +22,12 @@ resource "opennebula_virtual_machine" "nodes" {
 
   nic {
     model      = "virtio"
-    network_id = var.opennebula_network_id
+    network_id = local.opennebula.vm.network_id
   }
 
   disk {
-    image_id = var.opennebula_image_id
-    target   = "vda"
-    size     = 8192
+    target = "vda"
+    size   = 8192
   }
 }
 
@@ -38,7 +36,7 @@ resource "null_resource" "ansible_nodes" {
     null_resource.ansible_master
   ]
 
-  count = var.num_nodos
+  count = local.kubernetes.nodes
 
   provisioner "file" {
     connection {
@@ -57,7 +55,7 @@ resource "null_resource" "ansible_nodes" {
       ansible-playbook \
         -i "${local.nodes[count.index].connection_ip}," \
         /ansible/node-playbook.yml \
-        --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release} node_ip=${local.nodes[count.index].private_ip}"
+        --extra-vars "UBUNTU_RELEASE=${local.opennebula.vm.ubuntu_release} node_ip=${local.nodes[count.index].private_ip}"
     EOT
   }
 }
@@ -69,7 +67,7 @@ locals {
       name          = node.name
       private_ip    = node.nic[0].computed_ip
       public_ip     = lookup(var.ip_publica, node.nic[0].computed_ip, "")
-      connection_ip = var.ansible_connect_to_public_ip ? lookup(var.ip_publica, node.nic[0].computed_ip, "") : node.nic[0].computed_ip
+      connection_ip = local.ansible.connect_to_public_ip ? lookup(var.ip_publica, node.nic[0].computed_ip, "") : node.nic[0].computed_ip
     }
   ]
 }

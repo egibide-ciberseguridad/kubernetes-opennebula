@@ -1,13 +1,12 @@
 resource "opennebula_virtual_machine" "master" {
 
-  template_id = var.opennebula_template_id
+  template_id = local.opennebula.vm.template_id
 
   name = "kube-master"
 
   cpu    = 1
   vcpu   = 2
   memory = 2048
-  group  = var.opennebula_group
 
   context = {
     NETWORK        = "YES"
@@ -17,13 +16,12 @@ resource "opennebula_virtual_machine" "master" {
 
   nic {
     model      = "virtio"
-    network_id = var.opennebula_network_id
+    network_id = local.opennebula.vm.network_id
   }
 
   disk {
-    image_id = var.opennebula_image_id
-    target   = "vda"
-    size     = 8192
+    target = "vda"
+    size   = 8192
   }
 }
 
@@ -49,7 +47,7 @@ resource "null_resource" "ansible_master" {
       ansible-playbook \
         -i "${local.master.connection_ip}," \
         /ansible/master-playbook.yml \
-        --extra-vars "UBUNTU_RELEASE=${var.ubuntu_release} node_ip=${local.master.private_ip}"
+        --extra-vars "UBUNTU_RELEASE=${local.opennebula.vm.ubuntu_release} node_ip=${local.master.private_ip}"
     EOT
   }
 }
@@ -59,7 +57,7 @@ locals {
     name          = opennebula_virtual_machine.master.name
     private_ip    = opennebula_virtual_machine.master.nic[0].computed_ip
     public_ip     = lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "")
-    connection_ip = var.ansible_connect_to_public_ip ? lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "") : opennebula_virtual_machine.master.nic[0].computed_ip
+    connection_ip = local.ansible.connect_to_public_ip ? lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "") : opennebula_virtual_machine.master.nic[0].computed_ip
   }
 }
 
