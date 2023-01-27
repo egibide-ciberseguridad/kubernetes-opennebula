@@ -27,10 +27,10 @@ build:
 	@docker compose build
 
 init:
+	@docker compose run --rm terraform-ansible generar_clave.sh
 	@docker compose run --rm terraform-ansible terraform init
 
 apply:
-	@docker compose run --rm terraform-ansible generar_clave.sh
 	@docker compose run --rm terraform-ansible terraform apply -auto-approve
 
 show:
