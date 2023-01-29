@@ -84,8 +84,8 @@ locals {
     {
       name          = node.name
       private_ip    = node.nic[0].computed_ip
-      public_ip     = lookup(var.ip_publica, node.nic[0].computed_ip, "")
-      connection_ip = local.ansible.connect_to_public_ip ? lookup(var.ip_publica, node.nic[0].computed_ip, "") : node.nic[0].computed_ip
+      public_ip     = lookup(local.ip_publica, node.nic[0].computed_ip, "")
+      connection_ip = local.ansible.connect_to_public_ip ? lookup(local.ip_publica, node.nic[0].computed_ip, "") : node.nic[0].computed_ip
     }
   ]
 }

@@ -86,8 +86,8 @@ locals {
   master = {
     name          = opennebula_virtual_machine.master.name
     private_ip    = opennebula_virtual_machine.master.nic[0].computed_ip
-    public_ip     = lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "")
-    connection_ip = local.ansible.connect_to_public_ip ? lookup(var.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "") : opennebula_virtual_machine.master.nic[0].computed_ip
+    public_ip     = lookup(local.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "")
+    connection_ip = local.ansible.connect_to_public_ip ? lookup(local.ip_publica, opennebula_virtual_machine.master.nic[0].computed_ip, "") : opennebula_virtual_machine.master.nic[0].computed_ip
   }
 }
 
