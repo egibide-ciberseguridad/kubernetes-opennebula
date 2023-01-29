@@ -2,6 +2,7 @@ locals {
   opennebula = {
     connection = {
       username = "ciber_xx"
+      group    = "ciber_xx"
       token    = "4b8cf5....................................................c1cb11"
     }
     vm = {

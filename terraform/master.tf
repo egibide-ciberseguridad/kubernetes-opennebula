@@ -24,6 +24,8 @@ resource "opennebula_virtual_machine" "master" {
     SSH_PUBLIC_KEY = file("~/.ssh/id_rsa.pub")
   }
 
+  group = local.opennebula.connection.group
+
   nic {
     model      = "virtio"
     network_id = data.opennebula_virtual_network.network.id
