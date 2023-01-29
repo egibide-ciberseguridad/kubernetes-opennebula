@@ -10,13 +10,13 @@ endif
 help: _header
 	${info }
 	@echo Opciones:
-	@echo ------------------------------------------
+	@echo ---------------------------------------------
 	@echo build
-	@echo init / apply / show / output / destroy
+	@echo init / plan / apply / show / output / destroy
 	@echo workspace
 	@echo ssh / ssh-keyscan
 	@echo clean
-	@echo ------------------------------------------
+	@echo ---------------------------------------------
 
 _header:
 	@echo ----------
@@ -29,6 +29,9 @@ build:
 init:
 	@docker compose run --rm terraform-ansible generar_clave.sh
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform init
+
+plan:
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform plan
 
 apply:
 	@docker compose run --rm terraform-ansible time -f "Tiempo total: %E" terraform -chdir=/terraform apply -auto-approve
