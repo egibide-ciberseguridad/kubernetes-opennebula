@@ -1,6 +1,6 @@
 resource "opennebula_virtual_machine" "nodes" {
 
-  count = local.kubernetes.nodes
+  count = var.nodes
 
   template_id = data.opennebula_template.template.id
 
@@ -35,7 +35,7 @@ resource "null_resource" "ansible_nodes_common" {
     opennebula_virtual_machine.nodes
   ]
 
-  count = local.kubernetes.nodes
+  count = var.nodes
 
   provisioner "file" {
     connection {
@@ -65,7 +65,7 @@ resource "null_resource" "ansible_nodes_kubernetes" {
     null_resource.ansible_nodes_common,
   ]
 
-  count = local.kubernetes.nodes
+  count = var.nodes
 
   provisioner "local-exec" {
     command = <<EOT

@@ -10,10 +10,12 @@ locals {
       network = "ciber_xx"
     }
   }
-  kubernetes = {
-    nodes = 2
-  }
   ansible = {
     connect_to_public_ip = false
   }
+}
+
+variable "nodes" {
+  description = "Número de nodos del cluster"
+  default     = 2
 }
