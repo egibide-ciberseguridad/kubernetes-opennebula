@@ -15,3 +15,4 @@ Cluster de Kubernetes con Terraform en OpenNebula.
 - [Ubuntu 22.04 and Kubernetes recently Broke Compatibility with Each Other (and how to work around it)](https://www.learnlinux.tv/ubuntu-22-04-and-kubernetes-recently-broke-compatibility-with-each-other-and-how-to-work-around-it/)
 - [Ansible playbook to upgrade Ubuntu/Debian servers and reboot if needed](https://www.jeffgeerling.com/blog/2022/ansible-playbook-upgrade-ubuntudebian-servers-and-reboot-if-needed)
 - [Ansible Register](https://www.educba.com/ansible-register/)
+- [How to Use Environment Variables on Terraform](https://medium.com/codex/how-to-use-environment-variables-on-terraform-f2ab6f95f82d)

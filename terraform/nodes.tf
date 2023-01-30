@@ -13,7 +13,7 @@ resource "opennebula_virtual_machine" "nodes" {
   context = {
     NETWORK        = "YES"
     SET_HOSTNAME   = "$NAME"
-    SSH_PUBLIC_KEY = file("~/.ssh/id_rsa.pub")
+    SSH_PUBLIC_KEY = join("\n", [var.SSH_PUBLIC_KEY, file("~/.ssh/id_rsa.pub")])
   }
 
   group = local.opennebula.connection.group

@@ -19,3 +19,8 @@ variable "nodes" {
   description = "Número de nodos del cluster"
   default     = 2
 }
+
+variable "SSH_PUBLIC_KEY" {
+  type        = string
+  description = "Clave pública del usuario para inyectar en las máquinas OpenNebula"
+}
