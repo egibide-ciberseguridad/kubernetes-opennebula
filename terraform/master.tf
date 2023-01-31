@@ -94,3 +94,7 @@ locals {
 output "master" {
   value = local.master
 }
+
+output "master_connection_ip" {
+  value = local.master.connection_ip
+}
