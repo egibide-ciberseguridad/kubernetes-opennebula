@@ -15,7 +15,7 @@ resource "opennebula_virtual_machine" "master" {
   name = "kube-master"
 
   cpu    = 1
-  vcpu   = 2
+  vcpu   = 4
   memory = 2048
 
   context = {
