@@ -1,5 +1,9 @@
 resource "opennebula_virtual_machine" "nodes" {
 
+  depends_on = [
+    opennebula_virtual_machine.master
+  ]
+
   count = var.nodes
 
   template_id = data.opennebula_template.template.id
