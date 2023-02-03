@@ -34,7 +34,7 @@ resource "opennebula_virtual_machine" "nodes" {
   }
 }
 
-resource "null_resource" "ansible_nodes_common" {
+resource "null_resource" "hosts_nodes" {
   depends_on = [
     opennebula_virtual_machine.nodes
   ]
@@ -51,6 +51,14 @@ resource "null_resource" "ansible_nodes_common" {
     content     = local.hosts
     destination = "/etc/hosts"
   }
+}
+
+resource "null_resource" "ansible_nodes_common" {
+  depends_on = [
+    null_resource.hosts_nodes
+  ]
+
+  count = var.nodes
 
   provisioner "local-exec" {
     command = <<EOT

@@ -38,7 +38,7 @@ resource "opennebula_virtual_machine" "master" {
   }
 }
 
-resource "null_resource" "ansible_master" {
+resource "null_resource" "hosts_master" {
   depends_on = [
     opennebula_virtual_machine.master
   ]
@@ -53,6 +53,12 @@ resource "null_resource" "ansible_master" {
     content     = local.hosts
     destination = "/etc/hosts"
   }
+}
+
+resource "null_resource" "ansible_master" {
+  depends_on = [
+    null_resource.hosts_master
+  ]
 
   provisioner "local-exec" {
     command = <<EOT
