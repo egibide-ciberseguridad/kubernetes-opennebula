@@ -13,12 +13,14 @@
   when: ansible_swaptotal_mb > 0
 
 # Step 2.3: Installing kubelet, kubeadm and kubectl using the below code.
-- name: Add an apt signing key for Kubernetes
-  command: sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+- name: Descargar la clave de firma de paquetes de Kubernetes
+  get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /etc/apt/trusted.gpg.d/kubernetes.gpg
 
 - name: Adding apt repository for Kubernetes
   apt_repository:
-    repo: deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
+    repo: deb [signed-by=/etc/apt/trusted.gpg.d/kubernetes.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
     state: present
     filename: kubernetes.list
 

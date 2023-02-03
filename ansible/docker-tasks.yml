@@ -10,10 +10,10 @@
       - gnupg
       - lsb-release
 
-- name: Añadir la clave de firma de paquetes de Docker
-  apt_key:
+- name: Descargar la clave de firma de paquetes de Docker
+  get_url:
     url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
+    dest: /etc/apt/trusted.gpg.d/docker.asc
 
 - name: Obtener el código de versión de Ubuntu
   shell: lsb_release -cs
@@ -21,7 +21,7 @@
 
 - name: Añadir el repositorio apt para la versión estable
   apt_repository:
-    repo: deb https://download.docker.com/linux/ubuntu {{ ubuntu_release.stdout }} stable
+    repo: deb [signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/ubuntu {{ ubuntu_release.stdout }} stable
     state: present
 
 - name: Instalar Docker y sus dependencias
