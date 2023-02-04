@@ -52,10 +52,10 @@ workspace:
 	@docker compose run --rm terraform-ansible /bin/sh
 
 ssh:
-	@docker compose run --rm terraform-ansible /bin/sh -c "$(shell docker compose run --rm terraform-ansible terraform -chdir=/terraform output --raw ssh-command)"
+	@docker compose run --rm terraform-ansible run_output.sh ssh-command
 
 ssh-keyscan:
-	@docker compose run --rm terraform-ansible /bin/sh -c "$(shell docker compose run --rm terraform-ansible terraform -chdir=/terraform output --raw ssh-keyscan)"
+	@docker compose run --rm terraform-ansible run_output.sh ssh-keyscan
 
 clean:
 	@docker compose down -v --remove-orphans
