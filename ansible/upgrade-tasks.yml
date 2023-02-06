@@ -1,3 +1,8 @@
+- name: Configurar el mirror de Ubuntu a utilizar
+  ansible.builtin.copy:
+    src: /ansible/sources.list
+    dest: /etc/apt/sources.list
+
 - name: Perform a dist-upgrade.
   ansible.builtin.apt:
     upgrade: dist

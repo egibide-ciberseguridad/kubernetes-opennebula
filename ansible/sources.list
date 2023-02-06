@@ -1,0 +1,5 @@
+# Mirror de Ubuntu 22.04
+deb https://ubuntu.ciber-egibide.eu/ubuntu/ jammy main restricted universe multiverse
+deb https://ubuntu.ciber-egibide.eu/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://ubuntu.ciber-egibide.eu/ubuntu/ jammy-backports main restricted universe multiverse
+deb https://ubuntu.ciber-egibide.eu/security/ jammy-security main restricted universe multiverse
