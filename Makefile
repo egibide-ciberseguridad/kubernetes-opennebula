@@ -16,6 +16,7 @@ help: _header
 	@echo update-hosts / workspace
 	@echo ssh / ssh-keyscan
 	@echo clean
+	@echo nuke-apply
 	@echo ---------------------------------------------
 
 _header:
@@ -59,3 +60,5 @@ ssh-keyscan:
 
 clean:
 	@docker compose down -v --remove-orphans
+
+nuke-apply: clean build init destroy apply
