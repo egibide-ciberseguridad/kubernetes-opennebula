@@ -17,3 +17,4 @@ Cluster de Kubernetes con Terraform en OpenNebula.
 - [Ansible Register](https://www.educba.com/ansible-register/)
 - [How to Use Environment Variables on Terraform](https://medium.com/codex/how-to-use-environment-variables-on-terraform-f2ab6f95f82d)
 - [How can I manage keyring files in trusted.gpg.d with ansible playbook since apt-key is deprecated?](https://stackoverflow.com/a/73805885)
+- [Install Calico with Kubernetes API datastore, 50 nodes or less](https://docs.tigera.io/calico/3.25/getting-started/kubernetes/self-managed-onprem/onpremises#install-calico-with-kubernetes-api-datastore-50-nodes-or-less)
