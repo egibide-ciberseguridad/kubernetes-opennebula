@@ -1,0 +1,16 @@
+apiVersion: projectcalico.org/v3
+kind: BGPConfiguration
+metadata:
+  name: default
+spec:
+  logSeverityScreen: Info
+  nodeToNodeMeshEnabled: true
+  asNumber: 65000
+---
+apiVersion: projectcalico.org/v3
+kind: BGPPeer
+metadata:
+  name: kube-haproxy
+spec:
+  peerIP: 172.20.227.245
+  asNumber: 65000

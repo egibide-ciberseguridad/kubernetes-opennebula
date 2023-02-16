@@ -10,7 +10,7 @@
     - group_by: key=reachable
       when: ping_result is success
 
-- name: Tareas comunes a todos los nodos
+- name: Configurar HAProxy Kubernetes Ingress Controller
   hosts: reachable
   gather_facts: yes
   become: true
@@ -18,8 +18,8 @@
     # Actualizar el sistema
     - import_tasks: upgrade-tasks.yml
 
-    # Instalar Docker
-    - import_tasks: docker-tasks.yml
+    # Instalar HAProxy Ingress
+    - import_tasks: haproxy-tasks.yml
 
-    # Instalar Kubernetes
-    - import_tasks: kubernetes-tasks.yml
+    # Instalar BIRD Internet Routing Daemon
+    - import_tasks: bird-tasks.yml

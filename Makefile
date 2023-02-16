@@ -14,7 +14,7 @@ help: _header
 	@echo build
 	@echo init / plan / apply / show / output / destroy
 	@echo update-hosts / workspace
-	@echo ssh / ssh-keyscan
+	@echo ssh / ssh-ha / ssh-keyscan
 	@echo clean
 	@echo nuke-apply
 	@echo ---------------------------------------------
@@ -54,6 +54,9 @@ workspace:
 
 ssh:
 	@docker compose run --rm terraform-ansible run_output.sh ssh-command
+
+ssh-ha:
+	@docker compose run --rm terraform-ansible run_output.sh ssh-command-ha
 
 ssh-keyscan:
 	@docker compose run --rm terraform-ansible run_output.sh ssh-keyscan

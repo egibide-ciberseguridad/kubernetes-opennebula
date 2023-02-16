@@ -5,22 +5,12 @@
 
 # Step 2.4: Setup the kube config file for the vagrant user to access the Kubernetes cluster using the below code.
 - name: Create .kube folder
-  become: false
   file:
     path: /root/.kube
     state: directory
 
 - name: Copy admin.conf file
   copy: remote_src=True src=/etc/kubernetes/admin.conf dest=/root/.kube/config
-
-# Step 2.5: Setup the container networking provider and the network policy engine using the below code.
-#- name: Install Flannel pod network
-#  become: false
-#  command: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
-
-- name: Install Calico pod network
-  become: false
-  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/master/manifests/calico.yaml
 
 # Step 2.6: Generate kube join command for joining the node to the Kubernetes cluster and store the command in the file named join-command.
 - name: Generate join command
@@ -31,5 +21,4 @@
   copy:
     dest: "join"
     content: "{{ join_command.stdout_lines[0] }}"
-  become: false
   delegate_to: localhost

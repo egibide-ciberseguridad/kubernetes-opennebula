@@ -17,3 +17,6 @@
   tasks:
     # Configuración específica del master
     - import_tasks: master-tasks.yml
+
+    # Instalar y configurar la red inter-cluster
+    - import_tasks: calico-tasks.yml

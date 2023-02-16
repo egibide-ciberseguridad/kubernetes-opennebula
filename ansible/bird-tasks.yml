@@ -1,0 +1,24 @@
+- name: Añadir el repositorio de BIRD Internet Routing Daemon
+  ansible.builtin.apt_repository:
+    repo: ppa:cz.nic-labs/bird
+
+- name: Instalar BIRD
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - bird
+
+- name: Copiar el fichero de configuración de BIRD
+  ansible.builtin.copy:
+    src: /ansible/bird.conf
+    dest: /etc/bird/bird.conf
+
+- name: Reiniciar el servicio BIRD
+  service:
+    name: bird
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
