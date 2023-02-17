@@ -12,5 +12,5 @@ kind: BGPPeer
 metadata:
   name: kube-haproxy
 spec:
-  peerIP: 172.20.227.245
+  peerIP: HAPROXY_IP
   asNumber: 65000

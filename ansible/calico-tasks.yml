@@ -11,6 +11,12 @@
     src: /ansible/calico-bgp.yml
     dest: /etc/calico/calico-bgp.yml
 
+- name: Insertar la IP del proxy en el fichero calico-bgp.yml
+  replace:
+    path: /etc/calico/calico-bgp.yml
+    regexp: "HAPROXY_IP"
+    replace: "{{ haproxy_ip }}"
+
 - name: Instalar calicoctl
   shell: |
     curl -L https://github.com/projectcalico/calico/releases/latest/download/calicoctl-linux-amd64 -o /usr/local/bin/calicoctl

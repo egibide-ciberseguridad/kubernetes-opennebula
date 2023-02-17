@@ -22,7 +22,6 @@ resource "opennebula_virtual_machine" "haproxy" {
 
   nic {
     model      = "virtio"
-    ip         = "172.20.227.245"
     network_id = data.opennebula_virtual_network.network.id
   }
 
