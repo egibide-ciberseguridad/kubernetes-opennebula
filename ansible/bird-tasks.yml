@@ -11,10 +11,39 @@
     packages:
       - bird
 
-- name: Copiar el fichero de configuración de BIRD
-  ansible.builtin.copy:
-    src: /ansible/bird.conf
-    dest: /etc/bird/bird.conf
+- name: Crear el fichero de configuración de BIRD
+  shell: |
+    cat > /etc/bird/bird.conf <<EOF
+      router id {{ node_ip }};
+      log syslog all;
+    EOF
+
+- name: Crear el fichero de configuración de BIRD
+  shell: |
+    cat >> /etc/bird/bird.conf <<EOF
+      protocol bgp {
+         local {{ node_ip }} as 65000;
+         neighbor {{ item }} as 65000;
+         direct;
+         import filter {
+            if ( net ~ [ 10.244.0.0/16{26,26} ] ) then accept;
+         };
+        export none;
+      }
+    EOF
+  loop: "{{ ips }}"
+
+- name: Crear el fichero de configuración de BIRD
+  shell: |
+    cat >> /etc/bird/bird.conf <<EOF
+      protocol kernel {
+         scan time 60;
+         export all;
+      }
+      protocol device {
+         scan time 60;
+      }
+    EOF
 
 - name: Reiniciar el servicio BIRD
   service:
