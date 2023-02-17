@@ -1,9 +1,9 @@
-- name: Create .kube folder
+- name: Crear el directorio .kube
   file:
     path: /root/.kube
     state: directory
 
-- name: Copy .kube/config file
+- name: Copiar el fichero .kube/config
   ansible.builtin.copy:
     src: /root/.kube/config
     dest: /root/.kube/config
@@ -27,16 +27,16 @@
     state: stopped
     enabled: no
 
-- name: Call the setcap command to allow HAProxy to bind to ports 80 and 443
+- name: Usar el comando setcap para permitir a HAProxy utilizar los puertos 80 y 443
   command: setcap cap_net_bind_service=+ep /usr/sbin/haproxy
 
-- name: Download the Ingress controller from the project’s GitHub Releases page
+- name: Descargar el binario de HAProxy Ingress Controller desde GitHub
   shell: |
     wget https://github.com/haproxytech/kubernetes-ingress/releases/download/v1.9.3/haproxy-ingress-controller_1.9.3_Linux_x86_64.tar.gz
     tar -xzvf haproxy-ingress-controller_1.9.3_Linux_x86_64.tar.gz
     cp ./haproxy-ingress-controller /usr/local/bin/
 
-- name: Create a systemctl service file
+- name: Crear el servicio HAProxy-Ingress
   ansible.builtin.copy:
     src: /ansible/haproxy-ingress.service
     dest: /lib/systemd/system/haproxy-ingress.service

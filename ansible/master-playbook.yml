@@ -15,8 +15,12 @@
   gather_facts: yes
   become: true
   tasks:
-    # Configuración específica del master
-    - import_tasks: master-tasks.yml
+    # Crear el cluster de Kubernetes
+    - import_tasks: create-cluster-tasks.yml
 
     # Instalar y configurar la red inter-cluster
     - import_tasks: calico-tasks.yml
+
+    # Configurar HAProxy-Ingress
+    - name: Crear un configMap vacío para HAProxy
+      command: kubectl create configmap haproxy-kubernetes-ingress

@@ -1,12 +1,12 @@
-- name: Install Calico pod network
+- name: Instalar la red inter-pods Calico
   command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/master/manifests/calico.yaml
 
-- name: Create calico folder
+- name: Crear el directorio de configuración de Calico
   file:
     path: /etc/calico
     state: directory
 
-- name: Copy calico-bgp.yml file
+- name: Copiar el fichero calico-bgp.yml
   ansible.builtin.copy:
     src: /ansible/calico-bgp.yml
     dest: /etc/calico/calico-bgp.yml
@@ -17,13 +17,10 @@
     regexp: "HAPROXY_IP"
     replace: "{{ haproxy_ip }}"
 
-- name: Instalar calicoctl
+- name: Instalar el comando calicoctl
   shell: |
     curl -L https://github.com/projectcalico/calico/releases/latest/download/calicoctl-linux-amd64 -o /usr/local/bin/calicoctl
     chmod +x /usr/local/bin/calicoctl
 
 - name: Configurar Calico BGP
   command: calicoctl apply -f /etc/calico/calico-bgp.yml --allow-version-mismatch
-
-- name: Crear el configMap
-  command: kubectl create configmap haproxy-kubernetes-ingress

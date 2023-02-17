@@ -1,5 +1,4 @@
-# Step 2.2: Kubelet will not start if the system has swap enabled, so we are disabling swap using the below code.
-- name: Remove swapfile from /etc/fstab
+- name: Eliminar el fichero de swap de /etc/fstab
   mount:
     name: "{{ item }}"
     fstype: swap
@@ -8,23 +7,22 @@
     - swap
     - none
 
-- name: Disable swap
+- name: Desactivar el swap
   command: swapoff -a
   when: ansible_swaptotal_mb > 0
 
-# Step 2.3: Installing kubelet, kubeadm and kubectl using the below code.
 - name: Descargar la clave de firma de paquetes de Kubernetes
   get_url:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     dest: /etc/apt/trusted.gpg.d/kubernetes.gpg
 
-- name: Adding apt repository for Kubernetes
+- name: Añadir el repositorio apt de Kubernetes
   apt_repository:
     repo: deb [signed-by=/etc/apt/trusted.gpg.d/kubernetes.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
     state: present
     filename: kubernetes.list
 
-- name: Install Kubernetes binaries
+- name: Instalar los paquetes de Kubernetes
   apt:
     name: "{{ packages }}"
     state: present
@@ -36,13 +34,13 @@
       - kubectl
   register: installed
 
-- name: Configure node ip
+- name: Configurar la dirección IP del nodo
   lineinfile:
     path: /etc/default/kubelet
     create: yes
     line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
 
-- name: Restart kubelet
+- name: Reiniciar el servicio kubelet
   service:
     name: kubelet
     daemon_reload: yes

@@ -1,0 +1,20 @@
+- name: Inicializar el cluster de Kubernetes
+  command: kubeadm init --apiserver-advertise-address="{{ node_ip }}" --apiserver-cert-extra-sans="{{ node_ip }}" --node-name kube-master --pod-network-cidr=10.244.0.0/16
+
+- name: Crear el directorio .kube
+  file:
+    path: /root/.kube
+    state: directory
+
+- name: Copiar el fichero admin.conf a .kube/config
+  copy: remote_src=True src=/etc/kubernetes/admin.conf dest=/root/.kube/config
+
+- name: Generar el comando join
+  command: kubeadm token create --print-join-command
+  register: join_command
+
+- name: Copiar el comando join a un fichero local
+  copy:
+    dest: "join"
+    content: "{{ join_command.stdout_lines[0] }}"
+  delegate_to: localhost

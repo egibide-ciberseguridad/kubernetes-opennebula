@@ -15,5 +15,5 @@
   gather_facts: yes
   become: true
   tasks:
-    # Configuración específica de los nodos
-    - import_tasks: node-tasks.yml
+    # Unir el nodo al cluster
+    - import_tasks: join-cluster-tasks.yml

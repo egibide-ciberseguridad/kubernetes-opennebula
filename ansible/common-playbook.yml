@@ -10,7 +10,7 @@
     - group_by: key=reachable
       when: ping_result is success
 
-- name: Tareas comunes a todos los nodos
+- name: Tareas comunes a todos los nodos del cluster
   hosts: reachable
   gather_facts: yes
   become: true
