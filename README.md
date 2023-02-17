@@ -1,6 +1,38 @@
 # kubernetes-opennebula
 
-Cluster de Kubernetes con Terraform en OpenNebula.
+Cluster [Kubernetes](https://kubernetes.io) desplegado con [Terraform](https://www.terraform.io)
+y [Ansible](https://www.ansible.com) en [OpenNebula](https://opennebula.io).
+
+## Puesta en marcha
+
+1. Crear el fichero `.env` a partir de `env-example` y configurar las variables.
+2. Crear el fichero `terraform/variables.tf` a partir de `terraform/variables.tf.example` y configurar las variables.
+3. Construir el contenedor donde se ejecuta Terraform.
+
+    ```shell
+    make build
+    ```
+4. Crear la clave privada SSH para Ansible e inicializar Terraform.
+
+    ```shell
+    make init
+    ```
+
+5. Desplegar el cluster en OpenNebula.
+
+    ```shell
+    make apply
+    ```
+
+6. Conectarse al nodo maestro del cluster.
+
+    ```shell
+    make ssh
+    ```
+
+## Timeline de creación del cluster
+
+![](docs/orden_creacion_kubernetes.png)
 
 ## Referencias
 
