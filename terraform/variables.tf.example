@@ -16,8 +16,8 @@ locals {
 }
 
 variable "nodes" {
-  description = "Número de nodos del cluster"
-  default     = 2
+  description = "Número de nodos worker del cluster"
+  default     = 3
 }
 
 variable "SSH_PUBLIC_KEY" {
