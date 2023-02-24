@@ -66,7 +66,7 @@ resource "null_resource" "ansible_nodes_common" {
       ansible-playbook \
         -i "${local.nodes[count.index].connection_ip}," \
         /ansible/common-playbook.yml \
-        --extra-vars "node_ip=${local.master.private_ip}"
+        --extra-vars "node_ip=${local.nodes[count.index].private_ip}"
     EOT
   }
 }
@@ -84,8 +84,7 @@ resource "null_resource" "ansible_nodes_kubernetes" {
       ANSIBLE_HOST_KEY_CHECKING=False \
       ansible-playbook \
         -i "${local.nodes[count.index].connection_ip}," \
-        /ansible/node-playbook.yml \
-        --extra-vars "node_ip=${local.master.private_ip}"
+        /ansible/node-playbook.yml
     EOT
   }
 }
