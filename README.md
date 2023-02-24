@@ -30,6 +30,31 @@ y [Ansible](https://www.ansible.com) en [OpenNebula](https://opennebula.io).
     make ssh
     ```
 
+## Acceso al Dashboard
+
+Obtener el token temporal de acceso:
+
+```shell
+make token
+```
+
+Acceder al Dashboard con la IP de cualquiera de los nodos del cluster, en el puerto 32000 y por HTTPS. Por ejemplo:
+
+https://172.20.227.242:32000
+
+### Redirección mediante la IP pública
+
+Si solo tenemos acceso al cluster mediante la IP pública del master, podemos crear un túnel SSH al puerto del Dashboard
+haciendo:
+
+```
+ssh -L 9999:127.0.0.1:32000 -N -f -l root $(docker compose run --rm terraform-ansible terraform -chdir=/terraform output -raw master_connection_ip)
+```
+
+Y acceder a:
+
+https://localhost:9999
+
 ## Timeline de creación del cluster
 
 ![](docs/orden_creacion_kubernetes.png)

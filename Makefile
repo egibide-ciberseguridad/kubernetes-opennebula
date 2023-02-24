@@ -15,6 +15,7 @@ help: _header
 	@echo init / plan / apply / show / output / destroy
 	@echo update-hosts / workspace
 	@echo ssh / ssh-ha / ssh-keyscan
+	@echo token
 	@echo clean
 	@echo nuke-apply
 	@echo ---------------------------------------------
@@ -60,6 +61,9 @@ ssh-ha:
 
 ssh-keyscan:
 	@docker compose run --rm terraform-ansible run_output.sh ssh-keyscan
+
+token:
+	@docker compose run --rm terraform-ansible run_on_master.sh 'kubectl -n kubernetes-dashboard create token admin-user'
 
 clean:
 	@docker compose down -v --remove-orphans

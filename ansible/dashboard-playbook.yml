@@ -1,0 +1,24 @@
+---
+- name: Comprobar los hosts disponibles
+  hosts: all
+  gather_facts: no
+  tasks:
+    - command: timeout 20 sh -c 'until nc -z $0 $1; do sleep 1; done' {{ inventory_hostname }} 22
+      delegate_to: localhost
+      register: ping_result
+      ignore_errors: yes
+    - group_by: key=reachable
+      when: ping_result is success
+
+- name: Configurar el nodo
+  hosts: reachable
+  gather_facts: yes
+  become: true
+  tasks:
+    # Dashboard
+    - name: Instalar el Dashboard de Kubernetes
+      shell: |
+        kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+        kubectl apply -f https://raw.githubusercontent.com/egibide-ciberseguridad/kubernetes/main/01_dashboard/nodeport.yml
+        kubectl apply -f https://raw.githubusercontent.com/egibide-ciberseguridad/kubernetes/main/01_dashboard/service-account.yml
+        kubectl apply -f https://raw.githubusercontent.com/egibide-ciberseguridad/kubernetes/main/01_dashboard/role-binding.yml
