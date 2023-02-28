@@ -48,7 +48,7 @@ Si solo tenemos acceso al cluster mediante la IP pública del master, podemos cr
 haciendo:
 
 ```
-ssh -L 9999:127.0.0.1:32000 -N -f -l root $(docker compose run --rm terraform-ansible terraform -chdir=/terraform output -raw master_connection_ip)
+ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -L 9999:127.0.0.1:32000 -N -f -l root $(docker compose run --rm terraform-ansible terraform -chdir=/terraform output -raw master_connection_ip)
 ```
 
 Y acceder a:
