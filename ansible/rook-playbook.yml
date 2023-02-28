@@ -1,0 +1,29 @@
+---
+- name: Comprobar los hosts disponibles
+  hosts: all
+  gather_facts: no
+  tasks:
+    - command: timeout 20 sh -c 'until nc -z $0 $1; do sleep 1; done' {{ inventory_hostname }} 22
+      delegate_to: localhost
+      register: ping_result
+      ignore_errors: yes
+    - group_by: key=reachable
+      when: ping_result is success
+
+- name: Configurar el gestor de volúmenes persistente Rook
+  hosts: reachable
+  gather_facts: yes
+  become: true
+  tasks:
+    # Gestor de volúmenes Rook
+    - name: Instalar Rook Ceph
+      shell: |
+        git clone --single-branch --branch v1.10.11 https://github.com/rook/rook.git
+        cd rook/deploy/examples
+        kubectl create -f crds.yaml -f common.yaml -f operator.yaml
+        sed -i 's/#deviceFilter:/deviceFilter: vdb/g' cluster.yaml
+        kubectl create -f cluster.yaml
+        kubectl create -f toolbox.yaml
+        kubectl create -f csi/rbd/storageclass.yaml
+        kubectl create -f filesystem.yaml
+        kubectl create -f csi/cephfs/storageclass.yaml
