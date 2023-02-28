@@ -74,6 +74,9 @@ https://localhost:9999
 - [Ansible Register](https://www.educba.com/ansible-register/)
 - [How to Use Environment Variables on Terraform](https://medium.com/codex/how-to-use-environment-variables-on-terraform-f2ab6f95f82d)
 - [How can I manage keyring files in trusted.gpg.d with ansible playbook since apt-key is deprecated?](https://stackoverflow.com/a/73805885)
+
+### HAProxy
+
 - [Install Calico with Kubernetes API datastore, 50 nodes or less](https://docs.tigera.io/calico/3.25/getting-started/kubernetes/self-managed-onprem/onpremises#install-calico-with-kubernetes-api-datastore-50-nodes-or-less)
 - [Run the HAProxy Kubernetes Ingress Controller Outside of Your Kubernetes Cluster](https://www.haproxy.com/blog/run-the-haproxy-kubernetes-ingress-controller-outside-of-your-kubernetes-cluster/)
 - [Enable external mode for an on-premises Kubernetes installation](https://www.haproxy.com/documentation/kubernetes/latest/installation/community/external-mode/external-mode-on-premises/)
@@ -81,3 +84,13 @@ https://localhost:9999
 - [Route traffic to an example app](https://www.haproxy.com/documentation/kubernetes/latest/usage/ingress/)
 - [ingress-controller-external-example](https://github.com/haproxytechblog/ingress-controller-external-example/blob/master/app.yaml)
 - [The Ultimate Guide To Using Calico, Flannel, Weave and Cilium](https://platform9.com/blog/the-ultimate-guide-to-using-calico-flannel-weave-and-cilium/)
+
+### Rook
+
+- [Rook](https://rook.io)
+- [Getting Started](https://rook.io/docs/rook/v1.10/Getting-Started/intro/)
+- [Quickstart](https://rook.io/docs/rook/v1.10/Getting-Started/quickstart/)
+- [Host Storage Cluster](https://rook.io/docs/rook/v1.10/CRDs/Cluster/host-cluster/)
+- [Troubleshooting](https://rook.io/docs/rook/v1.10/Troubleshooting/ceph-toolbox/)
+- [Block Storage (RBD)](https://rook.io/docs/rook/v1.10/Storage-Configuration/Block-Storage-RBD/block-storage/)
+- [Shared Filesystem (CephFS)](https://rook.io/docs/rook/v1.10/Storage-Configuration/Shared-Filesystem-CephFS/filesystem-storage/)
