@@ -1,3 +1,7 @@
+data "opennebula_image" "empty_image" {
+  name = "Empty disk"
+}
+
 resource "opennebula_virtual_machine" "nodes" {
 
   depends_on = [
@@ -12,7 +16,7 @@ resource "opennebula_virtual_machine" "nodes" {
 
   cpu    = 0.5
   vcpu   = 2
-  memory = 1024
+  memory = 2048
 
   context = {
     NETWORK        = "YES"
@@ -30,6 +34,12 @@ resource "opennebula_virtual_machine" "nodes" {
   disk {
     image_id = data.opennebula_template.template.disk[0].image_id
     target   = "vda"
+    size     = 8192
+  }
+
+  disk {
+    image_id = data.opennebula_image.empty_image.id
+    target   = "vdb"
     size     = 8192
   }
 }
