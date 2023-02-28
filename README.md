@@ -74,6 +74,9 @@ https://localhost:9999
 - [Ansible Register](https://www.educba.com/ansible-register/)
 - [How to Use Environment Variables on Terraform](https://medium.com/codex/how-to-use-environment-variables-on-terraform-f2ab6f95f82d)
 - [How can I manage keyring files in trusted.gpg.d with ansible playbook since apt-key is deprecated?](https://stackoverflow.com/a/73805885)
+- [Passing additional variables from command line to make](https://stackoverflow.com/questions/2826029/passing-additional-variables-from-command-line-to-make)
+- [JSON Output Format](https://developer.hashicorp.com/terraform/internals/json-format)
+- [How to Parse JSON Files on the Linux Command Line with jq](https://www.howtogeek.com/529219/how-to-parse-json-files-on-the-linux-command-line-with-jq/)
 
 ### HAProxy
 

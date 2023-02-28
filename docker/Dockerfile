@@ -3,7 +3,7 @@ ARG ALPINE_VERSION
 FROM alpine:${ALPINE_VERSION}
 
 # Instalar los paquetes necesarios
-RUN apk add terraform ansible openssh curl
+RUN apk add terraform ansible openssh curl jq
 
 # Copiar los scripts al contenedor
 COPY --chmod=0755 *.sh /usr/bin/

@@ -14,7 +14,7 @@ help: _header
 	@echo build
 	@echo init / plan / apply / show / output / destroy
 	@echo update-hosts / workspace
-	@echo ssh / ssh-ha / ssh-keyscan
+	@echo ssh [node=kube-node-0]
 	@echo token
 	@echo clean
 	@echo nuke-apply
@@ -53,14 +53,10 @@ update-hosts:
 workspace:
 	@docker compose run --rm terraform-ansible /bin/sh
 
+node?="kube-master"
+
 ssh:
-	@docker compose run --rm terraform-ansible run_output.sh ssh-command
-
-ssh-ha:
-	@docker compose run --rm terraform-ansible run_output.sh ssh-command-ha
-
-ssh-keyscan:
-	@docker compose run --rm terraform-ansible run_output.sh ssh-keyscan
+	@docker compose run --rm terraform-ansible run_ssh.sh $(node)
 
 token:
 	@docker compose run --rm terraform-ansible run_on_master.sh 'kubectl -n kubernetes-dashboard create token admin-user'
