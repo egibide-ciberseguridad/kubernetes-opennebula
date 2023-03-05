@@ -1,13 +1,13 @@
 locals {
   opennebula = {
     connection = {
-      username = "ciber_xx"
-      group    = "ciber_xx"
+      username = "ciber-xx"
+      group    = "ciber-xx"
       token    = "4b8cf5....................................................c1cb11"
     }
     vm = {
       tag     = "ubuntu-22-04-20230127"
-      network = "ciber_xx"
+      network = "ciber-xx"
     }
   }
   ansible = {
