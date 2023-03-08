@@ -14,9 +14,9 @@ resource "opennebula_virtual_machine" "nodes" {
 
   name = "kube-node-${count.index}"
 
-  cpu    = 0.5
-  vcpu   = 2
-  memory = 2048
+  cpu    = local.opennebula.limits.nodes.cpu
+  vcpu   = local.opennebula.limits.nodes.vcpu
+  memory = local.opennebula.limits.nodes.memory
 
   context = {
     NETWORK        = "YES"
@@ -34,13 +34,13 @@ resource "opennebula_virtual_machine" "nodes" {
   disk {
     image_id = data.opennebula_template.template.disk[0].image_id
     target   = "vda"
-    size     = 8192
+    size     = local.opennebula.limits.nodes.disk1
   }
 
   disk {
     image_id = data.opennebula_image.empty_image.id
     target   = "vdb"
-    size     = 8192
+    size     = local.opennebula.limits.nodes.disk2
   }
 }
 

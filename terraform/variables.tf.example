@@ -9,6 +9,27 @@ locals {
       tag     = "ubuntu-22-04-20230127"
       network = "ciber-xx"
     }
+    limits = {
+      master = {
+        cpu    = 1
+        vcpu   = 4
+        memory = 2048
+        disk   = 8192
+      }
+      nodes = {
+        cpu    = 0.5
+        vcpu   = 2
+        memory = 2048
+        disk1  = 8192
+        disk2  = 8192
+      }
+      haproxy = {
+        cpu    = 0.5
+        vcpu   = 2
+        memory = 1024
+        disk   = 8192
+      }
+    }
   }
   ansible = {
     connect_to_public_ip = false

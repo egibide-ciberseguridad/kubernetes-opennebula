@@ -8,9 +8,9 @@ resource "opennebula_virtual_machine" "haproxy" {
 
   name = "kube-haproxy"
 
-  cpu    = 0.5
-  vcpu   = 2
-  memory = 1024
+  cpu    = local.opennebula.limits.haproxy.cpu
+  vcpu   = local.opennebula.limits.haproxy.vcpu
+  memory = local.opennebula.limits.haproxy.memory
 
   context = {
     NETWORK        = "YES"
@@ -28,7 +28,7 @@ resource "opennebula_virtual_machine" "haproxy" {
   disk {
     image_id = data.opennebula_template.template.disk[0].image_id
     target   = "vda"
-    size     = 8192
+    size     = local.opennebula.limits.haproxy.disk
   }
 }
 

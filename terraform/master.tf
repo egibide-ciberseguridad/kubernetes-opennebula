@@ -14,9 +14,9 @@ resource "opennebula_virtual_machine" "master" {
 
   name = "kube-master"
 
-  cpu    = 1
-  vcpu   = 4
-  memory = 2048
+  cpu    = local.opennebula.limits.master.cpu
+  vcpu   = local.opennebula.limits.master.vcpu
+  memory = local.opennebula.limits.master.memory
 
   context = {
     NETWORK        = "YES"
@@ -34,7 +34,7 @@ resource "opennebula_virtual_machine" "master" {
   disk {
     image_id = data.opennebula_template.template.disk[0].image_id
     target   = "vda"
-    size     = 8192
+    size     = local.opennebula.limits.master.disk
   }
 }
 
