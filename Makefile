@@ -56,7 +56,7 @@ ssh:
 	@docker compose run --rm terraform-ansible run_ssh.sh $(node)
 
 token:
-	@docker compose run --rm terraform-ansible run_on_master.sh 'kubectl -n kubernetes-dashboard create token admin-user'
+	@docker compose run --rm terraform-ansible run_on_master.sh 'kubectl -n kubernetes-dashboard create token admin-user --duration=48h'
 
 clean:
 	@docker compose down -v --remove-orphans
