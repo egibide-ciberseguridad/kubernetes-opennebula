@@ -16,7 +16,7 @@ help: _header
 	@echo workspace
 	@echo ssh [node=kube-node-0]
 	@echo token
-	@echo clean
+	@echo clean / clean-tfstate
 	@echo nuke-apply
 	@echo ---------------------------------------------
 
@@ -60,5 +60,8 @@ token:
 
 clean:
 	@docker compose down -v --remove-orphans
+
+clean-tfstate:
+	@docker compose run --rm terraform-ansible /bin/sh -c 'rm -f /terraform/terraform.tfstate*'
 
 nuke-apply: clean build init destroy apply
