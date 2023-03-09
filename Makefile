@@ -10,15 +10,16 @@ endif
 help: _header
 	${info }
 	@echo Opciones:
-	@echo ---------------------------------------------
+	@echo --------------------------------------------------
 	@echo build
 	@echo init / plan / apply / show / output / destroy
 	@echo workspace
 	@echo ssh [node=kube-node-0]
 	@echo token
+	@echo kubenode-status / calico-bird-status / rook-status
 	@echo clean / clean-tfstate
 	@echo nuke-apply
-	@echo ---------------------------------------------
+	@echo --------------------------------------------------
 
 _header:
 	@echo ----------
@@ -56,7 +57,20 @@ ssh:
 	@docker compose run --rm terraform-ansible run_ssh.sh $(node)
 
 token:
-	@docker compose run --rm terraform-ansible run_on_master.sh 'kubectl -n kubernetes-dashboard create token admin-user --duration=48h'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n kubernetes-dashboard create token admin-user --duration=48h'
+
+kubenode-status:
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl get nodes'
+
+calico-bird-status:
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'calicoctl node status'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-haproxy' 'birdc show status'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-haproxy' 'birdc show protocols'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-haproxy' 'birdc show route'
+
+rook-status:
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph status'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph osd status'
 
 clean:
 	@docker compose down -v --remove-orphans
