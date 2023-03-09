@@ -22,3 +22,9 @@
         kubectl apply -f https://raw.githubusercontent.com/egibide-ciberseguridad/kubernetes/main/01_dashboard/nodeport.yml
         kubectl apply -f https://raw.githubusercontent.com/egibide-ciberseguridad/kubernetes/main/01_dashboard/service-account.yml
         kubectl apply -f https://raw.githubusercontent.com/egibide-ciberseguridad/kubernetes/main/01_dashboard/role-binding.yml
+
+    - name: Desactivar el timeout de la sesión del Dashboard
+      shell: |
+        kubectl patch --namespace kubernetes-dashboard deployment \
+          kubernetes-dashboard --type='json' --patch \
+          '[{"op": "add", "path": "/spec/template/spec/containers/0/args/2", "value": "--token-ttl=0" }]'

@@ -35,7 +35,7 @@ y [Ansible](https://www.ansible.com) en [OpenNebula](https://opennebula.io).
 Obtener el token temporal de acceso:
 
 ```shell
-make token
+make dashboard-token
 ```
 
 Acceder al Dashboard con la IP de cualquiera de los nodos del cluster, en el puerto 32000 y por HTTPS. Por ejemplo:
@@ -47,8 +47,8 @@ https://172.20.227.242:32000
 Si solo tenemos acceso al cluster mediante la IP pública del master, podemos crear un túnel SSH al puerto del Dashboard
 haciendo:
 
-```
-ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -L 9999:127.0.0.1:32000 -N -f -l root $(docker compose run --rm terraform-ansible terraform -chdir=/terraform output -raw master_connection_ip)
+```shell
+make dashboard-tunnel
 ```
 
 Y acceder a:
@@ -78,6 +78,10 @@ https://localhost:9999
 - [JSON Output Format](https://developer.hashicorp.com/terraform/internals/json-format)
 - [How to Parse JSON Files on the Linux Command Line with jq](https://www.howtogeek.com/529219/how-to-parse-json-files-on-the-linux-command-line-with-jq/)
 - [Kubernetes Dashboard Token Expired in One hour. How to create token for long time](https://stackoverflow.com/questions/73416660/kubernetes-dashboard-token-expired-in-one-hour-how-to-create-token-for-long-tim)
+- [SSH Tunnel within docker container](https://stackoverflow.com/questions/60116630/ssh-tunnel-within-docker-container)
+- [How can I make "Press any key to continue"](https://unix.stackexchange.com/questions/293940/how-can-i-make-press-any-key-to-continue)
+- [Adjusting the timeout of the Kubernetes Dashboard](https://blinkeye.github.io/post/public/2019-05-30-kubernetes-dashboard/)
+- [How can I make the automatic timed logout longer?](https://stackoverflow.com/questions/58012223/how-can-i-make-the-automatic-timed-logout-longer)
 
 ### HAProxy
 

@@ -10,16 +10,16 @@ endif
 help: _header
 	${info }
 	@echo Opciones:
-	@echo --------------------------------------------------
+	@echo -----------------------------------------------------
 	@echo build
 	@echo init / plan / apply / show / output / destroy
 	@echo workspace
 	@echo ssh [node=kube-node-0]
-	@echo token
+	@echo dashboard-token / dashboard-tunnel [node=kube-node-0]
 	@echo kubenode-status / calico-bird-status / rook-status
 	@echo clean / clean-tfstate
 	@echo nuke-apply
-	@echo --------------------------------------------------
+	@echo -----------------------------------------------------
 
 _header:
 	@echo ----------
@@ -56,8 +56,15 @@ node?="kube-master"
 ssh:
 	@docker compose run --rm terraform-ansible run_ssh.sh $(node)
 
-token:
+dashboard-token:
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n kubernetes-dashboard create token admin-user --duration=48h'
+
+dashboard-tunnel:
+	${info }
+	@echo ----------------------------------
+	@echo [Dashboard] https://localhost:9999
+	@echo ----------------------------------
+	@docker compose run --rm -p 9999:9999 terraform-ansible dashboard_tunnel.sh $(node)
 
 kubenode-status:
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl get nodes'
