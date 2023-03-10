@@ -1,3 +1,8 @@
+- name: Quitar el paquete unattended-upgrades
+  ansible.builtin.apt:
+    name: unattended-upgrades
+    state: absent
+
 - name: Configurar el mirror de Ubuntu a utilizar
   ansible.builtin.copy:
     src: /ansible/sources.list
