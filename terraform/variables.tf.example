@@ -11,8 +11,8 @@ locals {
     }
     limits = {
       master = {
-        cpu    = 1
-        vcpu   = 4
+        cpu    = 0.5
+        vcpu   = 2
         memory = 2048
         disk   = 8192
       }
@@ -20,7 +20,7 @@ locals {
         cpu    = 0.5
         vcpu   = 2
         memory = 2048
-        disk1  = 8192
+        disk1  = 16384
         disk2  = 8192
       }
       haproxy = {
