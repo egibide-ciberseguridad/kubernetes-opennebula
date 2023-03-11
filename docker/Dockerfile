@@ -15,3 +15,6 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 
 # Definir el directorio actual
 WORKDIR /root
+
+# Mostrar el usuario y el host en el prompt
+ENV PS1='\u@\h:\w\$\040'

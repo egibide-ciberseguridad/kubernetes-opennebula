@@ -11,7 +11,6 @@ services:
     hostname: kube-workspace
     environment:
       - TF_VAR_SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}
-      - PS1=\u@\h:\w\$\040
     volumes:
       - ./terraform:/terraform
       - ./ansible:/ansible
