@@ -31,7 +31,7 @@ _header:
 	@echo ----------
 
 build:
-	@docker compose build
+	@docker compose build --pull
 
 init:
 	@docker compose run --rm terraform-ansible generar_clave.sh
