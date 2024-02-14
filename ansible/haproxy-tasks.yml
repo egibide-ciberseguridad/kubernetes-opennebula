@@ -10,7 +10,7 @@
 
 - name: Añadir el repositorio de HAProxy
   ansible.builtin.apt_repository:
-    repo: ppa:vbernat/haproxy-2.7
+    repo: ppa:vbernat/haproxy-2.8
 
 - name: Instalar HAProxy
   apt:
@@ -32,8 +32,8 @@
 
 - name: Descargar el binario de HAProxy Ingress Controller desde GitHub
   shell: |
-    wget https://github.com/haproxytech/kubernetes-ingress/releases/download/v1.9.3/haproxy-ingress-controller_1.9.3_Linux_x86_64.tar.gz
-    tar -xzvf haproxy-ingress-controller_1.9.3_Linux_x86_64.tar.gz
+    wget https://github.com/haproxytech/kubernetes-ingress/releases/download/v1.10.11/haproxy-ingress-controller_1.10.11_Linux_x86_64.tar.gz
+    tar -xzvf haproxy-ingress-controller_1.10.11_Linux_x86_64.tar.gz
     cp ./haproxy-ingress-controller /usr/local/bin/
 
 - name: Crear el servicio HAProxy-Ingress

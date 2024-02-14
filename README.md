@@ -103,6 +103,7 @@ https://localhost:9999
 - [Route traffic to an example app](https://www.haproxy.com/documentation/kubernetes/latest/usage/ingress/)
 - [ingress-controller-external-example](https://github.com/haproxytechblog/ingress-controller-external-example/blob/master/app.yaml)
 - [The Ultimate Guide To Using Calico, Flannel, Weave and Cilium](https://platform9.com/blog/the-ultimate-guide-to-using-calico-flannel-weave-and-cilium/)
+- [HAProxy Kubernetes Ingress Controller](https://github.com/haproxytech/kubernetes-ingress)
 
 ### Rook
 
