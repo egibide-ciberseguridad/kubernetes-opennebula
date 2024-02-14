@@ -59,6 +59,17 @@ https://localhost:9999
 
 ![](docs/orden_creacion_kubernetes.png)
 
+## Recursos necesarios
+
+| Nodo    | CPUs | Memoria (GB) | Disco (GB) |
+|---------|:----:|:------------:|:----------:|
+| master  |  2   |      4       |     16     |
+| node-0  |  1   |      2       |     24     |
+| node-1  |  1   |      2       |     24     |
+| node-2  |  1   |      2       |     24     |
+| haproxy |  1   |      2       |     8      |
+| Total   |  6   |      12      |     96     |
+
 ## Referencias
 
 - [Documentación del proveedor de OpenNebula](https://registry.terraform.io/providers/OpenNebula/opennebula/latest/docs)

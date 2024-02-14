@@ -11,22 +11,22 @@ locals {
     }
     limits = {
       master = {
-        cpu    = 0.5
-        vcpu   = 2
-        memory = 2048
-        disk   = 8192
+        cpu    = 2
+        vcpu   = 4
+        memory = 4096
+        disk   = 16384
       }
       nodes = {
-        cpu    = 0.5
+        cpu    = 1
         vcpu   = 2
         memory = 2048
         disk1  = 16384
         disk2  = 8192
       }
       haproxy = {
-        cpu    = 0.5
+        cpu    = 1
         vcpu   = 2
-        memory = 1024
+        memory = 2048
         disk   = 8192
       }
     }
