@@ -31,7 +31,7 @@ build:
 
 init:
 	@docker compose run --rm terraform-ansible generar_clave.sh
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform init
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform init -upgrade
 
 plan:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform plan
