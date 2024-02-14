@@ -13,10 +13,14 @@ help: _header
 	@echo -----------------------------------------------------
 	@echo build
 	@echo init / plan / apply / show / output / destroy
+	@echo -----------------------------------------------------
 	@echo workspace
 	@echo ssh [node=kube-node-0]
+	@echo -----------------------------------------------------
 	@echo dashboard-token / dashboard-tunnel [node=kube-node-0]
+	@echo -----------------------------------------------------
 	@echo kubenode-status / calico-bird-status / rook-status
+	@echo -----------------------------------------------------
 	@echo clean / clean-tfstate
 	@echo nuke-apply
 	@echo -----------------------------------------------------
