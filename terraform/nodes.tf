@@ -73,6 +73,7 @@ resource "null_resource" "ansible_nodes_common" {
   provisioner "local-exec" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
+      ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.nodes[count.index].connection_ip}," \
         /ansible/common-playbook.yml \
@@ -92,6 +93,7 @@ resource "null_resource" "ansible_nodes_kubernetes" {
   provisioner "local-exec" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
+      ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.nodes[count.index].connection_ip}," \
         /ansible/node-playbook.yml

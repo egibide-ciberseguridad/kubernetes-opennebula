@@ -6,6 +6,7 @@ resource "null_resource" "ansible_dashboard" {
   provisioner "local-exec" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
+      ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.master.connection_ip}," \
         /ansible/dashboard-playbook.yml

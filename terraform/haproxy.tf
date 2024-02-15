@@ -58,6 +58,7 @@ resource "null_resource" "ansible_haproxy" {
   provisioner "local-exec" {
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
+      ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.haproxy.connection_ip}," \
         /ansible/haproxy-playbook.yml \
