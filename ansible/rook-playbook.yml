@@ -14,11 +14,13 @@
   hosts: reachable
   gather_facts: yes
   become: true
+  vars_files:
+    - versiones.yml
   tasks:
     # Gestor de volúmenes Rook
     - name: Instalar Rook Ceph
       shell: |
-        git clone --single-branch --branch v1.13.4 https://github.com/rook/rook.git
+        git clone --single-branch --branch v{{ rook_version }} https://github.com/rook/rook.git
         cd rook/deploy/examples
         kubectl create -f crds.yaml -f common.yaml -f operator.yaml
         kubectl create -f cluster.yaml

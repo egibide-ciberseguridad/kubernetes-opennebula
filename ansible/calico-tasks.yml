@@ -1,5 +1,5 @@
 - name: Instalar la red inter-pods Calico
-  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/master/manifests/calico.yaml
+  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v{{ calico_version }}/manifests/calico.yaml
 
 - name: Crear el directorio de configuración de Calico
   file:
@@ -19,8 +19,8 @@
 
 - name: Instalar el comando calicoctl
   shell: |
-    curl -L https://github.com/projectcalico/calico/releases/latest/download/calicoctl-linux-amd64 -o /usr/local/bin/calicoctl
+    curl -L https://github.com/projectcalico/calico/releases/download/v{{ calico_version }}/calicoctl-linux-amd64 -o /usr/local/bin/calicoctl
     chmod +x /usr/local/bin/calicoctl
 
 - name: Configurar Calico BGP
-  command: calicoctl apply -f /etc/calico/calico-bgp.yml --allow-version-mismatch
+  command: calicoctl apply -f /etc/calico/calico-bgp.yml

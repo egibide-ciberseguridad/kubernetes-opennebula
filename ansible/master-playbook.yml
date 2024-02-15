@@ -14,6 +14,8 @@
   hosts: reachable
   gather_facts: yes
   become: true
+  vars_files:
+    - versiones.yml
   tasks:
     # Crear el cluster de Kubernetes
     - import_tasks: create-cluster-tasks.yml

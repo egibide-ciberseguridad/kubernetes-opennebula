@@ -9,7 +9,7 @@
     update_cache: yes
   vars:
     packages:
-      - bird
+      - bird={{ bird_version }}
 
 - name: Crear el fichero de configuración de BIRD
   shell: |

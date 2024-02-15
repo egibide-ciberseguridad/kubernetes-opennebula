@@ -14,11 +14,13 @@
   hosts: reachable
   gather_facts: yes
   become: true
+  vars_files:
+    - versiones.yml
   tasks:
     # Dashboard
     - name: Instalar el Dashboard de Kubernetes
       shell: |
-        kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+        kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v{{ dashboard_version }}/aio/deploy/recommended.yaml
         kubectl apply -f https://gist.githubusercontent.com/ijaureguialzo/4288720b5fac8af6ea29e67fbfab6ef0/raw/fbd5573e9e7da320fbd843085531265202fcb311/nodeport.yml
         kubectl apply -f https://gist.githubusercontent.com/ijaureguialzo/4288720b5fac8af6ea29e67fbfab6ef0/raw/fbd5573e9e7da320fbd843085531265202fcb311/service-account.yml
         kubectl apply -f https://gist.githubusercontent.com/ijaureguialzo/4288720b5fac8af6ea29e67fbfab6ef0/raw/fbd5573e9e7da320fbd843085531265202fcb311/role-binding.yml
