@@ -64,11 +64,11 @@ https://localhost:9999
 | Nodo    | CPUs | Memoria (GB) | Disco (GB) |
 |---------|:----:|:------------:|:----------:|
 | master  |  2   |      4       |     16     |
-| node-0  |  1   |      2       |     24     |
-| node-1  |  1   |      2       |     24     |
-| node-2  |  1   |      2       |     24     |
-| haproxy |  1   |      2       |     8      |
-| Total   |  6   |      12      |     96     |
+| node-0  |  1   |      3       |     24     |
+| node-1  |  1   |      3       |     24     |
+| node-2  |  1   |      3       |     24     |
+| haproxy |  1   |      1       |     8      |
+| Total   |  6   |      14      |     96     |
 
 ## Referencias
 

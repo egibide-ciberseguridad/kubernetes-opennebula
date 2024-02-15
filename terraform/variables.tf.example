@@ -19,14 +19,14 @@ locals {
       nodes = {
         cpu    = 1
         vcpu   = 2
-        memory = 2048
+        memory = 3072
         disk1  = 16384
         disk2  = 8192
       }
       haproxy = {
         cpu    = 1
         vcpu   = 2
-        memory = 2048
+        memory = 1024
         disk   = 8192
       }
     }
