@@ -6,7 +6,7 @@ locals {
       token    = "4b8cf5....................................................c1cb11"
     }
     vm = {
-      tag     = "ubuntu-22-04-20240116"
+      tag     = "ubuntu-22-04-terraform"
       network = "ciber-xx"
     }
     limits = {
