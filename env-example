@@ -2,4 +2,5 @@
 ALPINE_VERSION=3.18
 
 # Clave pública del usuario para inyectar en las máquinas OpenNebula
-SSH_PUBLIC_KEY=
+# Usar | como separador para añadir más de una clave
+SSH_PUBLIC_KEY=""
