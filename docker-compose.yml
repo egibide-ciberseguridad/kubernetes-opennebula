@@ -7,7 +7,7 @@ services:
       context: ./docker
       dockerfile: Dockerfile
       args:
-        - ALPINE_VERSION=${ALPINE_VERSION}
+        - TERRAFORM_VERSION=${TERRAFORM_VERSION}
     hostname: kube-workspace
     environment:
       - TF_VAR_SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}

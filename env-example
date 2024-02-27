@@ -1,5 +1,5 @@
 # Versiones de software
-ALPINE_VERSION=3.18
+TERRAFORM_VERSION=latest
 
 # Subred para el contenedor local de Terraform
 DOCKER_SUBNET=10.131.0.0/24
