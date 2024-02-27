@@ -1,6 +1,9 @@
 # Versiones de software
 ALPINE_VERSION=3.18
 
+# Subred para el contenedor local de Terraform
+DOCKER_SUBNET=10.131.0.0/24
+
 # Clave pública del usuario para inyectar en las máquinas OpenNebula
 # Usar | como separador para añadir más de una clave
 SSH_PUBLIC_KEY=""

@@ -18,3 +18,10 @@ services:
 
 volumes:
   homedir:
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: ${DOCKER_SUBNET:-10.131.0.0/24}
