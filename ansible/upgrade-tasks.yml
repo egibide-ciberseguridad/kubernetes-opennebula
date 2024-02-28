@@ -16,7 +16,6 @@
 - name: Comprobar si es necesario reiniciar
   ansible.builtin.stat:
     path: /var/run/reboot-required
-    get_md5: no
   register: reboot_required_file
 
 - name: Reiniciar el servidor si es necesario
