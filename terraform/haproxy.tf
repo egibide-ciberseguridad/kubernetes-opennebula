@@ -1,9 +1,5 @@
 resource "opennebula_virtual_machine" "haproxy" {
 
-  depends_on = [
-    opennebula_virtual_machine.master
-  ]
-
   template_id = data.opennebula_template.template.id
 
   name = "kube-haproxy"

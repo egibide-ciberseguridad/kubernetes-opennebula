@@ -10,6 +10,10 @@ data "opennebula_virtual_network" "network" {
 
 resource "opennebula_virtual_machine" "master" {
 
+  depends_on = [
+    opennebula_virtual_machine.haproxy
+  ]
+
   template_id = data.opennebula_template.template.id
 
   name = "kube-master"
