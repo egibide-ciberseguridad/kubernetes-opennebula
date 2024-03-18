@@ -18,6 +18,8 @@ resource "opennebula_virtual_machine" "nodes" {
   vcpu   = local.opennebula.limits.nodes.vcpu
   memory = local.opennebula.limits.nodes.memory
 
+  lock = local.opennebula.vm.locked ? "USE" : "UNLOCK"
+
   context = {
     NETWORK        = "YES"
     SET_HOSTNAME   = "$NAME"

@@ -8,6 +8,8 @@ resource "opennebula_virtual_machine" "haproxy" {
   vcpu   = local.opennebula.limits.haproxy.vcpu
   memory = local.opennebula.limits.haproxy.memory
 
+  lock = local.opennebula.vm.locked ? "USE" : "UNLOCK"
+
   context = {
     NETWORK        = "YES"
     SET_HOSTNAME   = "$NAME"

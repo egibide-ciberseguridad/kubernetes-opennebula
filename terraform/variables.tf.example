@@ -8,6 +8,7 @@ locals {
     vm = {
       tag     = "ubuntu-22-04-terraform"
       network = "ciber-xx"
+      locked  = false
     }
     limits = {
       master = {
