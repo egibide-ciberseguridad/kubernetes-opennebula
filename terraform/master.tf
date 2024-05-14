@@ -54,9 +54,10 @@ resource "null_resource" "hosts_master" {
 
   provisioner "file" {
     connection {
-      host        = local.master.connection_ip
-      user        = "root"
-      private_key = file("~/.ssh/id_rsa")
+      host         = local.master.name
+      user         = "root"
+      private_key  = file("~/.ssh/id_rsa")
+      bastion_host = local.haproxy.connection_ip
     }
 
     content     = local.hosts
@@ -99,7 +100,8 @@ resource "null_resource" "ansible_master" {
   provisioner "local-exec" {
     command = <<EOT
       mkdir -p /root/.kube
-      scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${local.master.connection_ip}:/root/.kube/config /root/.kube/config
+      scp -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}" \
+          -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${local.master.name}:/root/.kube/config /root/.kube/config
     EOT
   }
 }

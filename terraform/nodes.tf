@@ -58,9 +58,10 @@ resource "null_resource" "hosts_nodes" {
 
   provisioner "file" {
     connection {
-      host        = local.nodes[count.index].connection_ip
+      host        = local.nodes[count.index].name
       user        = "root"
       private_key = file("~/.ssh/id_rsa")
+      bastion_host = local.haproxy.connection_ip
     }
 
     content     = local.hosts
