@@ -74,9 +74,11 @@ resource "null_resource" "ansible_master" {
       ANSIBLE_HOST_KEY_CHECKING=False \
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
-        -i "${local.master.connection_ip}," \
-        /ansible/common-playbook.yml \
-        --extra-vars "node_ip=${local.master.private_ip}"
+        -i "${local.master.name}," \
+        --ssh-common-args '-o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}"' \
+        --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
+        --extra-vars "node_ip=${local.master.private_ip}" \
+        /ansible/common-playbook.yml
     EOT
   }
 
@@ -85,10 +87,12 @@ resource "null_resource" "ansible_master" {
       ANSIBLE_HOST_KEY_CHECKING=False \
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
-        -i "${local.master.connection_ip}," \
-        /ansible/master-playbook.yml \
+        -i "${local.master.name}," \
+        --ssh-common-args '-o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}"' \
+        --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         --extra-vars "node_ip=${local.master.private_ip}" \
-        --extra-vars "haproxy_ip=${local.haproxy.private_ip}"
+        --extra-vars "haproxy_ip=${local.haproxy.private_ip}" \
+        /ansible/master-playbook.yml
     EOT
   }
 

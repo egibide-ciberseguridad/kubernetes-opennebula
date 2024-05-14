@@ -62,9 +62,9 @@ resource "null_resource" "ansible_haproxy" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.haproxy.connection_ip}," \
-        /ansible/haproxy-playbook.yml \
         --extra-vars "node_ip=${local.haproxy.private_ip}" \
-        --extra-vars "{ "ips" : [${local.cluster_ips}]}"
+        --extra-vars "{ "ips" : [${local.cluster_ips}]}" \
+        /ansible/haproxy-playbook.yml
     EOT
   }
 }

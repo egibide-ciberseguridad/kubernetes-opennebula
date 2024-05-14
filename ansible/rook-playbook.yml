@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: no
   tasks:
-    - command: timeout 20 sh -c 'until nc -z $0 $1; do sleep 1; done' {{ inventory_hostname }} 22
+    - command: timeout 20 sh -c 'until nc -z $0 $1; do sleep 1; done' {{ haproxy_connection_ip }} 22
       delegate_to: localhost
       register: ping_result
       ignore_errors: yes
