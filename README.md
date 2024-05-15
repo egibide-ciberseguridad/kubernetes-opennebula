@@ -88,11 +88,8 @@ https://localhost:9999
 - [Passing additional variables from command line to make](https://stackoverflow.com/questions/2826029/passing-additional-variables-from-command-line-to-make)
 - [JSON Output Format](https://developer.hashicorp.com/terraform/internals/json-format)
 - [How to Parse JSON Files on the Linux Command Line with jq](https://www.howtogeek.com/529219/how-to-parse-json-files-on-the-linux-command-line-with-jq/)
-- [Kubernetes Dashboard Token Expired in One hour. How to create token for long time](https://stackoverflow.com/questions/73416660/kubernetes-dashboard-token-expired-in-one-hour-how-to-create-token-for-long-tim)
 - [SSH Tunnel within docker container](https://stackoverflow.com/questions/60116630/ssh-tunnel-within-docker-container)
 - [How can I make "Press any key to continue"](https://unix.stackexchange.com/questions/293940/how-can-i-make-press-any-key-to-continue)
-- [Adjusting the timeout of the Kubernetes Dashboard](https://blinkeye.github.io/post/public/2019-05-30-kubernetes-dashboard/)
-- [How can I make the automatic timed logout longer?](https://stackoverflow.com/questions/58012223/how-can-i-make-the-automatic-timed-logout-longer)
 
 ### HAProxy
 
@@ -115,3 +112,12 @@ https://localhost:9999
 - [Troubleshooting](https://rook.io/docs/rook/v1.10/Troubleshooting/ceph-toolbox/)
 - [Block Storage (RBD)](https://rook.io/docs/rook/v1.10/Storage-Configuration/Block-Storage-RBD/block-storage/)
 - [Shared Filesystem (CephFS)](https://rook.io/docs/rook/v1.10/Storage-Configuration/Shared-Filesystem-CephFS/filesystem-storage/)
+
+### Dashboard
+
+- [Kubernetes Dashboard](https://github.com/kubernetes/dashboard)
+- [Installing Helm](https://helm.sh/docs/intro/install/)
+- [Accessing Dashboard](https://github.com/kubernetes/dashboard/blob/master/docs/user/accessing-dashboard/README.md)
+- [Kubernetes Dashboard Token Expired in One hour. How to create token for long time](https://stackoverflow.com/questions/73416660/kubernetes-dashboard-token-expired-in-one-hour-how-to-create-token-for-long-tim)
+- [Adjusting the timeout of the Kubernetes Dashboard](https://blinkeye.github.io/post/public/2019-05-30-kubernetes-dashboard/)
+- [How can I make the automatic timed logout longer?](https://stackoverflow.com/questions/58012223/how-can-i-make-the-automatic-timed-logout-longer)

@@ -13,12 +13,19 @@ esac
 
 printf "\n"
 
+COMANDO='kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443 > /dev/null 2>&1'
+ssh -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@$HAPROXY_IP" \
+-q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "root@$DIRECCION" "$COMANDO" &
+
 ssh -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@$HAPROXY_IP" \
     -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-    -g -L '*:9999:127.0.0.1:32000' -N -f -l root "$DIRECCION"
+    -g -L '*:9999:127.0.0.1:8443' -N -f -l root "$DIRECCION" &
 
-read -n 1 -s -r -p "Pulsa cualquier tecla para desconectar... "
+printf "Pulsa cualquier tecla para desconectar... "
+read -n 1 -s -r
 
-printf "\n\n"
+COMANDO='pkill -f "port-forward"'
+ssh -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@$HAPROXY_IP" \
+-q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "root@$DIRECCION" "$COMANDO" && echo ""
 
-echo "Tunel desconectado."
+printf "\nTunel desconectado.\n"
