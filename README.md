@@ -96,6 +96,7 @@ https://localhost:9999
 
 ### HAProxy
 
+- [Debian/Ubuntu HAProxy packages](https://haproxy.debian.net)
 - [Install Calico with Kubernetes API datastore, 50 nodes or less](https://docs.tigera.io/calico/3.25/getting-started/kubernetes/self-managed-onprem/onpremises#install-calico-with-kubernetes-api-datastore-50-nodes-or-less)
 - [Run the HAProxy Kubernetes Ingress Controller Outside of Your Kubernetes Cluster](https://www.haproxy.com/blog/run-the-haproxy-kubernetes-ingress-controller-outside-of-your-kubernetes-cluster/)
 - [Enable external mode for an on-premises Kubernetes installation](https://www.haproxy.com/documentation/kubernetes/latest/installation/community/external-mode/external-mode-on-premises/)

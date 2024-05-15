@@ -1,27 +1,15 @@
-- name: Instalar los paquetes necesarios para que apt funcione sobre HTTPS
-  apt:
-    name: "{{ packages }}"
-    state: present
-    update_cache: yes
-  vars:
-    packages:
-      - ca-certificates
-      - curl
-      - gnupg
-      - lsb-release
-
 - name: Descargar la clave de firma de paquetes de Docker
   get_url:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    dest: /etc/apt/trusted.gpg.d/docker.asc
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.asc
 
-- name: Obtener el código de versión de Ubuntu
-  shell: lsb_release -cs
-  register: ubuntu_release
+- name: Obtener la arquitectura del sistema
+  shell: dpkg --print-architecture
+  register: debian_arch
 
 - name: Añadir el repositorio apt para la versión estable
   apt_repository:
-    repo: deb [signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/ubuntu {{ ubuntu_release.stdout }} stable
+    repo: deb [arch={{ debian_arch.stdout }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
     state: present
 
 - name: Instalar Docker y sus dependencias

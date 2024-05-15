@@ -6,7 +6,7 @@ locals {
       token    = "4b8cf5....................................................c1cb11"
     }
     vm = {
-      tag     = "ubuntu-22-04-terraform"
+      tag     = "debian-terraform"
       network = "ciber-xx"
       locked  = false
     }
