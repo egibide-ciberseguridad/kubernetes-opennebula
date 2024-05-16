@@ -1,0 +1,23 @@
+- name: Crear el certificado autofirmado para el Ingress
+  shell: |
+    openssl req -x509 \
+    -newkey rsa:2048 \
+    -keyout /tmp/ingress-cert.key \
+    -out /tmp/ingress-cert.crt \
+    -days 365 \
+    -nodes \
+    -subj "/C=ES/ST=Araba/L=Vitoria-Gasteiz/O=Egibide/CN=kubernetes.arriaga.eu"
+
+- name: Crear el secreto de Kubernetes con el certificado
+  shell: |
+    kubectl create secret tls haproxy-ingress-cert \
+    --cert="/tmp/ingress-cert.crt" \
+    --key="/tmp/ingress-cert.key"
+
+- name: Copiar el fichero haproxy-ingress-configmap.yml
+  ansible.builtin.copy:
+    src: /ansible/haproxy-ingress-configmap.yml
+    dest: /tmp/haproxy-ingress-configmap.yml
+
+- name: Aplicar el fichero haproxy-ingress-configmap.yml
+  command: kubectl apply -f /tmp/haproxy-ingress-configmap.yml

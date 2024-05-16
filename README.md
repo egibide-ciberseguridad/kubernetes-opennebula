@@ -102,6 +102,7 @@ https://localhost:9999
 - [ingress-controller-external-example](https://github.com/haproxytechblog/ingress-controller-external-example/blob/master/app.yaml)
 - [The Ultimate Guide To Using Calico, Flannel, Weave and Cilium](https://platform9.com/blog/the-ultimate-guide-to-using-calico-flannel-weave-and-cilium/)
 - [HAProxy Kubernetes Ingress Controller](https://github.com/haproxytech/kubernetes-ingress)
+- [Configure a TLS certificate for all services](https://www.haproxy.com/documentation/kubernetes-ingress/ingress-tutorials/terminate-ssl/#configure-a-tls-certificate-for-all-services)
 
 ### Rook
 

@@ -24,5 +24,4 @@
     - import_tasks: calico-tasks.yml
 
     # Configurar HAProxy-Ingress
-    - name: Crear un configMap vacío para HAProxy
-      command: kubectl create configmap haproxy-kubernetes-ingress
+    - import_tasks: haproxy-ingress-tasks.yml
