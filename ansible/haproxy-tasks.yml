@@ -11,7 +11,7 @@
 - name: Descargar la clave de firma de paquetes de HAProxy
   get_url:
     url: https://haproxy.debian.net/bernat.debian.org.gpg
-    dest: /usr/share/keyrings/haproxy.debian.net.gpg
+    dest: /usr/share/keyrings/haproxy.debian.net.asc
 
 - name: Obtener la arquitectura del sistema
   shell: dpkg --print-architecture
@@ -19,7 +19,7 @@
 
 - name: Añadir el repositorio apt para la versión estable
   apt_repository:
-    repo: deb "[arch={{ debian_arch.stdout }} signed-by=/usr/share/keyrings/haproxy.debian.net.gpg]" https://haproxy.debian.net {{ ansible_distribution_release }}-backports-{{ haproxy_version }} main
+    repo: deb [arch={{ debian_arch.stdout }} signed-by=/usr/share/keyrings/haproxy.debian.net.asc] https://haproxy.debian.net {{ ansible_distribution_release }}-backports-{{ haproxy_version }} main
     state: present
 
 - name: Instalar HAProxy
@@ -29,7 +29,7 @@
     update_cache: yes
   vars:
     packages:
-      - haproxy
+      - haproxy={{ haproxy_version }}.*
 
 - name: Parar el servicio HAProxy
   service:
