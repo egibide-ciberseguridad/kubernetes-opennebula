@@ -38,14 +38,7 @@ Obtener el token temporal de acceso:
 make dashboard-token
 ```
 
-Acceder al Dashboard con la IP de cualquiera de los nodos del cluster, en el puerto 32000 y por HTTPS. Por ejemplo:
-
-https://172.20.227.242:32000
-
-### Redirección mediante la IP pública
-
-Si solo tenemos acceso al cluster mediante la IP pública del master, podemos crear un túnel SSH al puerto del Dashboard
-haciendo:
+Establecer el túnel SSH de acceso:
 
 ```shell
 make dashboard-tunnel
