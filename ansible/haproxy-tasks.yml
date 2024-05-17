@@ -41,6 +41,8 @@
   command: setcap cap_net_bind_service=+ep /usr/sbin/haproxy
 
 - name: Descargar el binario de HAProxy Ingress Controller desde GitHub
+  args:
+    chdir: /tmp
   shell: |
     wget https://github.com/haproxytech/kubernetes-ingress/releases/download/v{{ haproxy_ingress_controller_version }}/haproxy-ingress-controller_{{ haproxy_ingress_controller_version }}_Linux_x86_64.tar.gz
     tar -xzvf haproxy-ingress-controller_{{ haproxy_ingress_controller_version }}_Linux_x86_64.tar.gz

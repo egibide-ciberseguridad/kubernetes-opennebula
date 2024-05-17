@@ -19,6 +19,8 @@
   tasks:
     # Gestor de volúmenes Rook
     - name: Instalar Rook Ceph
+      args:
+        chdir: /tmp
       shell: |
         git clone --single-branch --branch v{{ rook_version }} https://github.com/rook/rook.git
         cd rook/deploy/examples
