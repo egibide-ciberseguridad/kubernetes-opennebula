@@ -7,7 +7,11 @@
     state: directory
 
 - name: Copiar el fichero admin.conf a .kube/config
-  copy: remote_src=True src=/etc/kubernetes/admin.conf dest=/root/.kube/config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /root/.kube/config
+    mode: 0400
+    remote_src: yes
 
 - name: Generar el comando join
   command: kubeadm token create --print-join-command
