@@ -1,13 +1,3 @@
-- name: Crear el directorio .kube
-  file:
-    path: /root/.kube
-    state: directory
-
-- name: Copiar el fichero .kube/config
-  ansible.builtin.copy:
-    src: /root/.kube/config
-    dest: /root/.kube/config
-
 - name: Descargar la clave de firma de paquetes de HAProxy
   get_url:
     url: https://haproxy.debian.net/bernat.debian.org.gpg

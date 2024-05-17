@@ -96,14 +96,6 @@ resource "null_resource" "ansible_master" {
         /ansible/master-playbook.yml
     EOT
   }
-
-  provisioner "local-exec" {
-    command = <<EOT
-      mkdir -p /root/.kube
-      scp -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}" \
-          -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${local.master.name}:/root/.kube/config /root/.kube/config
-    EOT
-  }
 }
 
 locals {
