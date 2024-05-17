@@ -58,9 +58,9 @@ resource "null_resource" "hosts_nodes" {
 
   provisioner "file" {
     connection {
-      host        = local.nodes[count.index].name
-      user        = "root"
-      private_key = file("~/.ssh/id_rsa")
+      host         = local.nodes[count.index].name
+      user         = "root"
+      private_key  = file("~/.ssh/id_rsa")
       bastion_host = local.haproxy.connection_ip
     }
 
@@ -118,7 +118,9 @@ locals {
       name          = node.name
       private_ip    = node.nic[0].computed_ip
       public_ip     = lookup(local.ip_publica, node.nic[0].computed_ip, "")
-      connection_ip = local.ansible.connect_to_public_ip ? lookup(local.ip_publica, node.nic[0].computed_ip, "") : node.nic[0].computed_ip
+      connection_ip = (local.ansible.connect_to_public_ip ?
+        lookup(local.ip_publica, node.nic[0].computed_ip, "") :
+        node.nic[0].computed_ip)
     }
   ]
 }
