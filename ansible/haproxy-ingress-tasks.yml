@@ -1,3 +1,6 @@
+- name: Crear el namespace haproxy-ingress
+  command: kubectl create namespace haproxy-ingress
+
 - name: Crear el certificado autofirmado para el Ingress
   args:
     chdir: /tmp
@@ -14,7 +17,8 @@
   args:
     chdir: /tmp
   shell: |
-    kubectl create secret tls haproxy-ingress-cert \
+    kubectl create secret tls cert \
+    --namespace=haproxy-ingress \
     --cert="ingress-cert.crt" \
     --key="ingress-cert.key"
 
