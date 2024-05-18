@@ -17,14 +17,13 @@
   vars_files:
     - versiones.yml
   tasks:
-    # Instalar Helm
-    - import_tasks: helm-tasks.yml
-
     # Dashboard
     - name: Instalar el Dashboard de Kubernetes
       shell: |
         helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
-        helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard --version {{ dashboard_version }}
+        helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard \
+          --create-namespace --namespace kubernetes-dashboard \
+          --version {{ dashboard_version }}
 
     - name: Configurar el acceso al Dashboard
       shell: |

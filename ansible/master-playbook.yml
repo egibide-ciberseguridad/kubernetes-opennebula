@@ -25,3 +25,6 @@
 
     # Configurar HAProxy-Ingress
     - import_tasks: haproxy-ingress-tasks.yml
+
+    # Instalar Helm
+    - import_tasks: helm-tasks.yml

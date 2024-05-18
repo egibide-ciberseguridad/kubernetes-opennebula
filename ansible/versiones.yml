@@ -5,3 +5,4 @@ haproxy_version: "2.8"  # https://www.haproxy.org
 haproxy_ingress_controller_version: "1.11.4" # https://github.com/haproxytech/kubernetes-ingress/releases
 dashboard_version: "7.4.0"  # https://github.com/kubernetes/dashboard/releases
 rook_version: "1.14.3"  # https://github.com/rook/rook/releases
+portainer_version: "2.19.5"  # https://github.com/portainer/portainer/releases

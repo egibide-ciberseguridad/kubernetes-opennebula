@@ -115,3 +115,7 @@ https://localhost:9999
 - [Kubernetes Dashboard Token Expired in One hour. How to create token for long time](https://stackoverflow.com/questions/73416660/kubernetes-dashboard-token-expired-in-one-hour-how-to-create-token-for-long-tim)
 - [Adjusting the timeout of the Kubernetes Dashboard](https://blinkeye.github.io/post/public/2019-05-30-kubernetes-dashboard/)
 - [How can I make the automatic timed logout longer?](https://stackoverflow.com/questions/58012223/how-can-i-make-the-automatic-timed-logout-longer)
+
+### Portainer
+
+- [Install Portainer CE on your Kubernetes environment](https://docs.portainer.io/start/install-ce/server/kubernetes/baremetal)
