@@ -22,10 +22,10 @@
     --cert="ingress-cert.crt" \
     --key="ingress-cert.key"
 
-- name: Copiar el fichero haproxy-ingress-configmap.yml
+- name: Copiar el fichero haproxy-ingress-config.yml
   ansible.builtin.copy:
-    src: /ansible/haproxy-ingress-configmap.yml
-    dest: /tmp/haproxy-ingress-configmap.yml
+    src: /ansible/haproxy-ingress-config.yml
+    dest: /tmp/haproxy-ingress-config.yml
 
-- name: Aplicar el fichero haproxy-ingress-configmap.yml
-  command: kubectl apply -f /tmp/haproxy-ingress-configmap.yml
+- name: Aplicar el fichero haproxy-ingress-config.yml
+  command: kubectl apply -f /tmp/haproxy-ingress-config.yml

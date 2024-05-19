@@ -5,3 +5,10 @@ metadata:
   namespace: haproxy-ingress
 data:
   ssl-certificate: "haproxy-ingress/cert"
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: haproxy
+spec:
+  controller: haproxy.org/ingress-controller
