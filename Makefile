@@ -61,7 +61,7 @@ ssh:
 	@docker compose run --rm terraform-ansible run_ssh.sh $(node)
 
 dashboard-token:
-	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n kubernetes-dashboard create token admin-user --duration=48h'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n kubernetes-dashboard create token admin-user --duration=720h'
 
 dashboard-tunnel:
 	${info }
