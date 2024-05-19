@@ -9,7 +9,8 @@ metadata:
     ingress.class: haproxy
 spec:
   rules:
-    - http:
+    - host: kubernetes.arriaga.eu
+      http:
         paths:
           - path: /dashboard
             pathType: Prefix
