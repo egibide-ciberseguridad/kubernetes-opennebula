@@ -4,6 +4,7 @@ resource "null_resource" "ansible_rook" {
   ]
 
   provisioner "local-exec" {
+    quiet   = true
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
       ANSIBLE_FORCE_COLOR=True \

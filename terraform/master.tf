@@ -71,6 +71,7 @@ resource "null_resource" "ansible_master" {
   ]
 
   provisioner "local-exec" {
+    quiet   = true
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
       ANSIBLE_FORCE_COLOR=True \
@@ -84,6 +85,7 @@ resource "null_resource" "ansible_master" {
   }
 
   provisioner "local-exec" {
+    quiet   = true
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
       ANSIBLE_FORCE_COLOR=True \
@@ -98,6 +100,7 @@ resource "null_resource" "ansible_master" {
   }
 
   provisioner "local-exec" {
+    quiet   = true
     command = <<EOT
       mkdir -p /root/.kube
       scp -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}" \

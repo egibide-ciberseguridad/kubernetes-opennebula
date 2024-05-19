@@ -77,6 +77,7 @@ resource "null_resource" "ansible_nodes_common" {
   count = var.nodes
 
   provisioner "local-exec" {
+    quiet   = true
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
       ANSIBLE_FORCE_COLOR=True \
@@ -99,6 +100,7 @@ resource "null_resource" "ansible_nodes_kubernetes" {
   count = var.nodes
 
   provisioner "local-exec" {
+    quiet   = true
     command = <<EOT
       ANSIBLE_HOST_KEY_CHECKING=False \
       ANSIBLE_FORCE_COLOR=True \
