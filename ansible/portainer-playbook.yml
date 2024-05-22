@@ -30,7 +30,8 @@
     - name: Instalar Portainer
       shell: |
         helm upgrade --install --create-namespace -n portainer portainer portainer/portainer \
-          --version {{ portainer_version }} \
+          --set image.tag={{ portainer_version }} \
+          --set tls.force=true \
           --set service.type=ClusterIP
 
     - name: Copiar el fichero portainer-ingress.yml
