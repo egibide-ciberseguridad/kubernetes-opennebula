@@ -6,7 +6,6 @@ metadata:
   annotations:
     haproxy.org/server-ssl: "true"
     haproxy.org/path-rewrite: /dashboard/(.*) /\1
-    ingress.class: haproxy
 spec:
   ingressClassName: haproxy
   rules:

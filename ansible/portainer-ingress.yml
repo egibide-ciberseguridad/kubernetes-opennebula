@@ -5,7 +5,6 @@ metadata:
   namespace: portainer
   annotations:
     haproxy.org/server-ssl: "true"
-    ingress.class: haproxy
 spec:
   ingressClassName: haproxy
   rules:
