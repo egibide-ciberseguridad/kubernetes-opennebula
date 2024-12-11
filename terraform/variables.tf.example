@@ -35,6 +35,11 @@ locals {
   ansible = {
     connect_to_public_ip = false
   }
+  cloudflare = {
+    token   = "ECwU...bzxx"
+    zone_id = "5273...001b"
+    subdomain  = "kubernetes"
+  }
 }
 
 variable "nodes" {
