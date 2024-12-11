@@ -1,7 +1,3 @@
-data "opennebula_image" "empty_image" {
-  name = "Empty disk"
-}
-
 resource "opennebula_virtual_machine" "nodes" {
 
   depends_on = [

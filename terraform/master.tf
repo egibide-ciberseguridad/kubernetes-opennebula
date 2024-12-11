@@ -1,13 +1,3 @@
-data "opennebula_template" "template" {
-  tags = {
-    TAG = local.opennebula.vm.tag
-  }
-}
-
-data "opennebula_virtual_network" "network" {
-  name = local.opennebula.vm.network
-}
-
 resource "opennebula_virtual_machine" "master" {
 
   depends_on = [
