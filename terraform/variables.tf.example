@@ -39,6 +39,10 @@ locals {
     token   = "ECwU...bzxx"
     zone_id = "5273...001b"
     subdomain  = "kubernetes"
+    domain    = "example.org"
+    cnames = [
+      "ciber-xx",
+    ]
   }
 }
 

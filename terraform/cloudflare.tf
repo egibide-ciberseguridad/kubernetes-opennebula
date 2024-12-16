@@ -6,3 +6,23 @@ resource "cloudflare_record" "domain_name" {
   type            = "A"
   proxied         = true
 }
+
+locals {
+  flat_cnames = flatten([
+    for cname in local.cloudflare.cnames : {
+      name  = "${local.cloudflare.subdomain}.${local.cloudflare.domain}-${cname}"
+      cname = cname
+    }
+  ])
+}
+
+resource "cloudflare_record" "cname" {
+  for_each = {
+    for name, cname in local.flat_cnames : cname.name => cname
+  }
+  zone_id = local.cloudflare.zone_id
+  name    = each.value.cname
+  content = "${local.cloudflare.subdomain}.${local.cloudflare.domain}"
+  type    = "CNAME"
+  proxied = true
+}
