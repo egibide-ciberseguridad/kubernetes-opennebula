@@ -86,3 +86,5 @@ terraform/.terraform.lock.hcl
 ansible/join
 
 private/
+
+ansible/versiones.yml
