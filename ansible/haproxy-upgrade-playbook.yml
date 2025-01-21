@@ -18,6 +18,5 @@
   become: true
   vars_files:
     - versiones.yml
-  tasks:
-    # Actualizar el sistema
-    - import_tasks: upgrade-tasks.yml
+  roles:
+    - actualizar

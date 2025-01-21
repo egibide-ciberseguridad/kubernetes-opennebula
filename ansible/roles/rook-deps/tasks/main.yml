@@ -1,4 +1,4 @@
 - name: Instalar el paquete lvm2 en los nodos
-  apt:
+  ansible.builtin.apt:
     name: lvm2
     state: latest

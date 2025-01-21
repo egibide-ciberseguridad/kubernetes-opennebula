@@ -18,15 +18,8 @@
   become: true
   vars_files:
     - versiones.yml
-  tasks:
-    # Actualizar el sistema
-    - import_tasks: upgrade-tasks.yml
-
-    # Instalar Docker
-    - import_tasks: docker-tasks.yml
-
-    # Instalar Kubernetes
-    - import_tasks: kubernetes-tasks.yml
-
-    # Dependencias de rook
-    - import_tasks: rook-deps-tasks.yml
+  roles:
+    - actualizar
+    - docker
+    - kubernetes
+    - rook-deps
