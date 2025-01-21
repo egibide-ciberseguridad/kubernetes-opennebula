@@ -16,6 +16,5 @@
     ansible_python_interpreter: auto_silent
   gather_facts: yes
   become: true
-  tasks:
-    # Unir el nodo al cluster
-    - import_tasks: join-cluster-tasks.yml
+  roles:
+    - join-cluster

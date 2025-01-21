@@ -18,9 +18,6 @@
   become: true
   vars_files:
     - versiones.yml
-  tasks:
-    # Instalar HAProxy Ingress
-    - import_tasks: haproxy-tasks.yml
-
-    # Instalar BIRD Internet Routing Daemon
-    - import_tasks: bird-tasks.yml
+  roles:
+    - haproxy
+    - bird

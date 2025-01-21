@@ -24,7 +24,7 @@
 
 - name: Copiar el fichero haproxy-ingress-config.yml
   ansible.builtin.copy:
-    src: /ansible/haproxy-ingress-config.yml
+    src: ./files/haproxy-ingress-config.yml
     dest: /tmp/haproxy-ingress-config.yml
 
 - name: Aplicar el fichero haproxy-ingress-config.yml

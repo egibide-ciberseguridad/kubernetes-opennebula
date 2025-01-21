@@ -50,7 +50,7 @@
 
 - name: Crear el servicio HAProxy-Ingress
   ansible.builtin.copy:
-    src: /ansible/haproxy-ingress.service
+    src: ./files/haproxy-ingress.service
     dest: /lib/systemd/system/haproxy-ingress.service
 
 - name: Arrancar el servicio HAProxy-Ingress

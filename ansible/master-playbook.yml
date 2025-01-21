@@ -18,15 +18,8 @@
   become: true
   vars_files:
     - versiones.yml
-  tasks:
-    # Crear el cluster de Kubernetes
-    - import_tasks: create-cluster-tasks.yml
-
-    # Instalar y configurar la red inter-cluster
-    - import_tasks: calico-tasks.yml
-
-    # Configurar HAProxy-Ingress
-    - import_tasks: haproxy-ingress-tasks.yml
-
-    # Instalar Helm
-    - import_tasks: helm-tasks.yml
+  roles:
+    - kubernetes-cluster
+    - calico
+    - haproxy-ingress
+    - helm

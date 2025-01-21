@@ -8,7 +8,7 @@
 
 - name: Copiar el fichero calico-bgp.yml
   ansible.builtin.copy:
-    src: /ansible/calico-bgp.yml
+    src: ./files/calico-bgp.yml
     dest: /etc/calico/calico-bgp.yml
 
 - name: Insertar la IP del proxy en el fichero calico-bgp.yml
