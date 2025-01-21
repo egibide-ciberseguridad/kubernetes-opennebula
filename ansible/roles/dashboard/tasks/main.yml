@@ -1,0 +1,19 @@
+- name: Instalar el Dashboard de Kubernetes
+  shell: |
+    helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+    helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard \
+      --create-namespace --namespace kubernetes-dashboard \
+      --version {{ dashboard_version }}
+
+- name: Configurar el acceso al Dashboard
+  shell: |
+    kubectl apply -f https://gist.githubusercontent.com/ijaureguialzo/4288720b5fac8af6ea29e67fbfab6ef0/raw/fbd5573e9e7da320fbd843085531265202fcb311/service-account.yml
+    kubectl apply -f https://gist.githubusercontent.com/ijaureguialzo/4288720b5fac8af6ea29e67fbfab6ef0/raw/fbd5573e9e7da320fbd843085531265202fcb311/role-binding.yml
+
+- name: Copiar el fichero dashboard-ingress.yml
+  ansible.builtin.copy:
+    src: ./files/dashboard-ingress.yml
+    dest: /tmp/dashboard-ingress.yml
+
+- name: Crear el Ingress para el Dashbaord en /dashboard
+  command: kubectl apply -f /tmp/dashboard-ingress.yml
