@@ -7,24 +7,25 @@ y [Ansible](https://www.ansible.com) en [OpenNebula](https://opennebula.io).
 
 1. Crear el fichero `.env` a partir de `env-example` y configurar las variables.
 2. Crear el fichero `terraform/variables.tf` a partir de `terraform/variables.tf.example` y configurar las variables.
-3. Construir el contenedor donde se ejecuta Terraform.
+3. Crear el fichero `ansible/versiones.yml` a partir de `ansible/versiones.yml.example`.
+4. Construir el contenedor donde se ejecuta Terraform.
 
     ```shell
     make build
     ```
-4. Crear la clave privada SSH para Ansible e inicializar Terraform.
+5. Crear la clave privada SSH para Ansible e inicializar Terraform.
 
     ```shell
     make init
     ```
 
-5. Desplegar el cluster en OpenNebula.
+6. Desplegar el cluster en OpenNebula.
 
     ```shell
     make apply
     ```
 
-6. Conectarse al nodo maestro del cluster.
+7. Conectarse al nodo maestro del cluster.
 
     ```shell
     make ssh
@@ -37,16 +38,6 @@ Obtener el token temporal de acceso:
 ```shell
 make dashboard-token
 ```
-
-Establecer el túnel SSH de acceso:
-
-```shell
-make dashboard-tunnel
-```
-
-Y acceder a:
-
-https://localhost:9999
 
 ## Timeline de creación del cluster
 
