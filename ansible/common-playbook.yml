@@ -27,3 +27,6 @@
 
     # Instalar Kubernetes
     - import_tasks: kubernetes-tasks.yml
+
+    # Dependencias de rook
+    - import_tasks: rook-deps-tasks.yml

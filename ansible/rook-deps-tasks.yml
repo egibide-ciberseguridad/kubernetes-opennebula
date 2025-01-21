@@ -1,0 +1,4 @@
+- name: Instalar el paquete lvm2 en los nodos
+  apt:
+    name: lvm2
+    state: latest
