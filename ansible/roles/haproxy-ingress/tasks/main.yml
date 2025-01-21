@@ -1,10 +1,10 @@
 - name: Crear el namespace haproxy-ingress
-  command: kubectl create namespace haproxy-ingress
+  ansible.builtin.command: kubectl create namespace haproxy-ingress
 
 - name: Crear el certificado autofirmado para el Ingress
   args:
     chdir: /tmp
-  shell: |
+  ansible.builtin.shell: |
     openssl req -x509 \
     -newkey rsa:2048 \
     -keyout ingress-cert.key \
@@ -16,7 +16,7 @@
 - name: Crear el secreto de Kubernetes con el certificado
   args:
     chdir: /tmp
-  shell: |
+  ansible.builtin.shell: |
     kubectl create secret tls cert \
     --namespace=haproxy-ingress \
     --cert="ingress-cert.crt" \
@@ -28,4 +28,4 @@
     dest: /tmp/haproxy-ingress-config.yml
 
 - name: Aplicar el fichero haproxy-ingress-config.yml
-  command: kubectl apply -f /tmp/haproxy-ingress-config.yml
+  ansible.builtin.command: kubectl apply -f /tmp/haproxy-ingress-config.yml

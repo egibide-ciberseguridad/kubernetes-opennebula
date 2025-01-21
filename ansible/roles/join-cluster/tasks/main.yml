@@ -1,9 +1,9 @@
 - name: Copiar el comando join al servidor
-  copy:
+  ansible.builtin.copy:
     src: "join"
     dest: /tmp/join-command.sh
     mode: 0777
   become: false
 
 - name: Unir el nodo al cluster
-  command: sh /tmp/join-command.sh
+  ansible.builtin.command: sh /tmp/join-command.sh

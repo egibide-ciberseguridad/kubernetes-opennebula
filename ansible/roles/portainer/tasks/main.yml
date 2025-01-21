@@ -1,14 +1,14 @@
 - name: Definir el storage class por defecto
-  shell: |
+  ansible.builtin.shell: |
     kubectl patch storageclass rook-cephfs -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
 - name: Añadir el repositorio de Portainer
-  shell: |
+  ansible.builtin.shell: |
     helm repo add portainer https://portainer.github.io/k8s/
     helm repo update
 
 - name: Instalar Portainer
-  shell: |
+  ansible.builtin.shell: |
     helm upgrade --install --create-namespace -n portainer portainer portainer/portainer \
       --set image.tag={{ portainer_version }} \
       --set tls.force=true \
@@ -20,4 +20,4 @@
     dest: /tmp/portainer-ingress.yml
 
 - name: Crear el Ingress para Portainer en /
-  command: kubectl apply -f /tmp/portainer-ingress.yml
+  ansible.builtin.command: kubectl apply -f /tmp/portainer-ingress.yml
