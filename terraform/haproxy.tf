@@ -50,9 +50,28 @@ resource "null_resource" "hosts_haproxy" {
   }
 }
 
-resource "null_resource" "ansible_haproxy" {
+resource "null_resource" "ansible_haproxy_upgrade" {
   depends_on = [
     null_resource.hosts_haproxy,
+  ]
+
+  provisioner "local-exec" {
+    quiet   = true
+    command = <<EOT
+      ANSIBLE_HOST_KEY_CHECKING=False \
+      ANSIBLE_FORCE_COLOR=True \
+      ansible-playbook \
+        -i "${local.haproxy.connection_ip}," \
+        --extra-vars "node_ip=${local.haproxy.private_ip}" \
+        --extra-vars "{ "ips" : [${local.cluster_ips}]}" \
+        /ansible/haproxy-upgrade-playbook.yml
+    EOT
+  }
+}
+
+resource "null_resource" "ansible_haproxy" {
+  depends_on = [
+    null_resource.ansible_haproxy_upgrade,
     null_resource.ansible_master
   ]
 

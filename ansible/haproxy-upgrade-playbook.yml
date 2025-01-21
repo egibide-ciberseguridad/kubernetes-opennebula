@@ -10,7 +10,7 @@
     - group_by: key=reachable
       when: ping_result is success
 
-- name: Configurar HAProxy Kubernetes Ingress Controller
+- name: Actualizar el servidor HAProxy
   hosts: reachable
   vars:
     ansible_python_interpreter: auto_silent
@@ -19,8 +19,5 @@
   vars_files:
     - versiones.yml
   tasks:
-    # Instalar HAProxy Ingress
-    - import_tasks: haproxy-tasks.yml
-
-    # Instalar BIRD Internet Routing Daemon
-    - import_tasks: bird-tasks.yml
+    # Actualizar el sistema
+    - import_tasks: upgrade-tasks.yml

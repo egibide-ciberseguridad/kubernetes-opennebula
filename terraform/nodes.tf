@@ -67,7 +67,8 @@ resource "null_resource" "hosts_nodes" {
 
 resource "null_resource" "ansible_nodes_common" {
   depends_on = [
-    null_resource.hosts_nodes
+    null_resource.hosts_nodes,
+    null_resource.ansible_haproxy_upgrade,
   ]
 
   count = var.nodes

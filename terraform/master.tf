@@ -57,7 +57,8 @@ resource "null_resource" "hosts_master" {
 
 resource "null_resource" "ansible_master" {
   depends_on = [
-    null_resource.hosts_master
+    null_resource.hosts_master,
+    null_resource.ansible_haproxy_upgrade,
   ]
 
   provisioner "local-exec" {
