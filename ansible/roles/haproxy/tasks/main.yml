@@ -1,5 +1,5 @@
 - name: Crear el directorio .kube
-  file:
+  ansible.builtin.file:
     path: /root/.kube
     state: directory
 
@@ -10,40 +10,38 @@
     mode: 0400
 
 - name: Descargar la clave de firma de paquetes de HAProxy
-  get_url:
+  ansible.builtin.get_url:
     url: https://haproxy.debian.net/bernat.debian.org.gpg
     dest: /usr/share/keyrings/haproxy.debian.net.asc
 
 - name: Obtener la arquitectura del sistema
-  shell: dpkg --print-architecture
+  ansible.builtin.shell: dpkg --print-architecture
   register: debian_arch
 
 - name: Añadir el repositorio apt para la versión estable
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb [arch={{ debian_arch.stdout }} signed-by=/usr/share/keyrings/haproxy.debian.net.asc] https://haproxy.debian.net {{ ansible_distribution_release }}-backports-{{ haproxy_version }} main
     state: present
 
 - name: Instalar HAProxy
-  apt:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
+  ansible.builtin.apt:
+    name:
       - haproxy={{ haproxy_version }}.*
+    state: latest
 
 - name: Parar el servicio HAProxy
-  service:
+  ansible.builtin.service:
     name: haproxy
     state: stopped
     enabled: no
 
 - name: Usar el comando setcap para permitir a HAProxy utilizar los puertos 80 y 443
-  command: setcap cap_net_bind_service=+ep /usr/sbin/haproxy
+  ansible.builtin.command: setcap cap_net_bind_service=+ep /usr/sbin/haproxy
 
 - name: Descargar el binario de HAProxy Ingress Controller desde GitHub
   args:
     chdir: /tmp
-  shell: |
+  ansible.builtin.shell: |
     wget https://github.com/haproxytech/kubernetes-ingress/releases/download/v{{ haproxy_ingress_controller_version }}/haproxy-ingress-controller_{{ haproxy_ingress_controller_version }}_Linux_x86_64.tar.gz
     tar -xzvf haproxy-ingress-controller_{{ haproxy_ingress_controller_version }}_Linux_x86_64.tar.gz
     cp ./haproxy-ingress-controller /usr/local/bin/
@@ -54,7 +52,7 @@
     dest: /lib/systemd/system/haproxy-ingress.service
 
 - name: Arrancar el servicio HAProxy-Ingress
-  service:
+  ansible.builtin.service:
     name: haproxy-ingress
     state: started
     enabled: yes

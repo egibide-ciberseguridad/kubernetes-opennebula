@@ -1,20 +1,18 @@
 - name: Instalar BIRD Internet Routing Daemon
-  apt:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
+  ansible.builtin.apt:
+    name:
       - bird2
+    state: latest
 
 - name: Crear el fichero de configuración de BIRD
-  shell: |
+  ansible.builtin.shell: |
     cat > /etc/bird/bird.conf <<EOF
     router id {{ node_ip }};
     log syslog all;
     EOF
 
 - name: Crear el fichero de configuración de BIRD
-  shell: |
+  ansible.builtin.shell: |
     cat >> /etc/bird/bird.conf <<EOF
     protocol bgp {
       local {{ node_ip }} as 65000;
@@ -31,7 +29,7 @@
   loop: "{{ ips }}"
 
 - name: Crear el fichero de configuración de BIRD
-  shell: |
+  ansible.builtin.shell: |
     cat >> /etc/bird/bird.conf <<EOF
     protocol kernel {
       scan time 60;
@@ -45,7 +43,7 @@
     EOF
 
 - name: Reiniciar el servicio BIRD
-  service:
+  ansible.builtin.service:
     name: bird
     daemon_reload: yes
     state: restarted

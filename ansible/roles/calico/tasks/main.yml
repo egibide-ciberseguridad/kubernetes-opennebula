@@ -1,8 +1,8 @@
 - name: Instalar la red inter-pods Calico
-  command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v{{ calico_version }}/manifests/calico.yaml
+  ansible.builtin.command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v{{ calico_version }}/manifests/calico.yaml
 
 - name: Crear el directorio de configuración de Calico
-  file:
+  ansible.builtin.file:
     path: /etc/calico
     state: directory
 
@@ -12,15 +12,15 @@
     dest: /etc/calico/calico-bgp.yml
 
 - name: Insertar la IP del proxy en el fichero calico-bgp.yml
-  replace:
+  ansible.builtin.replace:
     path: /etc/calico/calico-bgp.yml
     regexp: "HAPROXY_IP"
     replace: "{{ haproxy_ip }}"
 
 - name: Instalar el comando calicoctl
-  shell: |
+  ansible.builtin.shell: |
     curl -L https://github.com/projectcalico/calico/releases/download/v{{ calico_version }}/calicoctl-linux-amd64 -o /usr/local/bin/calicoctl
     chmod +x /usr/local/bin/calicoctl
 
 - name: Configurar Calico BGP
-  command: calicoctl apply -f /etc/calico/calico-bgp.yml
+  ansible.builtin.command: calicoctl apply -f /etc/calico/calico-bgp.yml
