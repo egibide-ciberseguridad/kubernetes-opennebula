@@ -18,7 +18,7 @@
       - docker-ce
       - docker-ce-cli
       - containerd.io
-    state: present
+    state: latest
 
 - name: Arrancar el servicio Docker
   ansible.builtin.service:
