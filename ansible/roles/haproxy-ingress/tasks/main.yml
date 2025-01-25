@@ -1,5 +1,14 @@
+- name: Comprobar si existe el namespace haproxy-ingress
+  ansible.builtin.command: kubectl get namespaces haproxy-ingress
+  register: haproxy_ingress_namespace_setup
+
 - name: Crear el namespace haproxy-ingress
   ansible.builtin.command: kubectl create namespace haproxy-ingress
+  when: haproxy_ingress_namespace_setup.rc != 0
+
+- name: Comprobar si existe el certificado tls de haproxy-ingress
+  ansible.builtin.command: kubectl --namespace=haproxy-ingress get secrets cert
+  register: haproxy_ingress_cert_setup
 
 - name: Crear el certificado autofirmado para el Ingress
   args:
@@ -12,6 +21,7 @@
     -days 365 \
     -nodes \
     -subj "/C=ES/ST=Araba/L=Vitoria-Gasteiz/O=Egibide/CN=kubernetes.arriaga.eu"
+  when: haproxy_ingress_cert_setup.rc != 0
 
 - name: Crear el secreto de Kubernetes con el certificado
   args:
@@ -21,6 +31,7 @@
     --namespace=haproxy-ingress \
     --cert="ingress-cert.crt" \
     --key="ingress-cert.key"
+  when: haproxy_ingress_cert_setup.rc != 0
 
 - name: Copiar el fichero haproxy-ingress-config.yml
   ansible.builtin.copy:

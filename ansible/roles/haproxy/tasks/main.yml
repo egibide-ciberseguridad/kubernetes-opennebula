@@ -44,7 +44,7 @@
   ansible.builtin.shell: |
     wget https://github.com/haproxytech/kubernetes-ingress/releases/download/v{{ haproxy_ingress_controller_version }}/haproxy-ingress-controller_{{ haproxy_ingress_controller_version }}_Linux_x86_64.tar.gz
     tar -xzvf haproxy-ingress-controller_{{ haproxy_ingress_controller_version }}_Linux_x86_64.tar.gz
-    cp ./haproxy-ingress-controller /usr/local/bin/
+    cp -f ./haproxy-ingress-controller /usr/local/bin/
 
 - name: Crear el servicio HAProxy-Ingress
   ansible.builtin.copy:
@@ -54,5 +54,5 @@
 - name: Arrancar el servicio HAProxy-Ingress
   ansible.builtin.service:
     name: haproxy-ingress
-    state: started
+    state: restarted
     enabled: yes
