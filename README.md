@@ -97,6 +97,7 @@ make dashboard-token
 - [Troubleshooting](https://rook.io/docs/rook/v1.10/Troubleshooting/ceph-toolbox/)
 - [Block Storage (RBD)](https://rook.io/docs/rook/v1.10/Storage-Configuration/Block-Storage-RBD/block-storage/)
 - [Shared Filesystem (CephFS)](https://rook.io/docs/rook/v1.10/Storage-Configuration/Shared-Filesystem-CephFS/filesystem-storage/)
+- [Rook OSD after node failure](https://stackoverflow.com/a/59885815)
 
 ### Dashboard
 
