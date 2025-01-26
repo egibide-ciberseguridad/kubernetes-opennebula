@@ -22,6 +22,8 @@ help: _header
 	@echo -----------------------------------------------------
 	@echo kubenode-status / calico-bird-status / rook-status
 	@echo -----------------------------------------------------
+	@echo rm-node remove=[node_name] / rm-rook osd=[999]
+	@echo -----------------------------------------------------
 	@echo clean / clean-tfstate
 	@echo nuke-apply
 	@echo -----------------------------------------------------
@@ -80,6 +82,21 @@ calico-bird-status:
 rook-status:
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph status'
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph osd status'
+
+osd?="999"
+
+rm-rook:
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph osd out osd.$(osd)'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph osd crush remove osd.$(osd)'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph auth del osd.$(osd)'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph delete deployment rook-ceph-osd-$(osd)'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph rollout restart deployment rook-ceph-operator'
+
+remove?="node_name"
+
+rm-node:
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl drain $(remove) --delete-emptydir-data --ignore-daemonsets'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl delete node $(remove)'
 
 clean:
 	@docker compose down -v --remove-orphans
