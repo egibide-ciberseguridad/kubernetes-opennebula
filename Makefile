@@ -86,11 +86,12 @@ rook-status:
 osd?="999"
 
 rm-rook:
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph scale deployment rook-ceph-operator --replicas=0'
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph osd out osd.$(osd)'
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph osd crush remove osd.$(osd)'
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph auth del osd.$(osd)'
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph delete deployment rook-ceph-osd-$(osd)'
-	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph rollout restart deployment rook-ceph-operator'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph scale deployment rook-ceph-operator --replicas=1'
 
 remove?="node_name"
 
