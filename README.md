@@ -111,3 +111,4 @@ make dashboard-token
 ### Portainer
 
 - [Install Portainer CE on your Kubernetes environment](https://docs.portainer.io/start/install-ce/server/kubernetes/baremetal)
+- [How to prevent kubectl interactive shell from being closed after few minutes (increase timeout) / or terminal from dying?](https://stackoverflow.com/a/73907885)
