@@ -1,0 +1,16 @@
+- name: Instalar fail2ban
+  ansible.builtin.apt:
+    name:
+      - fail2ban
+    state: latest
+
+- name: Copiar el fichero jail.local
+  ansible.builtin.copy:
+    src: ./files/jail.local
+    dest: /etc/fail2ban/jail.local
+
+- name: Reiniciar el servicio fail2ban
+  ansible.builtin.service:
+    name: fail2ban
+    state: restarted
+    enabled: yes
