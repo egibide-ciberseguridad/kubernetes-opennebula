@@ -1,9 +1,16 @@
+- name: Comprobar si ya existe el fichero kubelet.conf
+  ansible.builtin.stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: joined
+
 - name: Copiar el comando join al servidor
   ansible.builtin.copy:
     src: "join"
     dest: /tmp/join-command.sh
     mode: 0777
   become: false
+  when: joined.stat.exists == false
 
 - name: Unir el nodo al cluster
   ansible.builtin.command: sh /tmp/join-command.sh
+  when: joined.stat.exists == false
