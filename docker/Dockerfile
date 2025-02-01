@@ -5,6 +5,10 @@ FROM hashicorp/terraform:${TERRAFORM_VERSION}
 # Instalar los paquetes necesarios
 RUN apk add ansible openssh curl jq
 
+RUN apk add bash bash-completion shadow && \
+    chsh root --shell /bin/bash && \
+    apk del shadow
+
 # Instalar kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/$(arquitectura.sh)/kubectl" \
     && mv kubectl /usr/bin/kubectl \
@@ -21,3 +25,5 @@ ENV PS1='\u@\h:\w\$\040'
 
 # Eliminar la llamada a Terraform de la imagen original
 ENTRYPOINT []
+
+CMD ["/bin/bash"]
