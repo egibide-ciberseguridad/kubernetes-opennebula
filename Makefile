@@ -60,7 +60,7 @@ taint:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_haproxy
 
 workspace:
-	@docker compose run --rm terraform-ansible /bin/sh
+	@docker compose run --rm terraform-ansible
 
 node?="kube-master"
 
