@@ -56,8 +56,15 @@ destroy:
 	@docker compose run --rm terraform-ansible time -f "Tiempo total: %E" terraform -chdir=/terraform destroy -auto-approve
 
 taint:
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.hosts_haproxy
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.hosts_master
+	@docker compose run --rm terraform-ansible taint_nodes.sh
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_haproxy_upgrade
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_master
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_haproxy
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_dashboard
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_portainer
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_rook
 
 workspace:
 	@docker compose run --rm terraform-ansible
