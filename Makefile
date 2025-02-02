@@ -18,7 +18,7 @@ help: _header
 	@echo workspace
 	@echo ssh [node=kube-node-0]
 	@echo -----------------------------------------------------
-	@echo dashboard-token
+	@echo dashboard-token / rook-dashboard-password
 	@echo -----------------------------------------------------
 	@echo kubenode-status / calico-bird-status / rook-status
 	@echo -----------------------------------------------------
@@ -76,6 +76,9 @@ ssh:
 
 dashboard-token:
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n kubernetes-dashboard create token admin-user --duration=720h'
+
+rook-dashboard-password:
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o json | jq -r ".data.password|@base64d"'
 
 kubenode-status:
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl get nodes'
