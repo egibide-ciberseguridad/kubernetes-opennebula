@@ -12,3 +12,11 @@
     kubectl apply -f csi/cephfs/storageclass.yaml
     kubectl apply -f object.yaml
     kubectl apply -f storageclass-bucket-delete.yaml
+
+- name: Copiar el fichero dashboard-ingress.yml
+  ansible.builtin.copy:
+    src: ./files/dashboard-ingress.yml
+    dest: /tmp/dashboard-ingress.yml
+
+- name: Crear el Ingress para el Dashboard de rook
+  ansible.builtin.command: kubectl apply -f /tmp/dashboard-ingress.yml
