@@ -20,6 +20,7 @@ resource "cloudflare_record" "cname" {
   for_each = {
     for name, cname in local.flat_cnames : cname.name => cname
   }
+  allow_overwrite = true
   zone_id = local.cloudflare.zone_id
   name    = each.value.cname
   content = "${local.cloudflare.subdomain}.${local.cloudflare.domain}"
