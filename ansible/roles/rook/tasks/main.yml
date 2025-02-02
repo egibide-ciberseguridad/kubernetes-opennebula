@@ -10,3 +10,5 @@
     kubectl apply -f csi/rbd/storageclass.yaml
     kubectl apply -f filesystem.yaml
     kubectl apply -f csi/cephfs/storageclass.yaml
+    kubectl apply -f object.yaml
+    kubectl apply -f storageclass-bucket-delete.yaml
