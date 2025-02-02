@@ -105,6 +105,7 @@ remove?="node_name"
 rm-node:
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl drain $(remove) --delete-emptydir-data --ignore-daemonsets'
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl delete node $(remove)'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph osd crush remove $(remove)'
 
 clean:
 	@docker compose down -v --remove-orphans
