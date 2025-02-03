@@ -9,11 +9,6 @@ RUN apk add bash bash-completion shadow && \
     chsh root --shell /bin/bash && \
     apk del shadow
 
-# Instalar kubectl
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/$(arquitectura.sh)/kubectl" \
-    && mv kubectl /usr/bin/kubectl \
-    && chmod +x /usr/bin/kubectl
-
 # Copiar los scripts al contenedor
 COPY --chmod=0755 *.sh /usr/bin/
 
