@@ -1,0 +1,8 @@
+- name: Añadir el repositorio de Mittwald Charts
+  ansible.builtin.shell: |
+    helm repo add mittwald https://helm.mittwald.de
+    helm repo update
+
+- name: Instalar Portainer
+  ansible.builtin.shell: |
+    helm upgrade --install kubernetes-secret-generator mittwald/kubernetes-secret-generator
