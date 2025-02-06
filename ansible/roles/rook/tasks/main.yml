@@ -1,9 +1,17 @@
+- name: Clonar el repositorio
+  git:
+    repo: https://github.com/rook/rook.git
+    version: v{{ rook_version }}
+    dest: /tmp/rook
+    clone: yes
+    depth: 1
+    update: yes
+    force: yes
+
 - name: Instalar Rook Ceph
   args:
-    chdir: /tmp
+    chdir: /tmp/rook/deploy/examples
   ansible.builtin.shell: |
-    git clone --single-branch --branch v{{ rook_version }} https://github.com/rook/rook.git
-    cd rook/deploy/examples
     kubectl apply -f crds.yaml -f common.yaml -f operator.yaml
     kubectl apply -f cluster.yaml
     kubectl apply -f toolbox.yaml
