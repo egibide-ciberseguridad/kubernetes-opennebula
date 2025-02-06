@@ -3,6 +3,6 @@
     helm repo add mittwald https://helm.mittwald.de
     helm repo update
 
-- name: Instalar Portainer
+- name: Instalar el generador de secretos de Kubernetes
   ansible.builtin.shell: |
     helm upgrade --install kubernetes-secret-generator mittwald/kubernetes-secret-generator
