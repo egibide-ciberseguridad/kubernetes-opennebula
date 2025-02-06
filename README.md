@@ -74,7 +74,6 @@ make dashboard-token
 - [How to Parse JSON Files on the Linux Command Line with jq](https://www.howtogeek.com/529219/how-to-parse-json-files-on-the-linux-command-line-with-jq/)
 - [SSH Tunnel within docker container](https://stackoverflow.com/questions/60116630/ssh-tunnel-within-docker-container)
 - [How can I make "Press any key to continue"](https://unix.stackexchange.com/questions/293940/how-can-i-make-press-any-key-to-continue)
-- [Automatically generated secrets for Kubernetes](https://github.com/mittwald/kubernetes-secret-generator)
 
 ### HAProxy
 
@@ -116,4 +115,5 @@ make dashboard-token
 
 ### Extras
 
+- [Automatically generated secrets for Kubernetes](https://github.com/mittwald/kubernetes-secret-generator)
 - [A Hands-On Guide to Kubernetes Monitoring Using Prometheus & Grafana](https://medium.com/@muppedaanvesh/a-hands-on-guide-to-kubernetes-monitoring-using-prometheus-grafana-%EF%B8%8F-b0e00b1ae039)
