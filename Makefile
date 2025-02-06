@@ -65,6 +65,7 @@ taint:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_dashboard
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_portainer
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_rook
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_extras
 
 workspace:
 	@docker compose run --rm terraform-ansible

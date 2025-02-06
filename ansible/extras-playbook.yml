@@ -10,7 +10,7 @@
     - group_by: key=reachable
       when: ping_result is success
 
-- name: Configurar el gestor de cluster Portainer
+- name: Instalar roles extra en el cluster
   hosts: reachable
   vars:
     ansible_python_interpreter: auto_silent
@@ -19,4 +19,4 @@
   vars_files:
     - versiones.yml
   roles:
-    - portainer
+    - secret-generator
