@@ -23,4 +23,4 @@
     chmod +x /usr/local/bin/calicoctl
 
 - name: Configurar Calico BGP
-  ansible.builtin.command: calicoctl apply -f /etc/calico/calico-bgp.yml
+  ansible.builtin.command: calicoctl apply -f /etc/calico/calico-bgp.yml --allow-version-mismatch
