@@ -20,3 +20,4 @@
     - versiones.yml
   roles:
     - secret-generator
+    - grafana

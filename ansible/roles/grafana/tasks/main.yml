@@ -1,0 +1,17 @@
+- name: Añadir el repositorio de Prometheus
+  ansible.builtin.shell: |
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    helm repo update
+
+- name: Instalar Grafana
+  ansible.builtin.shell: |
+    helm upgrade --install --create-namespace -n grafana \
+      kube-prometheus-stack prometheus-community/kube-prometheus-stack
+
+- name: Copiar el fichero grafana-ingress.yml
+  ansible.builtin.copy:
+    src: ./files/grafana-ingress.yml
+    dest: /tmp/grafana-ingress.yml
+
+- name: Crear el Ingress para Grafana
+  ansible.builtin.command: kubectl apply -f /tmp/grafana-ingress.yml
