@@ -118,3 +118,20 @@ clean-tfstate:
 	@docker compose run --rm terraform-ansible /bin/sh -c 'rm -f /terraform/terraform.tfstate*'
 
 nuke-apply: clean build init destroy apply
+
+versions:
+	${info }
+	@echo '--- Kubernetes ---'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubelet --version'
+	@echo '--- Calico ---'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'calicoctl version'
+	@echo '--- HAProxy ---'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-haproxy' 'haproxy -v'
+	@echo '--- HAProxy Ingress Controller ---'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-haproxy' 'haproxy-ingress-controller --version'
+	@echo '--- Kubernetes Dashboard ---'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'helm show chart kubernetes-dashboard/kubernetes-dashboard | grep ^version'
+	@echo '--- Rook ---'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl describe pod -n rook-ceph -l app=rook-ceph-operator | grep Image:'
+	@echo '--- Portainer ---'
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'helm show chart portainer/portainer | grep ^appVersion'
