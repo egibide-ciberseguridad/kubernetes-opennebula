@@ -5,4 +5,5 @@
 
 - name: Instalar el generador de secretos de Kubernetes
   ansible.builtin.shell: |
-    helm upgrade --install kubernetes-secret-generator mittwald/kubernetes-secret-generator
+    helm upgrade --install --create-namespace -n secret-generator \
+      kubernetes-secret-generator mittwald/kubernetes-secret-generator
