@@ -1,0 +1,9 @@
+[Unit]
+Description=Set inotify limits
+After=default.target
+
+[Service]
+ExecStart=python3 /usr/local/bin/set-fs-inotify.py
+
+[Install]
+WantedBy=default.target
