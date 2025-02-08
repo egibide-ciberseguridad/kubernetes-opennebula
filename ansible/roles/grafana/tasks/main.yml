@@ -15,3 +15,27 @@
 
 - name: Crear el Ingress para Grafana
   ansible.builtin.command: kubectl apply -f /tmp/grafana-ingress.yml
+
+- name: Añadir el repositorio de Grafana
+  ansible.builtin.shell: |
+    helm repo add grafana https://grafana.github.io/helm-charts
+    helm repo update
+
+- name: Copiar la configuración de Loki
+  ansible.builtin.copy:
+    src: ./files/loki.yml
+    dest: /tmp/loki.yml
+
+- name: Instalar Loki
+  ansible.builtin.shell: |
+    helm upgrade --install --create-namespace --namespace loki logging grafana/loki -f /tmp/loki.yml \
+      --set loki.auth_enabled=false
+
+- name: Copiar la configuración de Alloy
+  ansible.builtin.copy:
+    src: ./files/alloy.yml
+    dest: /tmp/alloy.yml
+
+- name: Instalar Loki
+  ansible.builtin.shell: |
+    helm upgrade --install --create-namespace --namespace alloy alloy grafana/alloy -f /tmp/alloy.yml

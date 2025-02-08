@@ -116,4 +116,13 @@ make dashboard-token
 ### Extras
 
 - [Automatically generated secrets for Kubernetes](https://github.com/mittwald/kubernetes-secret-generator)
+
+### Monitorización
+
 - [A Hands-On Guide to Kubernetes Monitoring Using Prometheus & Grafana](https://medium.com/@muppedaanvesh/a-hands-on-guide-to-kubernetes-monitoring-using-prometheus-grafana-%EF%B8%8F-b0e00b1ae039)
+- [How to collect and query Kubernetes logs with Grafana Loki, Grafana, and Grafana Agent](https://grafana.com/blog/2023/04/12/how-to-collect-and-query-kubernetes-logs-with-grafana-loki-grafana-and-grafana-agent/)
+- [Install the monolithic Helm chart](https://grafana.com/docs/loki/latest/setup/install/helm/install-monolithic/#single-replica)
+- [Deploy Grafana Alloy on Kubernetes](https://grafana.com/docs/alloy/latest/set-up/install/kubernetes/)
+- [Collect Kubernetes logs and forward them to Loki](https://grafana.com/docs/alloy/latest/collect/logs-in-kubernetes/)
+- [failed to create fsnotify watcher: too many open files](https://serverfault.com/a/1137212)
+- [How to run a script on boot up in Debian 11](https://www.fosslinux.com/50812/run-script-boot-up-debian.htm)
