@@ -1,12 +1,30 @@
-- name: Añadir el repositorio de Prometheus
+- name: Añadir el repositorio de Prometheus Monitoring Community
   ansible.builtin.shell: |
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     helm repo update
 
+- name: Crear el namespace grafana
+  ansible.builtin.shell: |
+    kubectl get ns grafana || kubectl create ns grafana
+
+- name: Copiar el manifest para generar el secreto
+  ansible.builtin.copy:
+    src: ./files/secrets.yml
+    dest: /tmp/grafana-secrets.yml
+
+- name: Crear el usuario y password de Grafana
+  ansible.builtin.shell: |
+    kubectl apply -n grafana -f /tmp/grafana-secrets.yml
+
+- name: Copiar la configuración de Grafana
+  ansible.builtin.copy:
+    src: ./files/grafana.yml
+    dest: /tmp/grafana.yml
+
 - name: Instalar Grafana
   ansible.builtin.shell: |
-    helm upgrade --install --create-namespace -n grafana \
-      kube-prometheus-stack prometheus-community/kube-prometheus-stack
+    helm upgrade --install --create-namespace --namespace grafana \
+      grafana prometheus-community/kube-prometheus-stack -f /tmp/grafana.yml
 
 - name: Copiar el fichero grafana-ingress.yml
   ansible.builtin.copy:
@@ -28,7 +46,8 @@
 
 - name: Instalar Loki
   ansible.builtin.shell: |
-    helm upgrade --install --create-namespace --namespace loki logging grafana/loki -f /tmp/loki.yml \
+    helm upgrade --install --create-namespace --namespace loki \
+      logging grafana/loki -f /tmp/loki.yml \
       --set loki.auth_enabled=false
 
 - name: Copiar la configuración de Alloy
@@ -38,4 +57,5 @@
 
 - name: Instalar Loki
   ansible.builtin.shell: |
-    helm upgrade --install --create-namespace --namespace alloy alloy grafana/alloy -f /tmp/alloy.yml
+    helm upgrade --install --create-namespace --namespace alloy \
+      alloy grafana/alloy -f /tmp/alloy.yml
