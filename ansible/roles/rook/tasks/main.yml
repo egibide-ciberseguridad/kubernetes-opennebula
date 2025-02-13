@@ -32,3 +32,11 @@
 
 - name: Crear el Ingress para el Dashboard de rook
   ansible.builtin.command: kubectl apply -f /tmp/dashboard-ingress.yml
+
+- name: Esperar a que rook arranque para continuar
+  ansible.builtin.command: kubectl -n rook-ceph exec -i deploy/rook-ceph-tools -- ceph osd status
+  register: ceph_status
+  retries: 100
+  delay: 10
+  until: ceph_status.rc == 0
+  failed_when: false
