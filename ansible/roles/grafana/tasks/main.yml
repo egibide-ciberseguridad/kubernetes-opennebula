@@ -55,7 +55,7 @@
     src: ./files/alloy.yml
     dest: /tmp/alloy.yml
 
-- name: Instalar Loki
+- name: Instalar Alloy
   ansible.builtin.shell: |
     helm upgrade --install --create-namespace --namespace alloy \
       alloy grafana/alloy -f /tmp/alloy.yml
