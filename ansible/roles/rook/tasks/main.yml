@@ -21,6 +21,10 @@
     kubectl apply -f object.yaml
     kubectl apply -f storageclass-bucket-delete.yaml
 
+- name: Definir el storage class por defecto
+  ansible.builtin.shell: |
+    kubectl patch storageclass rook-cephfs -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
 - name: Copiar el fichero dashboard-ingress.yml
   ansible.builtin.copy:
     src: ./files/dashboard-ingress.yml
