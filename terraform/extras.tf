@@ -1,6 +1,6 @@
 resource "null_resource" "ansible_extras" {
   depends_on = [
-    null_resource.ansible_portainer
+    null_resource.ansible_rook
   ]
 
   provisioner "local-exec" {
