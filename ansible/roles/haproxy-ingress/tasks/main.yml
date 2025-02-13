@@ -1,6 +1,7 @@
 - name: Comprobar si existe el namespace haproxy-ingress
   ansible.builtin.command: kubectl get namespaces haproxy-ingress
   register: haproxy_ingress_namespace_setup
+  failed_when: false
 
 - name: Crear el namespace haproxy-ingress
   ansible.builtin.command: kubectl create namespace haproxy-ingress
@@ -9,6 +10,7 @@
 - name: Comprobar si existe el certificado tls de haproxy-ingress
   ansible.builtin.command: kubectl --namespace=haproxy-ingress get secrets cert
   register: haproxy_ingress_cert_setup
+  failed_when: false
 
 - name: Crear el certificado autofirmado para el Ingress
   args:
