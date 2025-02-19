@@ -3,12 +3,18 @@
     helm repo add portainer https://portainer.github.io/k8s/
     helm repo update
 
+- name: Copiar la configuración de Portainer
+  ansible.builtin.copy:
+    src: ./files/values.yml
+    dest: /tmp/portainer.yml
+
 - name: Instalar Portainer
   ansible.builtin.shell: |
     helm upgrade --install --create-namespace -n portainer portainer portainer/portainer \
       --set image.tag={{ portainer_version }} \
       --set tls.force=true \
-      --set service.type=ClusterIP
+      --set service.type=ClusterIP \
+      -f /tmp/portainer.yml
 
 - name: Copiar el fichero portainer-ingress.yml
   ansible.builtin.copy:
