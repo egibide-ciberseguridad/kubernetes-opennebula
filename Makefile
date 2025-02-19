@@ -13,7 +13,7 @@ help: _header
 	@echo -----------------------------------------------------
 	@echo build
 	@echo init / plan / apply / show / output / destroy
-	@echo taint
+	@echo taint resource=[resource_name] / taint-all
 	@echo -----------------------------------------------------
 	@echo workspace
 	@echo ssh [node=kube-node-0]
@@ -56,7 +56,12 @@ output:
 destroy:
 	@docker compose run --rm terraform-ansible time -f "Tiempo total: %E" terraform -chdir=/terraform destroy -auto-approve
 
+resource?="resource_name"
+
 taint:
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint $(resource)
+
+taint-all:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.hosts_haproxy
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.hosts_master
 	@docker compose run --rm terraform-ansible taint_nodes.sh
