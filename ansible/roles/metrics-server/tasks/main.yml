@@ -1,0 +1,9 @@
+- name: Añadir el repositorio del Kubernetes Metrics Server
+  ansible.builtin.shell: |
+    helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+    helm repo update
+
+- name: Instalar el generador de secretos de Kubernetes
+  ansible.builtin.shell: |
+    helm upgrade --install --create-namespace -n metrics-server \
+      metrics-server metrics-server/metrics-server

@@ -19,5 +19,6 @@
   vars_files:
     - versiones.yml
   roles:
+    - metrics-server
     - secret-generator
     - grafana
