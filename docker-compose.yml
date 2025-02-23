@@ -12,6 +12,7 @@ services:
       - ./terraform:/terraform
       - ./ansible:/ansible
       - ./private/ssh:/root/.ssh
+      - ./private/hosts.txt:/etc/hosts
 
 networks:
   default:
