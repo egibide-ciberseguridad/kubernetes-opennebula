@@ -39,6 +39,7 @@ resource "null_resource" "hosts_local" {
   ]
 
   provisioner "local-exec" {
+    quiet   = true
     command = "echo '${local.hosts}' >> /etc/hosts"
   }
 }
