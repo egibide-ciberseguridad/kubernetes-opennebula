@@ -1,6 +1,7 @@
 locals {
   opennebula = {
     connection = {
+      endpoint = "https://opennebula.example.org/RPC2"
       username = "ciber-xx"
       group    = "ciber-xx"
       token    = "4b8cf5....................................................c1cb11"
