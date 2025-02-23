@@ -38,6 +38,7 @@ build:
 	@docker compose build --pull
 
 init:
+	@touch private/hosts.txt
 	@docker compose run --rm terraform-ansible generar_clave.sh
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform init -upgrade
 
