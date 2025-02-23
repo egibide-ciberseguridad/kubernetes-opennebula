@@ -3,7 +3,8 @@
     helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
     helm repo update
 
-- name: Instalar el generador de secretos de Kubernetes
+- name: Instalar el servidor de métricas
   ansible.builtin.shell: |
     helm upgrade --install --create-namespace -n metrics-server \
+      --set args={"--kubelet-insecure-tls"} \
       metrics-server metrics-server/metrics-server
