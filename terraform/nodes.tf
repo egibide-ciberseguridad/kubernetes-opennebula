@@ -80,7 +80,7 @@ resource "null_resource" "ansible_nodes_common" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.nodes[count.index].name}," \
-        --ssh-common-args ${local.ssh_proxy} \
+        --ssh-common-args '${local.ssh_proxy}' \
         --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         --extra-vars "node_ip=${local.nodes[count.index].private_ip}" \
         /ansible/common-playbook.yml
@@ -103,7 +103,7 @@ resource "null_resource" "ansible_nodes_kubernetes" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.nodes[count.index].name}," \
-        --ssh-common-args ${local.ssh_proxy} \
+        --ssh-common-args '${local.ssh_proxy}' \
         --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         /ansible/node-playbook.yml
     EOT

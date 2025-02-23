@@ -111,7 +111,7 @@ locals {
 }
 
 locals {
-  ssh_proxy = local.ansible.connect_to_public_ip ? "'-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}\"'" : "''"
+  ssh_proxy = local.ansible.connect_to_public_ip ? "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}\"" : ""
 }
 
 output "haproxy" {

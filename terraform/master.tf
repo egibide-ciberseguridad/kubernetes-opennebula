@@ -68,7 +68,7 @@ resource "null_resource" "ansible_master" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.master.name}," \
-        --ssh-common-args ${local.ssh_proxy} \
+        --ssh-common-args '${local.ssh_proxy}' \
         --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         --extra-vars "node_ip=${local.master.private_ip}" \
         /ansible/common-playbook.yml
@@ -82,7 +82,7 @@ resource "null_resource" "ansible_master" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.master.name}," \
-        --ssh-common-args ${local.ssh_proxy} \
+        --ssh-common-args '${local.ssh_proxy}' \
         --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         --extra-vars "node_ip=${local.master.private_ip}" \
         --extra-vars "haproxy_ip=${local.haproxy.private_ip}" \

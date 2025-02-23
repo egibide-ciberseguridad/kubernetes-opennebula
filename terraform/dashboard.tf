@@ -10,7 +10,7 @@ resource "null_resource" "ansible_dashboard" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.master.name}," \
-        --ssh-common-args ${local.ssh_proxy} \
+        --ssh-common-args '${local.ssh_proxy}' \
         --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         /ansible/dashboard-playbook.yml
     EOT
