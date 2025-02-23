@@ -33,9 +33,19 @@ resource "opennebula_virtual_machine" "haproxy" {
   }
 }
 
-resource "null_resource" "hosts_haproxy" {
+resource "null_resource" "hosts_local" {
   depends_on = [
     opennebula_virtual_machine.haproxy
+  ]
+
+  provisioner "local-exec" {
+    command = "echo '${local.hosts}' >> /etc/hosts"
+  }
+}
+
+resource "null_resource" "hosts_haproxy" {
+  depends_on = [
+    null_resource.hosts_local,
   ]
 
   provisioner "file" {
