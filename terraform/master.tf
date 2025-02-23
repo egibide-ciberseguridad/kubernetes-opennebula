@@ -47,7 +47,7 @@ resource "null_resource" "hosts_master" {
       host         = local.master.name
       user         = "root"
       private_key  = file("~/.ssh/id_rsa")
-      bastion_host = local.haproxy.connection_ip
+      bastion_host = local.ansible.connect_to_public_ip ? local.haproxy.connection_ip : ""
     }
 
     content     = local.hosts
@@ -68,7 +68,7 @@ resource "null_resource" "ansible_master" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.master.name}," \
-        --ssh-common-args '-o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}"' \
+        --ssh-common-args ${local.ssh_proxy} \
         --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         --extra-vars "node_ip=${local.master.private_ip}" \
         /ansible/common-playbook.yml
@@ -82,7 +82,7 @@ resource "null_resource" "ansible_master" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.master.name}," \
-        --ssh-common-args '-o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}"' \
+        --ssh-common-args ${local.ssh_proxy} \
         --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         --extra-vars "node_ip=${local.master.private_ip}" \
         --extra-vars "haproxy_ip=${local.haproxy.private_ip}" \
@@ -94,7 +94,7 @@ resource "null_resource" "ansible_master" {
     quiet   = true
     command = <<EOT
       mkdir -p /root/.kube
-      scp -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}" \
+        scp ${local.ssh_proxy} \
           -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${local.master.name}:/root/.kube/config /root/.kube/config
     EOT
   }

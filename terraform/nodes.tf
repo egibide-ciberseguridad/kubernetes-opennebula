@@ -57,7 +57,7 @@ resource "null_resource" "hosts_nodes" {
       host         = local.nodes[count.index].name
       user         = "root"
       private_key  = file("~/.ssh/id_rsa")
-      bastion_host = local.haproxy.connection_ip
+      bastion_host = local.ansible.connect_to_public_ip ? local.haproxy.connection_ip : ""
     }
 
     content     = local.hosts
@@ -80,7 +80,7 @@ resource "null_resource" "ansible_nodes_common" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.nodes[count.index].name}," \
-        --ssh-common-args '-o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}"' \
+        --ssh-common-args ${local.ssh_proxy} \
         --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         --extra-vars "node_ip=${local.nodes[count.index].private_ip}" \
         /ansible/common-playbook.yml
@@ -103,7 +103,7 @@ resource "null_resource" "ansible_nodes_kubernetes" {
       ANSIBLE_FORCE_COLOR=True \
       ansible-playbook \
         -i "${local.nodes[count.index].name}," \
-        --ssh-common-args '-o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 -W %h:%p -q root@${local.haproxy.connection_ip}"' \
+        --ssh-common-args ${local.ssh_proxy} \
         --extra-vars "haproxy_connection_ip=${local.haproxy.connection_ip}" \
         /ansible/node-playbook.yml
     EOT
