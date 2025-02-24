@@ -41,9 +41,16 @@ locals {
     zone_id = "5273...001b"
     subdomain  = "kubernetes"
     domain    = "example.org"
-    cnames = [
-      "ciber-xx",
-    ]
+    cnames = concat([
+      "rook",
+      "grafana",
+    ],
+      flatten([
+        for name in ["ciber"] : concat([
+          for i in range(20) : format("%s-%02d", name, i+1)
+        ], [format("%s-%02d", name, 99)])
+      ])
+    )
   }
 }
 
