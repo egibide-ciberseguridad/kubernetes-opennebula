@@ -21,6 +21,7 @@
   roles:
     - fs-inotify
     - actualizar
+    - utilidades
     - docker
     - kubernetes
     - rook-deps

@@ -20,4 +20,5 @@
     - versiones.yml
   roles:
     - actualizar
+    - utilidades
     - fail2ban
