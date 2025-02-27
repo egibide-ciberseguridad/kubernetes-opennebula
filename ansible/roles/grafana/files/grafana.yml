@@ -9,12 +9,17 @@ grafana:
 
   # To make Grafana persistent (Using Statefulset)
   #
+  useStatefulSet: true
+
   persistence:
+    type: pvc
     enabled: true
     storageClassName: "rook-cephfs"
     accessModes:
       - ReadWriteMany
     size: 20Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
 
   ## Configure additional grafana datasources (passed through tpl)
   ## ref: http://docs.grafana.org/administration/provisioning/#datasources
