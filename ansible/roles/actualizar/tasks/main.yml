@@ -1,3 +1,10 @@
+- name: Desactivar las actualizaciones automáticas
+  debconf:
+    name: unattended-upgrades
+    question: unattended-upgrades/enable_auto_updates
+    vtype: boolean
+    value: false
+
 - name: Actualizar el índice de paquetes
   ansible.builtin.apt:
     update_cache: yes
