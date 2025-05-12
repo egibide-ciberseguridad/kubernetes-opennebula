@@ -1,5 +1,5 @@
 - name: Desactivar las actualizaciones automáticas
-  debconf:
+  ansible.builtin.debconf:
     name: unattended-upgrades
     question: unattended-upgrades/enable_auto_updates
     vtype: boolean
