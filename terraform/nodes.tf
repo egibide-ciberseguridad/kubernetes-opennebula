@@ -1,7 +1,8 @@
 resource "opennebula_virtual_machine" "nodes" {
 
   depends_on = [
-    opennebula_virtual_machine.master
+    opennebula_virtual_machine.master,
+    opennebula_virtual_network_address_range.cluster
   ]
 
   count = var.nodes
@@ -29,7 +30,7 @@ resource "opennebula_virtual_machine" "nodes" {
 
   nic {
     model      = "virtio"
-    network_id = data.opennebula_virtual_network.network.id
+    network_id = opennebula_virtual_network.cluster.id
   }
 
   disk {

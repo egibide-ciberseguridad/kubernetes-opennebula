@@ -1,5 +1,9 @@
 resource "opennebula_virtual_machine" "haproxy" {
 
+  depends_on = [
+    opennebula_virtual_network_address_range.public
+  ]
+
   template_id = data.opennebula_template.template.id
 
   name = "kube-haproxy"
@@ -23,7 +27,7 @@ resource "opennebula_virtual_machine" "haproxy" {
 
   nic {
     model      = "virtio"
-    network_id = data.opennebula_virtual_network.network.id
+    network_id = opennebula_virtual_network.public.id
   }
 
   disk {

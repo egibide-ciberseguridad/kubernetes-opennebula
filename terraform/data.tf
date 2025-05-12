@@ -8,10 +8,6 @@ data "opennebula_template" "template" {
   id = data.opennebula_templates.busqueda.templates[0].id
 }
 
-data "opennebula_virtual_network" "network" {
-  name = local.opennebula.vm.network
-}
-
 data "opennebula_image" "empty_image" {
   name = "Empty disk"
 }

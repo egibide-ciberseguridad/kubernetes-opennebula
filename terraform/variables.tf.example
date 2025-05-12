@@ -8,7 +8,6 @@ locals {
     }
     vm = {
       name    = "Debian 12 - 20250121"
-      network = "ciber-xx"
       locked  = false
     }
     limits = {
@@ -30,6 +29,16 @@ locals {
         vcpu   = 2
         memory = 1024
         disk   = 8192
+      }
+    }
+    networks = {
+      public = {
+        network_ip   = "172.20.x.x"
+        network_size = "1"
+      }
+      cluster = {
+        network_ip   = "172.20.x.x"
+        network_size = "20"
       }
     }
   }

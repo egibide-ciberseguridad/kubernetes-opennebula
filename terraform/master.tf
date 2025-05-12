@@ -1,7 +1,8 @@
 resource "opennebula_virtual_machine" "master" {
 
   depends_on = [
-    opennebula_virtual_machine.haproxy
+    opennebula_virtual_machine.haproxy,
+    opennebula_virtual_network_address_range.cluster
   ]
 
   template_id = data.opennebula_template.template.id
@@ -27,7 +28,7 @@ resource "opennebula_virtual_machine" "master" {
 
   nic {
     model      = "virtio"
-    network_id = data.opennebula_virtual_network.network.id
+    network_id = opennebula_virtual_network.cluster.id
   }
 
   disk {
