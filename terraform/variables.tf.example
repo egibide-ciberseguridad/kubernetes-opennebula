@@ -7,8 +7,8 @@ locals {
       token    = "4b8cf5....................................................c1cb11"
     }
     vm = {
-      name    = "Debian 12 - 20250121"
-      locked  = false
+      template = "Debian 12 - 20250222"
+      locked   = false
     }
     limits = {
       master = {
