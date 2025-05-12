@@ -14,21 +14,21 @@ locals {
       master = {
         cpu    = 2
         vcpu   = 4
-        memory = 4096
-        disk   = 16384
+        memory = 4 * 1024
+        disk   = 16 * 1024
       }
       nodes = {
         cpu    = 1
         vcpu   = 2
-        memory = 3072
-        disk1  = 16384
-        disk2  = 8192
+        memory = 3 * 1024
+        disk1  = 16 * 1024
+        disk2  = 8 * 1024
       }
       haproxy = {
         cpu    = 1
         vcpu   = 2
-        memory = 1024
-        disk   = 8192
+        memory = 1 * 1024
+        disk   = 8 * 1024
       }
     }
     networks = {
