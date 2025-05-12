@@ -40,7 +40,7 @@ resource "opennebula_virtual_machine" "nodes" {
   }
 
   disk {
-    image_id = data.opennebula_image.empty_image.id
+    image_id = opennebula_image.empty_disk.id
     target   = "vdb"
     size     = local.opennebula.limits.nodes.disk2
   }

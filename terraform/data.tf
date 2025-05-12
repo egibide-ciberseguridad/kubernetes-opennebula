@@ -7,7 +7,3 @@ data "opennebula_templates" "busqueda" {
 data "opennebula_template" "template" {
   id = data.opennebula_templates.busqueda.templates[0].id
 }
-
-data "opennebula_image" "empty_image" {
-  name = "Empty disk"
-}
