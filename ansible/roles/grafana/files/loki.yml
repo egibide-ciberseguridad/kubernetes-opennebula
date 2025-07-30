@@ -17,6 +17,12 @@ loki:
     volume_enabled: true
   ruler:
     enable_api: true
+  storage:
+    type: s3
+    bucketNames:
+      chunks: chunks
+      ruler: ruler
+      admin: admin
 
 minio:
   enabled: true
