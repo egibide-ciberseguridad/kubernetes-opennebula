@@ -1,6 +1,6 @@
 - name: Descargar la clave de firma de paquetes de Helm
   ansible.builtin.get_url:
-    url: https://baltocdn.com/helm/signing.asc
+    url: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
     dest: /usr/share/keyrings/helm.asc
 
 - name: Obtener la arquitectura del sistema
@@ -9,7 +9,7 @@
 
 - name: Añadir el repositorio apt para la versión estable
   ansible.builtin.apt_repository:
-    repo: deb [arch={{ debian_arch.stdout }} signed-by=/usr/share/keyrings/helm.asc] https://baltocdn.com/helm/stable/debian/ all main
+    repo: deb [arch={{ debian_arch.stdout }} signed-by=/usr/share/keyrings/helm.asc] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main
     state: present
 
 - name: Instalar Helm
