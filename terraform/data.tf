@@ -1,6 +1,6 @@
 data "opennebula_templates" "busqueda" {
   name_regex = local.opennebula.vm.template
-  sort_on    = "register_date"
+  #sort_on    = "register_date"
   order      = "ASC" # La más reciente
 }
 
