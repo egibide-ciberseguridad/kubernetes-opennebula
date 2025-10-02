@@ -12,7 +12,7 @@
   args:
     chdir: /tmp/rook/deploy/examples
   ansible.builtin.shell: |
-    kubectl apply -f crds.yaml -f common.yaml -f operator.yaml
+    kubectl apply -f crds.yaml -f common.yaml -f csi-operator.yaml -f operator.yaml
     kubectl apply -f cluster.yaml
     kubectl apply -f toolbox.yaml
     kubectl apply -f csi/rbd/storageclass.yaml
