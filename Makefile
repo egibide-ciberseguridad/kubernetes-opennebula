@@ -14,6 +14,7 @@ help: _header
 	@echo build
 	@echo init / plan / apply / show / output / destroy
 	@echo taint resource=[resource_name] / taint-all
+	@echo urls
 	@echo -----------------------------------------------------
 	@echo workspace
 	@echo ssh [node=kube-node-0]
@@ -34,6 +35,17 @@ _header:
 	@echo Kubernetes
 	@echo ----------
 
+urls: _header _urls_command
+
+_urls_command:
+	${info }
+	@echo ---------------------------------------------------
+	@echo [Portainer] https://kubernetes.arriaga.eu
+	@echo [Dashboard] https://kubernetes.arriaga.eu/dashboard
+	@echo [Grafana] https://grafana.arriaga.eu
+	@echo [Rook] https://rook.arriaga.eu
+	@echo ---------------------------------------------------
+
 build:
 	@docker compose build --pull
 
@@ -45,8 +57,10 @@ init:
 plan:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform plan
 
-apply:
+_apply_command:
 	@docker compose run --rm terraform-ansible time -f "Tiempo total: %E" terraform -chdir=/terraform apply -auto-approve
+
+apply: _header _apply_command _urls_command
 
 show:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform show
