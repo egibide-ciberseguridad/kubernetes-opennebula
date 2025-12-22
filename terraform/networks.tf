@@ -8,8 +8,6 @@ resource "opennebula_virtual_network" "public" {
   dns          = "192.168.10.1 1.1.1.1"
   network_mask = "255.255.0.0"
 
-  permissions = "640"
-  group       = local.opennebula.connection.group
   security_groups = [0]
 }
 
@@ -30,8 +28,6 @@ resource "opennebula_virtual_network" "cluster" {
   dns          = "192.168.10.1 1.1.1.1"
   network_mask = "255.255.0.0"
 
-  permissions = "640"
-  group       = local.opennebula.connection.group
   security_groups = [0]
 }
 

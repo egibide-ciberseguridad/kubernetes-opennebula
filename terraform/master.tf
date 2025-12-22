@@ -24,8 +24,6 @@ resource "opennebula_virtual_machine" "master" {
     ])
   }
 
-  group = local.opennebula.connection.group
-
   nic {
     model      = "virtio"
     network_id = opennebula_virtual_network.cluster.id

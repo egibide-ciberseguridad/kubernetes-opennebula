@@ -23,8 +23,6 @@ resource "opennebula_virtual_machine" "haproxy" {
     ])
   }
 
-  group = local.opennebula.connection.group
-
   nic {
     model      = "virtio"
     network_id = opennebula_virtual_network.public.id
