@@ -10,14 +10,3 @@ terraform {
     }
   }
 }
-
-provider "opennebula" {
-  endpoint = local.opennebula.connection.endpoint
-  username = local.opennebula.connection.username
-  password = local.opennebula.connection.token
-  insecure = true
-}
-
-provider "cloudflare" {
-  api_token = local.cloudflare.token
-}

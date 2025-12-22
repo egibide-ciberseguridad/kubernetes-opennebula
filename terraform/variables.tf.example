@@ -1,11 +1,5 @@
 locals {
   opennebula = {
-    connection = {
-      endpoint = "https://opennebula.example.org/RPC2"
-      username = "ciber-xx"
-      group    = "ciber-xx"
-      token    = "4b8cf5....................................................c1cb11"
-    }
     vm = {
       template = "Debian 12 - 20250222"
       locked   = false
@@ -46,7 +40,6 @@ locals {
     connect_to_public_ip = false
   }
   cloudflare = {
-    token   = "ECwU...bzxx"
     zone_id = "5273...001b"
     subdomain  = "kubernetes"
     domain    = "example.org"

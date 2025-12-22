@@ -8,9 +8,15 @@ services:
     hostname: kube-workspace
     environment:
       - TF_VAR_SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}
+    env_file:
+      - ./.env
     volumes:
       - ./terraform:/terraform
       - ./ansible:/ansible
+      - homedir:/root
       - ./private/ssh:/root/.ssh
       - ./private/kube:/root/.kube
       - ./private/hosts.txt:/etc/hosts
+
+volumes:
+  homedir:

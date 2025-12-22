@@ -1,6 +1,15 @@
 # Versiones de software
 TERRAFORM_VERSION=latest
 
+# Conexión a OpenNebula
+OPENNEBULA_ENDPOINT="https://opennebula.example.org/RPC2"
+OPENNEBULA_USERNAME="ciber-xx"
+OPENNEBULA_PASSWORD="900563a48c044074dc467feac110df09372301dbc10968c2c4491ad2398c93e6"
+OPENNEBULA_INSECURE="true"
+
+# Conexión a Cloudflare
+CLOUDFLARE_API_TOKEN="900563a48c044074dc467feac110df09372301db"
+
 # Clave pública del usuario para inyectar en las máquinas OpenNebula
 # Usar | como separador para añadir más de una clave
 SSH_PUBLIC_KEY=""
