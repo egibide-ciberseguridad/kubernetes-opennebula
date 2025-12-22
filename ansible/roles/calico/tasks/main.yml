@@ -19,7 +19,7 @@
 
 - name: Instalar el comando calicoctl
   ansible.builtin.shell: |
-    curl -L https://github.com/projectcalico/calico/releases/download/v{{ calico_version }}/calicoctl-linux-amd64 -o /usr/local/bin/calicoctl
+    wget https://github.com/projectcalico/calico/releases/download/v{{ calico_version }}/calicoctl-linux-amd64 -O /usr/local/bin/calicoctl
     chmod +x /usr/local/bin/calicoctl
 
 - name: Configurar Calico BGP
