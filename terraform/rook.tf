@@ -1,6 +1,6 @@
-resource "null_resource" "ansible_rook" {
+resource "terraform_data" "ansible_rook" {
   depends_on = [
-    null_resource.ansible_nodes_kubernetes
+    terraform_data.ansible_nodes_kubernetes
   ]
 
   provisioner "local-exec" {

@@ -44,7 +44,7 @@ resource "opennebula_virtual_machine" "nodes" {
   }
 }
 
-resource "null_resource" "hosts_nodes" {
+resource "terraform_data" "hosts_nodes" {
   depends_on = [
     opennebula_virtual_machine.nodes
   ]
@@ -64,10 +64,10 @@ resource "null_resource" "hosts_nodes" {
   }
 }
 
-resource "null_resource" "ansible_nodes_common" {
+resource "terraform_data" "ansible_nodes_common" {
   depends_on = [
-    null_resource.hosts_nodes,
-    null_resource.ansible_haproxy_upgrade,
+    terraform_data.hosts_nodes,
+    terraform_data.ansible_haproxy_upgrade,
   ]
 
   count = var.nodes
@@ -87,10 +87,10 @@ resource "null_resource" "ansible_nodes_common" {
   }
 }
 
-resource "null_resource" "ansible_nodes_kubernetes" {
+resource "terraform_data" "ansible_nodes_kubernetes" {
   depends_on = [
-    null_resource.ansible_master,
-    null_resource.ansible_nodes_common,
+    terraform_data.ansible_master,
+    terraform_data.ansible_nodes_common,
   ]
 
   count = var.nodes

@@ -35,7 +35,7 @@ resource "opennebula_virtual_machine" "haproxy" {
   }
 }
 
-resource "null_resource" "hosts_local" {
+resource "terraform_data" "hosts_local" {
   depends_on = [
     opennebula_virtual_machine.haproxy
   ]
@@ -46,9 +46,9 @@ resource "null_resource" "hosts_local" {
   }
 }
 
-resource "null_resource" "hosts_haproxy" {
+resource "terraform_data" "hosts_haproxy" {
   depends_on = [
-    null_resource.hosts_local,
+    terraform_data.hosts_local,
   ]
 
   provisioner "file" {
@@ -63,9 +63,9 @@ resource "null_resource" "hosts_haproxy" {
   }
 }
 
-resource "null_resource" "ansible_haproxy_upgrade" {
+resource "terraform_data" "ansible_haproxy_upgrade" {
   depends_on = [
-    null_resource.hosts_haproxy,
+    terraform_data.hosts_haproxy,
   ]
 
   provisioner "local-exec" {
@@ -82,10 +82,10 @@ resource "null_resource" "ansible_haproxy_upgrade" {
   }
 }
 
-resource "null_resource" "ansible_haproxy" {
+resource "terraform_data" "ansible_haproxy" {
   depends_on = [
-    null_resource.ansible_haproxy_upgrade,
-    null_resource.ansible_master
+    terraform_data.ansible_haproxy_upgrade,
+    terraform_data.ansible_master
   ]
 
   provisioner "local-exec" {

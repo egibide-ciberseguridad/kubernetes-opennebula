@@ -1,6 +1,6 @@
-resource "null_resource" "ansible_extras" {
+resource "terraform_data" "ansible_extras" {
   depends_on = [
-    null_resource.ansible_rook
+    terraform_data.ansible_rook
   ]
 
   provisioner "local-exec" {

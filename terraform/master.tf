@@ -36,7 +36,7 @@ resource "opennebula_virtual_machine" "master" {
   }
 }
 
-resource "null_resource" "hosts_master" {
+resource "terraform_data" "hosts_master" {
   depends_on = [
     opennebula_virtual_machine.master
   ]
@@ -54,10 +54,10 @@ resource "null_resource" "hosts_master" {
   }
 }
 
-resource "null_resource" "ansible_master" {
+resource "terraform_data" "ansible_master" {
   depends_on = [
-    null_resource.hosts_master,
-    null_resource.ansible_haproxy_upgrade,
+    terraform_data.hosts_master,
+    terraform_data.ansible_haproxy_upgrade,
   ]
 
   provisioner "local-exec" {

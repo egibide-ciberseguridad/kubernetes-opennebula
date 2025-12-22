@@ -1,6 +1,6 @@
-resource "null_resource" "ansible_dashboard" {
+resource "terraform_data" "ansible_dashboard" {
   depends_on = [
-    null_resource.ansible_nodes_kubernetes
+    terraform_data.ansible_nodes_kubernetes
   ]
 
   provisioner "local-exec" {
