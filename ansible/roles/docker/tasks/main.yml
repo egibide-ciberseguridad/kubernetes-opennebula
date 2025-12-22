@@ -1,16 +1,22 @@
 - name: Descargar la clave de firma de paquetes de Docker
   ansible.builtin.get_url:
-    url: https://download.docker.com/linux/debian/gpg
+    url: https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg
     dest: /etc/apt/keyrings/docker.asc
 
 - name: Obtener la arquitectura del sistema
-  ansible.builtin.shell: dpkg --print-architecture
-  register: debian_arch
+  ansible.builtin.command: dpkg --print-architecture
+  register: arquitectura
 
 - name: Añadir el repositorio apt para la versión estable
   ansible.builtin.apt_repository:
-    repo: deb [arch={{ debian_arch.stdout }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    repo: >
+      deb [arch={{ arquitectura.stdout }} signed-by=/etc/apt/keyrings/docker.asc]
+      https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] | lower }} stable
     state: present
+
+- name: Actualizar el índice de paquetes
+  ansible.builtin.apt:
+    update_cache: true
 
 - name: Instalar Docker y sus dependencias
   ansible.builtin.apt:
