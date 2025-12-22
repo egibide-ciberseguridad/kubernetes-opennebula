@@ -1,6 +1,6 @@
 - name: Eliminar el fichero de swap de /etc/fstab
-  ansible.builtin.mount:
-    name: "{{ item }}"
+  ansible.posix.mount:
+    path: "{{ item }}"
     fstype: swap
     state: absent
   with_items:
@@ -9,7 +9,7 @@
 
 - name: Desactivar el swap
   ansible.builtin.command: swapoff -a
-  when: ansible_swaptotal_mb > 0
+  when: ansible_facts['swaptotal_mb'] > 0
 
 - name: Descargar la clave de firma de paquetes de Kubernetes
   ansible.builtin.get_url:
