@@ -16,3 +16,4 @@ echo "Clave pública generada:"
 echo
 
 cat id_rsa.pub
+echo
