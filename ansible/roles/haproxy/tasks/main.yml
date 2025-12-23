@@ -1,3 +1,4 @@
+---
 - name: Crear el directorio .kube
   ansible.builtin.file:
     path: /root/.kube
@@ -7,7 +8,7 @@
   ansible.builtin.copy:
     src: /root/.kube/config
     dest: /root/.kube/config
-    mode: 0400
+    mode: "0400"
 
 - name: Descargar la clave de firma de paquetes de HAProxy
   ansible.builtin.get_url:
@@ -33,7 +34,7 @@
   ansible.builtin.service:
     name: haproxy
     state: stopped
-    enabled: no
+    enabled: false
 
 - name: Usar el comando setcap para permitir a HAProxy utilizar los puertos 80 y 443
   ansible.builtin.command: setcap cap_net_bind_service=+ep /usr/sbin/haproxy
@@ -55,4 +56,4 @@
   ansible.builtin.service:
     name: haproxy-ingress
     state: restarted
-    enabled: yes
+    enabled: true

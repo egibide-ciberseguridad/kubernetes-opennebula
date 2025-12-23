@@ -1,3 +1,4 @@
+---
 - name: Añadir el repositorio del Kubernetes Metrics Server
   ansible.builtin.shell: |
     helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/

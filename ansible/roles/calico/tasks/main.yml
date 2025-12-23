@@ -1,3 +1,4 @@
+---
 - name: Instalar la red inter-pods Calico
   ansible.builtin.command: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v{{ calico_version }}/manifests/calico.yaml
 

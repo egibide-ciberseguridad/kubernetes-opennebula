@@ -1,3 +1,4 @@
+---
 - name: Comprobar si existe el namespace haproxy-ingress
   ansible.builtin.command: kubectl get namespaces haproxy-ingress
   register: haproxy_ingress_namespace_setup

@@ -16,8 +16,8 @@
   ansible.builtin.copy:
     src: /etc/kubernetes/admin.conf
     dest: /root/.kube/config
-    mode: 0400
-    remote_src: yes
+    mode: "0400"
+    remote_src: true
 
 - name: Generar el comando join
   ansible.builtin.command: kubeadm token create --print-join-command

@@ -1,3 +1,4 @@
+---
 - name: Instalar el Dashboard de Kubernetes
   ansible.builtin.shell: |
     helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/

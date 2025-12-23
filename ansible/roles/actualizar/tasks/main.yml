@@ -1,3 +1,4 @@
+---
 - name: Desactivar las actualizaciones automáticas
   ansible.builtin.debconf:
     name: unattended-upgrades
@@ -7,7 +8,7 @@
 
 - name: Actualizar el índice de paquetes
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
 
 - name: Hacer un dist-upgrade
   ansible.builtin.apt:
@@ -24,4 +25,4 @@
 
 - name: Eliminar dependencias obsoletas
   ansible.builtin.apt:
-    autoremove: yes
+    autoremove: true

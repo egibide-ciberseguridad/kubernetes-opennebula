@@ -1,3 +1,4 @@
+---
 - name: Añadir el repositorio de Mittwald Charts
   ansible.builtin.shell: |
     helm repo add mittwald https://helm.mittwald.de

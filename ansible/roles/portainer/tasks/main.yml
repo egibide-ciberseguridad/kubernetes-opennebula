@@ -1,3 +1,4 @@
+---
 - name: Añadir el repositorio de Portainer
   ansible.builtin.shell: |
     helm repo add portainer https://portainer.github.io/k8s/

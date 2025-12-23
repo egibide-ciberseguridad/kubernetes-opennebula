@@ -1,3 +1,4 @@
+---
 - name: Copiar el script
   ansible.builtin.copy:
     src: ./files/set-fs-inotify.py
@@ -12,4 +13,4 @@
   ansible.builtin.service:
     name: set-fs-inotify
     state: started
-    enabled: yes
+    enabled: true

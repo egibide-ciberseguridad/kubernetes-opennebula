@@ -1,3 +1,4 @@
+---
 - name: Instalar fail2ban
   ansible.builtin.apt:
     name:
@@ -13,4 +14,4 @@
   ansible.builtin.service:
     name: fail2ban
     state: restarted
-    enabled: yes
+    enabled: true

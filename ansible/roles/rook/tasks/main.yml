@@ -1,12 +1,13 @@
+---
 - name: Clonar el repositorio
-  git:
+  ansible.builtin.git:
     repo: https://github.com/rook/rook.git
     version: v{{ rook_version }}
     dest: /tmp/rook
-    clone: yes
+    clone: true
     depth: 1
-    update: yes
-    force: yes
+    update: true
+    force: true
 
 - name: Instalar Rook Ceph
   args:

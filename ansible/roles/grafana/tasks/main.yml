@@ -1,3 +1,4 @@
+---
 - name: Añadir el repositorio de Prometheus Monitoring Community
   ansible.builtin.shell: |
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts

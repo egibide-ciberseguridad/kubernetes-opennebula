@@ -1,3 +1,4 @@
+---
 - name: Instalar el paquete lvm2 en los nodos
   ansible.builtin.apt:
     name: lvm2

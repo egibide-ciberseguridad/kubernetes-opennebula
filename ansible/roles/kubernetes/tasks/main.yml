@@ -1,3 +1,4 @@
+---
 - name: Eliminar el fichero de swap de /etc/fstab
   ansible.posix.mount:
     path: "{{ item }}"
@@ -33,11 +34,11 @@
 - name: Configurar la dirección IP del nodo
   ansible.builtin.lineinfile:
     path: /etc/default/kubelet
-    create: yes
+    create: true
     line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
 
 - name: Reiniciar el servicio kubelet
   ansible.builtin.service:
     name: kubelet
-    daemon_reload: yes
+    daemon_reload: true
     state: restarted

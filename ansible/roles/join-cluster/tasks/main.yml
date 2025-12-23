@@ -1,3 +1,4 @@
+---
 - name: Comprobar si ya existe el fichero kubelet.conf
   ansible.builtin.stat:
     path: /etc/kubernetes/kubelet.conf
@@ -7,7 +8,7 @@
   ansible.builtin.copy:
     src: "join"
     dest: /tmp/join-command.sh
-    mode: 0777
+    mode: "0777"
   become: false
   when: joined.stat.exists == false
 

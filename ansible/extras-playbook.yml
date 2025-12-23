@@ -1,20 +1,20 @@
 ---
 - name: Comprobar los hosts disponibles
   hosts: all
-  gather_facts: no
+  gather_facts: false
   tasks:
-    - command: timeout 20 sh -c 'until nc -z $0 $1; do sleep 1; done' {{ haproxy_connection_ip }} 22
+    - ansible.builtin.command: timeout 20 sh -c 'until nc -z $0 $1; do sleep 1; done' {{ haproxy_connection_ip }} 22
       delegate_to: localhost
       register: ping_result
-      ignore_errors: yes
-    - group_by: key=reachable
+      ignore_errors: true
+    - ansible.builtin.group_by: key=reachable
       when: ping_result is success
 
 - name: Instalar roles extra en el cluster
   hosts: reachable
   vars:
     ansible_python_interpreter: auto_silent
-  gather_facts: yes
+  gather_facts: true
   become: true
   vars_files:
     - versiones.yml
