@@ -1,10 +1,10 @@
-resource "cloudflare_record" "domain_name" {
-  allow_overwrite = true
-  zone_id         = local.cloudflare.zone_id
-  name            = local.cloudflare.subdomain
-  content         = local.haproxy.public_ip
-  type            = "A"
-  proxied         = true
+resource "cloudflare_dns_record" "domain_name" {
+  zone_id = local.cloudflare.zone_id
+  name    = local.cloudflare.subdomain
+  content = local.haproxy.public_ip
+  type    = "A"
+  proxied = true
+  ttl     = 1 # auto
 }
 
 locals {
@@ -16,14 +16,14 @@ locals {
   ])
 }
 
-resource "cloudflare_record" "cname" {
+resource "cloudflare_dns_record" "cname" {
   for_each = {
     for name, cname in local.flat_cnames : cname.name => cname
   }
-  allow_overwrite = true
   zone_id = local.cloudflare.zone_id
   name    = each.value.cname
   content = "${local.cloudflare.subdomain}.${local.cloudflare.domain}"
   type    = "CNAME"
   proxied = true
+  ttl     = 1 # auto
 }
