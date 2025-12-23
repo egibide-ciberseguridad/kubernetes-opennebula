@@ -2,7 +2,7 @@ services:
   terraform-ansible:
     build:
       context: ./docker
-      dockerfile: Dockerfile
+      dockerfile: terraform-ansible/Dockerfile
       args:
         - TERRAFORM_VERSION=${TERRAFORM_VERSION}
     hostname: kube-workspace
