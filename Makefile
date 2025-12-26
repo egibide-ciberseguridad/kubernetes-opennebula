@@ -77,16 +77,16 @@ taint:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint $(resource)
 
 taint-all:
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.hosts_haproxy
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.hosts_master
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.hosts_haproxy
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.hosts_master
 	@docker compose run --rm terraform-ansible taint_nodes.sh
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_haproxy_upgrade
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_master
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_haproxy
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_dashboard
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_portainer
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_rook
-	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint null_resource.ansible_extras
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_haproxy_upgrade
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_master
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_haproxy
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_dashboard
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_portainer
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_rook
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_extras
 
 workspace:
 	@docker compose run --rm terraform-ansible
