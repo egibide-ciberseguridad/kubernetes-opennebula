@@ -1,10 +1,16 @@
+---
 - name: Comprobar si el cluster ya está inicializado
   ansible.builtin.stat:
     path: /etc/kubernetes/admin.conf
   register: cluster_admin_conf
 
 - name: Inicializar el cluster de Kubernetes
-  ansible.builtin.command: kubeadm init --apiserver-advertise-address="{{ node_ip }}" --apiserver-cert-extra-sans="{{ node_ip }}" --node-name kube-master --pod-network-cidr=10.244.0.0/16
+  ansible.builtin.command: |
+    kubeadm init \
+      --apiserver-advertise-address="{{ node_ip }}" \
+      --apiserver-cert-extra-sans="{{ node_ip }}" \
+      --node-name kube-master \
+      --pod-network-cidr=10.244.0.0/16
   when: cluster_admin_conf.stat.exists == false
 
 - name: Crear el directorio .kube

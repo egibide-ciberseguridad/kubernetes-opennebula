@@ -21,7 +21,9 @@
 
 - name: Añadir el repositorio apt para la versión estable
   ansible.builtin.apt_repository:
-    repo: deb [arch={{ debian_arch.stdout }} signed-by=/usr/share/keyrings/haproxy.debian.net.asc] https://haproxy.debian.net {{ ansible_facts['distribution_release'] | lower }}-backports-{{ haproxy_version }} main
+    repo: >
+      deb [arch={{ debian_arch.stdout }} signed-by=/usr/share/keyrings/haproxy.debian.net.asc]
+      https://haproxy.debian.net {{ ansible_facts['distribution_release'] | lower }}-backports-{{ haproxy_version }} main
     state: present
 
 - name: Instalar HAProxy
