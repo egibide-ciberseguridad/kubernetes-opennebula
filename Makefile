@@ -41,6 +41,7 @@ _urls_command:
 	${info }
 	@echo ---------------------------------------------------
 	@echo [Portainer] https://kubernetes.arriaga.eu
+	@echo [Headlamp] https://headlamp.arriaga.eu
 	@echo [Dashboard] https://kubernetes.arriaga.eu/dashboard
 	@echo [Grafana] https://grafana.arriaga.eu
 	@echo [Rook] https://rook.arriaga.eu
@@ -84,6 +85,7 @@ taint-all:
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_master
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_haproxy
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_dashboard
+	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_headlamp
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_portainer
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_rook
 	@docker compose run --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_extras

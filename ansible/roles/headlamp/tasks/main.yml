@@ -1,0 +1,20 @@
+---
+- name: Instalar el gestor de cluster Headlamp
+  ansible.builtin.shell: |
+    helm repo add headlamp https://kubernetes-sigs.github.io/headlamp/
+    helm repo update
+    helm upgrade --install kubernetes-headlamp headlamp/headlamp \
+      --create-namespace --namespace headlamp
+
+#- name: Configurar el acceso al Dashboard
+#  ansible.builtin.shell: |
+#    kubectl apply -f https://gist.githubusercontent.com/ijaureguialzo/4288720b5fac8af6ea29e67fbfab6ef0/raw/fbd5573e9e7da320fbd843085531265202fcb311/service-account.yml
+#    kubectl apply -f https://gist.githubusercontent.com/ijaureguialzo/4288720b5fac8af6ea29e67fbfab6ef0/raw/fbd5573e9e7da320fbd843085531265202fcb311/role-binding.yml
+
+- name: Copiar el fichero headlamp-ingress.yml
+  ansible.builtin.copy:
+    src: ./files/headlamp-ingress.yml
+    dest: /tmp/headlamp-ingress.yml
+
+- name: Crear el Ingress para Headlamp
+  ansible.builtin.command: kubectl apply -f /tmp/headlamp-ingress.yml
