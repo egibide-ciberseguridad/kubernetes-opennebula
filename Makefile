@@ -42,7 +42,7 @@ _urls_command:
 	@echo ---------------------------------------------------
 	@echo [Portainer] https://kubernetes.arriaga.eu
 	@echo [Headlamp] https://headlamp.arriaga.eu
-	@echo [Dashboard] https://kubernetes.arriaga.eu/dashboard
+	@echo [Dashboard] https://dashboard.arriaga.eu
 	@echo [Grafana] https://grafana.arriaga.eu
 	@echo [Rook] https://rook.arriaga.eu
 	@echo ---------------------------------------------------
