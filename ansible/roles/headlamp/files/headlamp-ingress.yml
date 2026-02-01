@@ -3,10 +3,7 @@ kind: Ingress
 metadata:
   name: headlamp-ingress
   namespace: headlamp
-  annotations:
-    haproxy.org/server-ssl: "true"
 spec:
-  ingressClassName: haproxy
   rules:
     - host: headlamp.arriaga.eu
       http:

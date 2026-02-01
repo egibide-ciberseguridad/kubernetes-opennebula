@@ -7,7 +7,6 @@ metadata:
     haproxy.org/server-ssl: "true"
     haproxy.org/path-rewrite: /dashboard/(.*) /\1
 spec:
-  ingressClassName: haproxy
   rules:
     - host: dashboard.arriaga.eu
       http:

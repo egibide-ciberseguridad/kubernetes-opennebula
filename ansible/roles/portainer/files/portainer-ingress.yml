@@ -6,7 +6,6 @@ metadata:
   annotations:
     haproxy.org/server-ssl: "true"
 spec:
-  ingressClassName: haproxy
   rules:
     - host: kubernetes.arriaga.eu
       http:

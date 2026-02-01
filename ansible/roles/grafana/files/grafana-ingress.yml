@@ -4,7 +4,6 @@ metadata:
   name: grafana-ingress
   namespace: grafana
 spec:
-  ingressClassName: haproxy
   rules:
     - host: grafana.arriaga.eu
       http:
