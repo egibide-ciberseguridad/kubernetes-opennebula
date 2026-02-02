@@ -8,7 +8,7 @@ $(error No se encuentra el fichero .env)
 endif
 
 help: _header
-	${info }
+	${info}
 	@echo Opciones:
 	@echo -----------------------------------------------------
 	@echo build
@@ -20,7 +20,7 @@ help: _header
 	@echo ssh [node=kube-node-0]
 	@echo -----------------------------------------------------
 	@echo dashboard-token / rook-dashboard-password
-	@echo grafana-password
+	@echo grafana-password / headlamp-token
 	@echo -----------------------------------------------------
 	@echo kubenode-status / calico-bird-status / rook-status
 	@echo -----------------------------------------------------
@@ -100,6 +100,9 @@ ssh:
 
 dashboard-token:
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n kubernetes-dashboard create token admin-user --duration=720h'
+
+headlamp-token:
+	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n kube-system create token headlamp-admin --duration=720h'
 
 rook-dashboard-password:
 	@docker compose run --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o json | jq -r ".data.password|@base64d"'
