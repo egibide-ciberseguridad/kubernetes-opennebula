@@ -15,6 +15,7 @@
       --set image.tag={{ portainer_version }} \
       --set tls.force=true \
       --set service.type=ClusterIP \
+      --set persistence.accessMode=ReadWriteMany \
       -f /tmp/portainer.yml
 
 - name: Copiar el fichero portainer-ingress.yml
