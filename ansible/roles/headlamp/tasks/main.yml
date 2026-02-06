@@ -4,6 +4,7 @@
     helm repo add headlamp https://kubernetes-sigs.github.io/headlamp/
     helm repo update
     helm upgrade --install kubernetes-headlamp headlamp/headlamp \
+      --set image.tag={{ headlamp_version }} \
       --create-namespace --namespace headlamp
 
 #- name: Configurar el acceso al Dashboard
