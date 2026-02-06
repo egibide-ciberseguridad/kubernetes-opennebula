@@ -13,7 +13,7 @@
     dest: /tmp/headlamp-service-account.yml
 
 - name: Crear la cuenta de servicio para Headlamp
-  ansible.builtin.command: kubectl apply -f /tmp/headlamp-ingress.yml
+  ansible.builtin.command: kubectl apply -f /tmp/headlamp-service-account.yml
 
 - name: Copiar el fichero headlamp-ingress.yml
   ansible.builtin.copy:
