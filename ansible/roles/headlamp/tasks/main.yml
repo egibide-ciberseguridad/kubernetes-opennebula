@@ -4,7 +4,7 @@
     helm repo add headlamp https://kubernetes-sigs.github.io/headlamp/
     helm repo update
     helm upgrade --install kubernetes-headlamp headlamp/headlamp \
-      --set image.tag={{ headlamp_version }} \
+      --set image.tag=v{{ headlamp_version }} \
       --create-namespace --namespace headlamp
 
 - name: Copiar el fichero para crear la cuenta de servicio
