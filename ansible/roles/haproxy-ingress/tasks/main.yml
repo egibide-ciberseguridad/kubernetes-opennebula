@@ -43,3 +43,11 @@
 
 - name: Aplicar el fichero haproxy-ingress-config.yml
   ansible.builtin.command: kubectl apply -f /tmp/haproxy-ingress-config.yml
+
+- name: Copiar el fichero haproxy-ingress-errors.yml
+  ansible.builtin.copy:
+    src: ./files/haproxy-ingress-errors.yml
+    dest: /tmp/haproxy-ingress-errors.yml
+
+- name: Aplicar el fichero haproxy-ingress-errors.yml
+  ansible.builtin.command: kubectl apply -f /tmp/haproxy-ingress-errors.yml
