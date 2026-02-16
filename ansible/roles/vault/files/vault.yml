@@ -33,42 +33,51 @@ spec:
     requests:
       storage: 8Gi
 ---
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: vault
   namespace: vault
   labels:
     app: vault
 spec:
-  containers:
-    - name: vault
-      image: hashicorp/vault:latest
-      imagePullPolicy: IfNotPresent
-      command:
-        - "/bin/sh"
-        - "-c"
-      args:
-        - "/usr/local/bin/docker-entrypoint.sh vault server -config=/vault/config/vault-config.hcl"
-      securityContext:
-        capabilities:
-          add: [ "IPC_LOCK" ]
-      ports:
-        - containerPort: 8200
-      volumeMounts:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault
+  template:
+    metadata:
+      labels:
+        app: vault
+    spec:
+      containers:
+        - name: vault
+          image: hashicorp/vault:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - "/bin/sh"
+            - "-c"
+          args:
+            - "/usr/local/bin/docker-entrypoint.sh vault server -config=/vault/config/vault-config.hcl"
+          securityContext:
+            capabilities:
+              add: [ "IPC_LOCK" ]
+          ports:
+            - containerPort: 8200
+          volumeMounts:
+            - name: config-volume
+              subPath: vault-config.hcl
+              mountPath: /vault/config/vault-config.hcl
+              readOnly: true
+            - name: vault-data
+              mountPath: /vault/file
+      volumes:
         - name: config-volume
-          subPath: vault-config.hcl
-          mountPath: /vault/config/vault-config.hcl
-          readOnly: true
+          configMap:
+            name: vault-config
         - name: vault-data
-          mountPath: /vault/file
-  volumes:
-    - name: config-volume
-      configMap:
-        name: vault-config
-    - name: vault-data
-      persistentVolumeClaim:
-        claimName: vault-data
+          persistentVolumeClaim:
+            claimName: vault-data
 ---
 apiVersion: v1
 kind: Service
