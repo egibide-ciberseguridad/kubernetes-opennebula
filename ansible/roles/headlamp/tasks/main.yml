@@ -5,6 +5,7 @@
     helm repo update
     helm upgrade --install kubernetes-headlamp headlamp/headlamp \
       --set image.tag=v{{ headlamp_version }} \
+      --set replicaCount=2 \
       --create-namespace --namespace headlamp
 
 - name: Copiar el fichero para crear la cuenta de servicio
