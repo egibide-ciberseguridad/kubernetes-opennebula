@@ -1,0 +1,8 @@
+---
+- name: Copiar el manifest de Vault
+  ansible.builtin.copy:
+    src: ./files/vault.yml
+    dest: /tmp/vault.yml
+
+- name: Instalar Vault
+  ansible.builtin.command: kubectl apply -f /tmp/vault.yml
