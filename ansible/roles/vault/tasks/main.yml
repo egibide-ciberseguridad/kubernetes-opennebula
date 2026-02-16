@@ -6,3 +6,11 @@
 
 - name: Instalar Vault
   ansible.builtin.command: kubectl apply -f /tmp/vault.yml
+
+- name: Instalar el inyector de Vault a nivel de cluster
+  ansible.builtin.shell: |
+    helm repo add hashicorp https://helm.releases.hashicorp.com
+    helm repo update
+    helm upgrade --install --create-namespace -n vault vault hashicorp/vault \
+      --set="injector.enabled=true" \
+      --set="global.externalVaultAddr=http://localhost:8200"
