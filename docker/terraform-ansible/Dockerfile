@@ -22,7 +22,7 @@ ENV PS1='\u@\h:\w\$\040'
 ENV ANSIBLE_HOST_KEY_CHECKING=False
 ENV ANSIBLE_PYTHON_INTERPRETER=auto_silent
 
-# Eliminar la llamada a Terraform de la imagen original
-ENTRYPOINT []
+# Comprobar en qué red estamos antes de hacer nada
+ENTRYPOINT ["/usr/bin/comprobar_red.sh"]
 
 CMD ["/bin/bash"]

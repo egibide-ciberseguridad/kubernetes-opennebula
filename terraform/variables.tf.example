@@ -37,7 +37,7 @@ locals {
     }
   }
   ansible = {
-    connect_to_public_ip = false
+    connect_to_public_ip = var.USE_PUBLIC_IP
   }
   cloudflare = {
     zone_id = "5273...001b"
@@ -64,4 +64,9 @@ variable "nodes" {
 variable "SSH_PUBLIC_KEY" {
   type        = string
   description = "Clave pública del usuario para inyectar en las máquinas OpenNebula"
+}
+
+variable "USE_PUBLIC_IP" {
+  type        = bool
+  description = "Hay conectividad directa con el host o no"
 }

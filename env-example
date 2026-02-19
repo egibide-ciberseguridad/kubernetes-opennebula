@@ -13,3 +13,6 @@ CLOUDFLARE_API_TOKEN="900563a48c044074dc467feac110df09372301db"
 # Clave pública del usuario para inyectar en las máquinas OpenNebula
 # Usar | como separador para añadir más de una clave
 SSH_PUBLIC_KEY=""
+
+# Dirección IP para comprobar si hay conectividad directa con el host de OpenNebula
+NETWORK_TEST_IP=192.168.x.x
