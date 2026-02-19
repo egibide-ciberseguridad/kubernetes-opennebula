@@ -12,6 +12,7 @@ ExecStart=/usr/local/bin/haproxy-ingress-controller \
     --external \
     --configmap=haproxy-ingress/configmap \
     --configmap-errorfiles=haproxy-ingress/errors \
+    --default-backend-service=haproxy-ingress/default-backend \
     --program=/usr/sbin/haproxy \
     --disable-ipv6 \
     --ipv4-bind-address=0.0.0.0 \
