@@ -16,56 +16,54 @@ data:
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>503 - Servicio no disponible</title>
-    </head>
-    <body style="
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        background: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        color: #333;
-    ">
-    <div style="
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            padding: 60px 40px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-        ">
-        <div style="
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                background: #ffffff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                color: #333;
+            }
+
+            .card {
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+                padding: 60px 40px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+                border: 1px solid #e2e8f0;
+            }
+
+            .error-code {
                 font-size: 120px;
                 font-weight: 700;
                 color: #82005E;
                 margin-bottom: 20px;
                 line-height: 1;
-            ">503
-        </div>
+            }
 
-        <h1 style="
+            .error-title {
                 font-size: 28px;
                 font-weight: 600;
                 color: #3D4D59;
                 margin: 0 0 15px 0;
-            ">Servicio no disponible</h1>
+            }
 
-        <p style="
+            .error-description {
                 font-size: 16px;
                 color: #3D4D59;
                 line-height: 1.6;
                 margin: 0 0 30px 0;
                 opacity: 0.8;
-            ">
-            Lo sentimos, el servicio está temporalmente no disponible debido a mantenimiento o sobrecarga del servidor.
-            Por favor, inténtelo de nuevo en unos minutos.
-        </p>
+            }
 
-        <button onclick="location.reload()" style="
+            .retry-button {
                 margin-top: 35px;
                 padding: 14px 32px;
                 font-size: 16px;
@@ -76,17 +74,36 @@ data:
                 border-radius: 50px;
                 cursor: pointer;
                 transition: opacity 0.2s;
-            " onmouseover="this.style.opacity='0.9'"
-                onmouseout="this.style.opacity='1'">
-            Reintentar
-        </button>
+            }
 
-        <p style="
+            .retry-button:hover {
+                opacity: 0.9;
+            }
+
+            .error-footer {
                 margin-top: 30px;
                 font-size: 14px;
                 color: #3D4D59;
                 opacity: 0.6;
-            ">
+            }
+        </style>
+    </head>
+    <body>
+    <div class="card">
+        <div class="error-code">503</div>
+
+        <h1 class="error-title">Servicio no disponible</h1>
+
+        <p class="error-description">
+            Lo sentimos, el servicio está temporalmente no disponible debido a mantenimiento o sobrecarga del servidor.
+            Por favor, inténtelo de nuevo en unos minutos.
+        </p>
+
+        <button onclick="location.reload()" class="retry-button">
+            Reintentar
+        </button>
+
+        <p class="error-footer">
             Si el problema persiste, contacte al administrador del sistema.
         </p>
     </div>
