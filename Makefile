@@ -79,6 +79,7 @@ taint:
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint $(resource)
 
 taint-all:
+	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.hosts_local
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.hosts_haproxy
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.hosts_master
 	@docker compose run -q --rm terraform-ansible taint_nodes.sh

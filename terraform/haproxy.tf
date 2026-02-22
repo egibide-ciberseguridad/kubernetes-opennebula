@@ -42,7 +42,7 @@ resource "terraform_data" "hosts_local" {
 
   provisioner "local-exec" {
     quiet   = true
-    command = "echo '${local.hosts}' >> /etc/hosts"
+    command = "echo '${local.hosts}' > /etc/hosts"
   }
 }
 
