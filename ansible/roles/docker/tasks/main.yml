@@ -1,18 +1,13 @@
 ---
-- name: Descargar la clave de firma de paquetes de Docker
-  ansible.builtin.get_url:
-    url: https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg
-    dest: /etc/apt/keyrings/docker.asc
-
-- name: Obtener la arquitectura del sistema
-  ansible.builtin.command: dpkg --print-architecture
-  register: arquitectura
-
-- name: Añadir el repositorio apt para la versión estable
-  ansible.builtin.apt_repository:
-    repo: >
-      deb [arch={{ arquitectura.stdout }} signed-by=/etc/apt/keyrings/docker.asc]
-      https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] | lower }} stable
+- name: Añadir el repositorio apt de Docker (formato DEB822)
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}
+    suites: "{{ ansible_facts['distribution_release'] | lower }}"
+    components: stable
+    architectures: "{{ ansible_facts['architecture'] | regex_replace('x86_64', 'amd64') }}"
+    signed_by: https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg
     state: present
 
 - name: Actualizar el índice de paquetes

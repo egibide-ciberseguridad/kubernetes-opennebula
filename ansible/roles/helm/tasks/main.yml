@@ -1,17 +1,18 @@
 ---
-- name: Descargar la clave de firma de paquetes de Helm
-  ansible.builtin.get_url:
-    url: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
-    dest: /usr/share/keyrings/helm.asc
-
-- name: Obtener la arquitectura del sistema
-  ansible.builtin.shell: dpkg --print-architecture
-  register: debian_arch
-
-- name: Añadir el repositorio apt para la versión estable
-  ansible.builtin.apt_repository:
-    repo: deb [arch={{ debian_arch.stdout }} signed-by=/usr/share/keyrings/helm.asc] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main
+- name: Añadir el repositorio apt de Helm (formato DEB822)
+  ansible.builtin.deb822_repository:
+    name: helm
+    types: deb
+    uris: https://packages.buildkite.com/helm-linux/helm-debian/any/
+    suites: any
+    components: main
+    architectures: "{{ ansible_facts['architecture'] | regex_replace('x86_64', 'amd64') }}"
+    signed_by: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
     state: present
+
+- name: Actualizar el índice de paquetes
+  ansible.builtin.apt:
+    update_cache: true
 
 - name: Instalar Helm
   ansible.builtin.apt:

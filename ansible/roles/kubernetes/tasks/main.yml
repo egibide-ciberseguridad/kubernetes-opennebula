@@ -12,16 +12,18 @@
   ansible.builtin.command: swapoff -a
   when: ansible_facts['swaptotal_mb'] > 0
 
-- name: Descargar la clave de firma de paquetes de Kubernetes
-  ansible.builtin.get_url:
-    url: https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/Release.key
-    dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
-
-- name: Añadir el repositorio apt de Kubernetes
-  ansible.builtin.apt_repository:
-    repo: deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/ /
+- name: Añadir el repositorio apt de Kubernetes (formato DEB822)
+  ansible.builtin.deb822_repository:
+    name: kubernetes
+    types: deb
+    uris: https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/
+    suites: /
+    signed_by: https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_version }}/deb/Release.key
     state: present
-    filename: kubernetes
+
+- name: Actualizar el índice de paquetes
+  ansible.builtin.apt:
+    update_cache: true
 
 - name: Instalar los paquetes de Kubernetes
   ansible.builtin.apt:

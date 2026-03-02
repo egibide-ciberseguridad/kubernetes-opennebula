@@ -10,21 +10,20 @@
     dest: /root/.kube/config
     mode: "0400"
 
-- name: Descargar la clave de firma de paquetes de HAProxy
-  ansible.builtin.get_url:
-    url: https://haproxy.debian.net/bernat.debian.org.gpg
-    dest: /usr/share/keyrings/haproxy.debian.net.asc
-
-- name: Obtener la arquitectura del sistema
-  ansible.builtin.shell: dpkg --print-architecture
-  register: debian_arch
-
-- name: Añadir el repositorio apt para la versión estable
-  ansible.builtin.apt_repository:
-    repo: >
-      deb [arch={{ debian_arch.stdout }} signed-by=/usr/share/keyrings/haproxy.debian.net.asc]
-      https://haproxy.debian.net {{ ansible_facts['distribution_release'] | lower }}-backports-{{ haproxy_version }} main
+- name: Añadir el repositorio apt de HAProxy (formato DEB822)
+  ansible.builtin.deb822_repository:
+    name: haproxy
+    types: deb
+    uris: https://haproxy.debian.net
+    suites: "{{ ansible_facts['distribution_release'] | lower }}-backports-{{ haproxy_version }}"
+    components: main
+    architectures: "{{ ansible_facts['architecture'] | regex_replace('x86_64', 'amd64') }}"
+    signed_by: https://haproxy.debian.net/bernat.debian.org.gpg
     state: present
+
+- name: Actualizar el índice de paquetes
+  ansible.builtin.apt:
+    update_cache: true
 
 - name: Instalar HAProxy
   ansible.builtin.apt:
