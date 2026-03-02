@@ -100,7 +100,7 @@ make dashboard-token
 - [Shared Filesystem (CephFS)](https://rook.io/docs/rook/v1.10/Storage-Configuration/Shared-Filesystem-CephFS/filesystem-storage/)
 - [Rook OSD after node failure](https://stackoverflow.com/a/59885815)
 
-### Dashboard
+### Dashboard (obsoleto, ya no se instala)
 
 - [Kubernetes Dashboard](https://github.com/kubernetes/dashboard)
 - [Installing Helm](https://helm.sh/docs/intro/install/)

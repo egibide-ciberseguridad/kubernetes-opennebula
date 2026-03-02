@@ -19,7 +19,7 @@ help: _header
 	@echo workspace
 	@echo ssh [node=kube-node-0]
 	@echo -----------------------------------------------------
-	@echo dashboard-token / rook-dashboard-password
+	@echo rook-dashboard-password
 	@echo grafana-password / headlamp-token
 	@echo -----------------------------------------------------
 	@echo kubenode-status / calico-bird-status / rook-status
@@ -42,7 +42,6 @@ _urls_command:
 	@echo ---------------------------------------------------
 	@echo [Portainer] https://kubernetes.arriaga.eu
 	@echo [Headlamp] https://headlamp.arriaga.eu
-	@echo [Dashboard] https://dashboard.arriaga.eu
 	@echo [Vault] https://vault.arriaga.eu
 	@echo [Grafana] https://grafana.arriaga.eu
 	@echo [Rook] https://rook.arriaga.eu
@@ -86,7 +85,6 @@ taint-all:
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_haproxy_upgrade
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_master
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_haproxy
-	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_dashboard
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_headlamp
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_vault
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_portainer
@@ -100,9 +98,6 @@ node?="kube-master"
 
 ssh:
 	@docker compose run -q --rm terraform-ansible run_ssh.sh $(node)
-
-dashboard-token:
-	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n kubernetes-dashboard create token admin-user --duration=720h'
 
 headlamp-token:
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n kube-system create token headlamp-admin --duration=720h'
@@ -161,8 +156,6 @@ versions:
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-haproxy' 'haproxy -v'
 	@echo '--- HAProxy Ingress Controller ---'
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-haproxy' 'haproxy-ingress-controller --version'
-	@echo '--- Kubernetes Dashboard ---'
-	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'helm show chart kubernetes-dashboard/kubernetes-dashboard | grep ^version'
 	@echo '--- Rook ---'
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl describe pod -n rook-ceph -l app=rook-ceph-operator | grep Image:'
 	@echo '--- Portainer ---'
