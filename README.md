@@ -119,6 +119,10 @@ make dashboard-token
 - [In-cluster](https://headlamp.dev/docs/latest/installation/in-cluster/)
 - [Create a Service Account token](https://headlamp.dev/docs/latest/installation/#create-a-service-account-token)
 
+### Harbor
+
+- [Deploying Harbor with High Availability via Helm](https://goharbor.io/docs/2.14.0/install-config/harbor-ha-helm/)
+
 ### Extras
 
 - [Automatically generated secrets for Kubernetes](https://github.com/mittwald/kubernetes-secret-generator)

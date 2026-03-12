@@ -45,6 +45,7 @@ _urls_command:
 	@echo [Vault] https://vault.arriaga.eu
 	@echo [Grafana] https://grafana.arriaga.eu
 	@echo [Rook] https://rook.arriaga.eu
+	@echo [Harbor] https://harbor.arriaga.eu
 	@echo ---------------------------------------------------
 
 build:
@@ -89,6 +90,7 @@ taint-all:
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_vault
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_portainer
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_rook
+	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_harbor
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.ansible_extras
 
 workspace:
