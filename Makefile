@@ -20,7 +20,7 @@ help: _header
 	@echo ssh [node=kube-node-0]
 	@echo -----------------------------------------------------
 	@echo rook-dashboard-password
-	@echo grafana-password / headlamp-token
+	@echo grafana-password / headlamp-token / harbor-password
 	@echo -----------------------------------------------------
 	@echo kubenode-status / calico-bird-status / rook-status
 	@echo -----------------------------------------------------
@@ -162,3 +162,6 @@ versions:
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl describe pod -n rook-ceph -l app=rook-ceph-operator | grep Image:'
 	@echo '--- Portainer ---'
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'helm show chart portainer/portainer | grep ^appVersion'
+
+harbor-password:
+	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl get secret --namespace harbor harbor-secrets -o jsonpath="{.data.HARBOR_ADMIN_PASSWORD}" | base64 --decode ; echo'

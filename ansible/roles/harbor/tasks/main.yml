@@ -1,4 +1,17 @@
 ---
+- name: Crear el namespace harbor
+  ansible.builtin.shell: |
+    kubectl get ns harbor || kubectl create ns harbor
+
+- name: Copiar el manifest para generar el secreto
+  ansible.builtin.copy:
+    src: ./files/secrets.yml
+    dest: /tmp/harbor-secrets.yml
+
+- name: Crear el password del usuario admin
+  ansible.builtin.shell: |
+    kubectl apply -n harbor -f /tmp/harbor-secrets.yml
+
 - name: Añadir el repositorio de Helm para Harbor
   ansible.builtin.shell: |
     helm repo add harbor https://helm.goharbor.io
@@ -10,5 +23,5 @@
       --set image.tag={{ harbor_version }} \
       --set expose.ingress.hosts.core=harbor.arriaga.eu \
       --set expose.externalURL=https://harbor.arriaga.eu \
-      --set harborAdminPassword="12345Abcde" \
+      --set existingSecretAdminPassword=harbor-secrets \
       --create-namespace --namespace harbor
