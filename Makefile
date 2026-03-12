@@ -162,6 +162,8 @@ versions:
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl describe pod -n rook-ceph -l app=rook-ceph-operator | grep Image:'
 	@echo '--- Portainer ---'
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'helm show chart portainer/portainer | grep ^appVersion'
+	@echo '--- Harbor ---'
+	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'helm show chart harbor/harbor | grep ^appVersion'
 
 harbor-password:
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl get secret --namespace harbor harbor-secrets -o jsonpath="{.data.HARBOR_ADMIN_PASSWORD}" | base64 --decode ; echo'

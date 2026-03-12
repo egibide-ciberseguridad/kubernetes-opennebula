@@ -20,7 +20,6 @@
 - name: Instalar el registro privado Harbor
   ansible.builtin.shell: |
     helm upgrade --install kubernetes-harbor harbor/harbor \
-      --set image.tag={{ harbor_version }} \
       --set expose.ingress.hosts.core=harbor.arriaga.eu \
       --set expose.externalURL=https://harbor.arriaga.eu \
       --set existingSecretAdminPassword=harbor-secrets \
