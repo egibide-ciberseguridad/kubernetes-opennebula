@@ -122,6 +122,7 @@ make dashboard-token
 ### Harbor
 
 - [Deploying Harbor with High Availability via Helm](https://goharbor.io/docs/2.14.0/install-config/harbor-ha-helm/)
+- [How to deploy harbor on kubernetes with a NGINX Ingress Controller](https://github.com/goharbor/harbor/issues/13883)
 
 ### Extras
 
