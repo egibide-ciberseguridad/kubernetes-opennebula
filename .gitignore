@@ -88,3 +88,5 @@ ansible/join
 private/
 
 ansible/versiones.yml
+
+.kubeconfig
