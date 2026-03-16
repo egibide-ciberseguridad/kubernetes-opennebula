@@ -1,0 +1,23 @@
+persistence:
+  persistentVolumeClaim:
+    registry:
+      storageClass: "rook-cephfs"
+      accessMode: ReadWriteMany
+      size: 10Gi
+    jobservice:
+      jobLog:
+        storageClass: "rook-cephfs"
+        accessMode: ReadWriteMany
+        size: 1Gi
+    database:
+      storageClass: "rook-cephfs"
+      accessMode: ReadWriteMany
+      size: 1Gi
+    redis:
+      storageClass: "rook-cephfs"
+      accessMode: ReadWriteMany
+      size: 1Gi
+    trivy:
+      storageClass: "rook-cephfs"
+      accessMode: ReadWriteMany
+      size: 10Gi
