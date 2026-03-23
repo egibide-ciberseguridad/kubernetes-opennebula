@@ -6,7 +6,7 @@
     uris: https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}
     suites: "{{ ansible_facts['distribution_release'] | lower }}"
     components: stable
-    architectures: "{{ ansible_facts['architecture'] | regex_replace('x86_64', 'amd64') }}"
+    architectures: "{{ ansible_facts['architecture'] | regex_replace('x86_64', 'amd64') | regex_replace('aarch64', 'arm64') }}"
     signed_by: https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg
     state: present
 
