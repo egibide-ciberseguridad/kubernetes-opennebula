@@ -83,7 +83,7 @@ spec:
             - "/usr/local/bin/docker-entrypoint.sh vault server -config=/vault/config/vault-config.hcl"
           securityContext:
             capabilities:
-              add: [ "IPC_LOCK" ]
+              add: [ "IPC_LOCK", "CAP_SETFCAP" ]
           ports:
             - containerPort: 8200
           volumeMounts:
