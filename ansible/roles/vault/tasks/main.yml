@@ -5,7 +5,8 @@
     dest: /tmp/vault.yml
 
 - name: Instalar Vault
-  ansible.builtin.command: kubectl apply -f /tmp/vault.yml
+  ansible.builtin.shell: |
+    sed 's/VAULT_VERSION/{{ vault_version }}/g' /tmp/vault.yml | kubectl apply -f -
 
 - name: Instalar el inyector de Vault a nivel de cluster
   ansible.builtin.shell: |

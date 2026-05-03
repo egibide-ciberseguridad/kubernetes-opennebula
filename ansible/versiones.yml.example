@@ -6,3 +6,4 @@ haproxy_ingress_controller_version: "3.2.5" # https://github.com/haproxytech/kub
 headlamp_version: "0.40.0" # https://github.com/kubernetes-sigs/headlamp/releases
 rook_version: "1.18.9" # https://github.com/rook/rook/releases
 portainer_version: "2.38.0" # https://github.com/portainer/portainer/releases
+vault_version: "1.21.4" # https://github.com/hashicorp/vault/releases

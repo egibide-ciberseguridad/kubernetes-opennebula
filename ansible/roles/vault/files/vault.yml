@@ -74,7 +74,7 @@ spec:
           tolerationSeconds: 30
       containers:
         - name: vault
-          image: hashicorp/vault:latest
+          image: hashicorp/vault:VAULT_VERSION
           imagePullPolicy: IfNotPresent
           command:
             - "/bin/sh"
