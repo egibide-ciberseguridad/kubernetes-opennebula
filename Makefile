@@ -167,3 +167,6 @@ versions:
 
 harbor-password:
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl get secret --namespace harbor harbor-secrets -o jsonpath="{.data.HARBOR_ADMIN_PASSWORD}" | base64 --decode ; echo'
+
+restart-haproxy:
+	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-haproxy' 'systemctl restart haproxy-ingress.service'
