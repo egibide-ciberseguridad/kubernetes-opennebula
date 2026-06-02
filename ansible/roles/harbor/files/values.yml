@@ -3,21 +3,21 @@ persistence:
     registry:
       storageClass: "rook-cephfs"
       accessMode: ReadWriteMany
-      size: 10Gi
+      size: 40Gi
     jobservice:
       jobLog:
         storageClass: "rook-cephfs"
         accessMode: ReadWriteMany
-        size: 1Gi
+        size: 10Gi
     database:
       storageClass: "rook-cephfs"
       accessMode: ReadWriteMany
-      size: 1Gi
+      size: 5Gi
     redis:
       storageClass: "rook-cephfs"
       accessMode: ReadWriteMany
-      size: 1Gi
+      size: 5Gi
     trivy:
       storageClass: "rook-cephfs"
       accessMode: ReadWriteMany
-      size: 10Gi
+      size: 40Gi
