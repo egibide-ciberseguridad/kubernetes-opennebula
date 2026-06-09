@@ -73,6 +73,8 @@ output:
 destroy:
 	@docker compose run -q --rm terraform-ansible time -f "Tiempo total: %E" terraform -chdir=/terraform destroy -auto-approve
 
+resource?=""
+
 taint:
 	@if [ -z "$(resource)" ]; then \
 		docker compose run -q --rm -e TF_DIR=/terraform terraform-ansible python3 /usr/bin/select_taint.py; \
