@@ -53,7 +53,7 @@ def interactive_select(resources):
         while True:
             os.system('clear' if os.name != 'nt' else 'cls')
             print("=" * 65)
-            print("  Selecciona recursos para marcar como TAINED")
+            print("  Selecciona recursos para marcar como TAINTED")
             print("=" * 65)
             print()
 
