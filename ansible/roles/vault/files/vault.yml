@@ -17,8 +17,9 @@ data:
     storage "file" {
       path = "/vault/file"
     }
-    api_addr = "http://localhost:8200"
-    ui       = true
+    api_addr      = "http://localhost:8200"
+    ui            = true
+    disable_mlock = true
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -81,9 +82,6 @@ spec:
             - "-c"
           args:
             - "/usr/local/bin/docker-entrypoint.sh vault server -config=/vault/config/vault-config.hcl"
-          securityContext:
-            capabilities:
-              add: [ "IPC_LOCK" ]
           ports:
             - containerPort: 8200
           volumeMounts:
