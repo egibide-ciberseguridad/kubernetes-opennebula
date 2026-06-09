@@ -3,7 +3,7 @@ ARG TERRAFORM_VERSION=latest
 FROM hashicorp/terraform:${TERRAFORM_VERSION}
 
 # Instalar los paquetes necesarios
-RUN apk add ansible openssh curl jq make nano
+RUN apk add ansible openssh curl jq make nano python3 py3-pip
 
 RUN apk add bash bash-completion shadow && \
     chsh root --shell /bin/bash && \
@@ -11,6 +11,7 @@ RUN apk add bash bash-completion shadow && \
 
 # Copiar los scripts al contenedor
 COPY --chmod=0755 ../scripts/*.sh /usr/bin/
+COPY --chmod=0755 ../scripts/select_taint.py /usr/bin/select_taint.py
 
 # Definir el directorio actual
 WORKDIR /root

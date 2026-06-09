@@ -73,10 +73,12 @@ output:
 destroy:
 	@docker compose run -q --rm terraform-ansible time -f "Tiempo total: %E" terraform -chdir=/terraform destroy -auto-approve
 
-resource?="resource_name"
-
 taint:
-	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint $(resource)
+	@if [ -z "$(resource)" ]; then \
+		docker compose run -q --rm -e TF_DIR=/terraform terraform-ansible python3 /usr/bin/select_taint.py; \
+	else \
+		docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint $(resource); \
+	fi
 
 taint-all:
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform taint terraform_data.hosts_local
