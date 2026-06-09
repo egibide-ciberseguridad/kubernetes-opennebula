@@ -67,7 +67,7 @@ def interactive_select(resources):
                 print(f"  {highlight}[{marker}] {res}")
 
             print()
-            print("  [↑/↓] Navegar  [ESPACIO] Seleccionar  [q] Aceptar  [ESC] Cancelar")
+            print("  [↑/↓] Navegar  [ESPACIO] Seleccionar  [ENTER] Aceptar  [ESC] Cancelar")
             print(f"  Seleccionados: {len(selected)}/{len(resources)}")
             print("=" * 65)
 
@@ -87,9 +87,9 @@ def interactive_select(resources):
                 # Si no es una flecha, es Escape puro
                 print("\n  Cancelado.")
                 sys.exit(0)
-            elif key == 'q':
+            elif key == '\n':
                 break
-            elif key == '\n' or key == ' ':  # Enter or Space
+            elif key == ' ':  # Space
                 if 0 <= cursor < len(resources):
                     res = resources[cursor]
                     if res in selected:
