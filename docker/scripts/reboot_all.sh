@@ -1,7 +1,7 @@
 #!/bin/bash
 # Reboot all nodes sequentially, waiting for each to come back before rebooting the next.
 
-MAX_RETRIES=30
+MAX_RETRIES=100
 POLL_INTERVAL=10
 
 wait_for_node() {
