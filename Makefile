@@ -174,3 +174,6 @@ harbor-password:
 
 restart-haproxy:
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-haproxy' 'systemctl restart haproxy-ingress.service'
+
+reboot_cluster:
+	@docker compose run -q --rm terraform-ansible reboot_all.sh
