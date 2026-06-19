@@ -15,14 +15,13 @@ loki:
   limits_config:
     allow_structured_metadata: true
     volume_enabled: true
+    retention_period: 168
   ruler:
     enable_api: true
   storage:
     type: s3
     bucketNames:
       chunks: chunks
-      ruler: ruler
-      admin: admin
 
 minio:
   enabled: true
