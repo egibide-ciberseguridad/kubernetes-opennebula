@@ -1,0 +1,46 @@
+---
+- name: Instalar el repositorio Helm
+  kubernetes.core.helm_repository:
+    name: minio
+    repo_url: https://helm.min.io
+
+- name: Actualizar la caché de repositorios Helm
+  kubernetes.core.helm:
+    name: dummy
+    namespace: kube-system
+    state: absent
+    update_repo_cache: true
+
+- name: Instalar el operador de MinIO AIStor
+  kubernetes.core.helm:
+    release_name: "aistor"
+    chart_ref: "minio/aistor-operator"
+    release_namespace: "minio"
+    create_namespace: true
+    wait: true
+    values: "{{ chart_values | default({}) }}"
+  vars:
+    chart_values:
+      license: "{{ MINIO_LICENSE }}"
+
+- name: Copiar el fichero de configuración values.yml
+  ansible.builtin.template:
+    src: ./files/minio-values.yml
+    dest: /tmp/minio-values.yml
+
+- name: Instalar el almacen de objetos MinIO
+  kubernetes.core.helm:
+    release_name: "minio-store"
+    chart_ref: "minio/aistor-objectstore"
+    release_namespace: "minio-store"
+    create_namespace: true
+    wait: true
+    values_files: /tmp/minio-values.yml
+
+- name: Crear el Ingress para la consola
+  ansible.builtin.copy:
+    src: ./files/minio-ingress.yml
+    dest: /tmp/minio-ingress.yml
+
+- name: Crear el Ingress para Headlamp
+  ansible.builtin.command: kubectl apply -f /tmp/minio-ingress.yml

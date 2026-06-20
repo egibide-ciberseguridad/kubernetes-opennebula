@@ -90,3 +90,5 @@ private/
 ansible/versiones.yml
 
 .kubeconfig
+
+ansible/roles/minio/vars/main.yml

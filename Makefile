@@ -46,6 +46,7 @@ _urls_command:
 	@echo [Grafana] https://grafana.arriaga.eu
 	@echo [Rook] https://rook.arriaga.eu
 	@echo [Harbor] https://harbor.arriaga.eu
+	@echo [MinIO] https://minio.arriaga.eu
 	@echo ---------------------------------------------------
 
 build:

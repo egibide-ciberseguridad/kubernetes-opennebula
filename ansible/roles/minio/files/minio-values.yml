@@ -1,0 +1,15 @@
+secrets:
+  accessKey: "{{ MINIO_ROOT_USER }}"
+  secretKey: "{{ MINIO_ROOT_PASSWORD }}"
+
+objectStore:
+  name: minio-store
+  pools:
+    - name: pool-0
+      servers: 1
+      volumesPerServer: 1
+      size: 10Gi
+      storageClassName: rook-cephfs
+  services:
+    minio:
+      serviceType: ClusterIP
