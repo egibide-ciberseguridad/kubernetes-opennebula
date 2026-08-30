@@ -21,6 +21,7 @@ help: _header
 	@echo -----------------------------------------------------
 	@echo rook-dashboard-password
 	@echo grafana-password / headlamp-token / harbor-password
+	@echo portainer-token
 	@echo -----------------------------------------------------
 	@echo kubenode-status / calico-bird-status / rook-status
 	@echo -----------------------------------------------------
@@ -178,3 +179,6 @@ restart-haproxy:
 
 reboot_cluster:
 	@docker compose run -q --rm terraform-ansible reboot_all.sh
+
+portainer-token:
+	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n portainer logs deployment/portainer | grep setup_token | cut -f 2 -d "="'
