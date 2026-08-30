@@ -91,6 +91,8 @@ spec:
               readOnly: true
             - name: vault-data
               mountPath: /vault/file
+      securityContext:
+        fsGroup: 100
       volumes:
         - name: config-volume
           configMap:
