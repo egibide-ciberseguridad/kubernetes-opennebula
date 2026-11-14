@@ -1,17 +1,24 @@
 ---
-- name: Copiar el manifest de Vault
-  ansible.builtin.copy:
-    src: ./files/vault.yml
-    dest: /tmp/vault.yml
-
-- name: Instalar Vault
-  ansible.builtin.shell: |
-    sed 's/VAULT_VERSION/{{ vault_version }}/g' /tmp/vault.yml | kubectl apply -f -
-
-- name: Instalar el inyector de Vault a nivel de cluster
+- name: Añadir el repositorio de HashiCorp
   ansible.builtin.shell: |
     helm repo add hashicorp https://helm.releases.hashicorp.com
     helm repo update
+
+- name: Eliminar los recursos instalados con kubectl
+  ansible.builtin.shell: |
+    kubectl -n vault delete --ignore-not-found=true \
+      deployment/vault configmap/vault-config service/vault ingress/vault || true
+
+- name: Copiar la configuración de Vault
+  ansible.builtin.template:
+    src: ./files/values.yml
+    dest: /tmp/vault-values.yml
+
+- name: Instalar Vault
+  ansible.builtin.shell: |
+    # --force-conflicts: el inyector vault-k8s reescribe el caBundle del
+    # MutatingWebhookConfiguration y toma la propiedad del campo, por lo que
+    # sin esta bandera Helm (server-side apply) falla en ejecuciones repetidas.
     helm upgrade --install --create-namespace -n vault vault hashicorp/vault \
-      --set="injector.enabled=true" \
-      --set="global.externalVaultAddr=http://localhost:8200"
+      --force-conflicts \
+      -f /tmp/vault-values.yml

@@ -1,0 +1,73 @@
+---
+# Valores para el chart hashicorp/vault.
+#
+# Sustituye al antiguo manifest vault.yml: el namespace, la ConfigMap,
+# el volumen, el StatefulSet, el Service y el Ingress los crea el chart.
+
+injector:
+  enabled: true
+  agentImage:
+    tag: "{{ vault_version }}"
+
+server:
+  image:
+    tag: "{{ vault_version }}"
+
+  standalone:
+    enabled: true
+    # Configuración de Vault (HCL), equivalente al ConfigMap vault-config.
+    config: |
+      listener "tcp" {
+        address     = "0.0.0.0:8200"
+        tls_disable = 1
+      }
+      storage "file" {
+        path = "/vault/file"
+      }
+      api_addr      = "http://localhost:8200"
+      ui            = true
+      disable_mlock = true
+
+  # Volumen persistente, equivalente al PVC vault-data.
+  dataStorage:
+    enabled: true
+    size: 8Gi
+    storageClass: rook-cephfs
+    accessMode: ReadWriteMany
+    mountPath: /vault/file
+
+  # Tolerationes del antiguo manifest.
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 30
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 30
+
+  # Anti-afinidad de pods, adaptada a las etiquetas del chart.
+  affinity: |
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                    - vault
+            topologyKey: kubernetes.io/hostname
+
+  statefulSet:
+    securityContext:
+      pod:
+        fsGroup: 100
+
+  # Equivalente al Ingress del antiguo manifest.
+  ingress:
+    enabled: true
+    hosts:
+      - host: vault.arriaga.eu
