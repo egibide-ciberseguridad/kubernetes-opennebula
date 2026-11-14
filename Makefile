@@ -68,6 +68,12 @@ _apply_command:
 
 apply: _header _apply_command _urls_command
 
+apply-loop:
+	@until docker compose run -q --rm terraform-ansible time -f "Tiempo total: %E" terraform -chdir=/terraform apply -auto-approve; do \
+		echo "El comando falló. Reintentando en 30 segundos..."; \
+		sleep 30; \
+	done
+
 show:
 	@docker compose run -q --rm terraform-ansible terraform -chdir=/terraform show
 
