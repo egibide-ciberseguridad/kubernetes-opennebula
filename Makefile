@@ -23,6 +23,8 @@ help: _header
 	@echo grafana-password / headlamp-token / harbor-password
 	@echo portainer-token
 	@echo -----------------------------------------------------
+	@echo restart-haproxy / restart-portainer
+	@echo -----------------------------------------------------
 	@echo kubenode-status / calico-bird-status / rook-status
 	@echo -----------------------------------------------------
 	@echo rm-node remove=[node_name] / rm-rook osd=[999]
@@ -174,11 +176,14 @@ versions:
 harbor-password:
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl get secret --namespace harbor harbor-secrets -o jsonpath="{.data.HARBOR_ADMIN_PASSWORD}" | base64 --decode ; echo'
 
-restart-haproxy:
-	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-haproxy' 'systemctl restart haproxy-ingress.service'
-
 reboot_cluster:
 	@docker compose run -q --rm terraform-ansible reboot_all.sh
 
 portainer-token:
 	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl -n portainer logs deployment/portainer | grep setup_token | cut -f 2 -d "="'
+
+restart-haproxy:
+	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-haproxy' 'systemctl restart haproxy-ingress.service'
+
+restart-portainer:
+	@docker compose run -q --rm terraform-ansible run_on.sh 'kube-master' 'kubectl rollout restart deployment/portainer -n portainer'
