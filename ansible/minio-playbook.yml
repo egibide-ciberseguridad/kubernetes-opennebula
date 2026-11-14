@@ -18,5 +18,8 @@
   become: true
   vars_files:
     - versiones.yml
-  roles:
-    - minio
+  #  roles:
+  #    - minio
+  tasks:
+    - ansible.builtin.debug:
+        msg: "Servicio desactivado"

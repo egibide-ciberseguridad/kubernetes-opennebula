@@ -18,5 +18,8 @@
   become: true
   vars_files:
     - versiones.yml
-  roles:
-    - vault
+  #  roles:
+  #    - vault
+  tasks:
+    - ansible.builtin.debug:
+        msg: "Servicio desactivado"
