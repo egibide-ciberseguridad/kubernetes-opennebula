@@ -19,4 +19,4 @@
   vars_files:
     - versiones.yml
   roles:
-    - headlamp
+    - { role: headlamp, when: instalar_headlamp }

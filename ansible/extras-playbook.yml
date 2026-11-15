@@ -21,4 +21,4 @@
   roles:
     - metrics-server
     - secret-generator
-#    - grafana
+    - { role: grafana, when: instalar_grafana }

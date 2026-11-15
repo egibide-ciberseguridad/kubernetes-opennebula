@@ -18,8 +18,5 @@
   become: true
   vars_files:
     - versiones.yml
-#  roles:
-#    - harbor
-  tasks:
-    - ansible.builtin.debug:
-        msg: "Servicio desactivado"
+  roles:
+    - { role: harbor, when: instalar_harbor }

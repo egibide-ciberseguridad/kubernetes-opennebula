@@ -19,4 +19,4 @@
   vars_files:
     - versiones.yml
   roles:
-    - portainer
+    - { role: portainer, when: instalar_portainer }
